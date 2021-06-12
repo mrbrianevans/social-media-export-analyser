@@ -1,0 +1,34 @@
+{
+  "name": "react-website-template",
+  "version": "1.0.0",
+  "description": "Boilerplate code for getting started with React",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack -w",
+    "format": "prettier --write src/**.*"
+  },
+  "keywords": [],
+  "author": "Brian Evans",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@webpack-cli/init": "^1.1.1",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "css-loader": "^5.0.1",
+    "mini-css-extract-plugin": "^1.3.3",
+    "prettier": "^2.2.1",
+    "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^5.0.3",
+    "ts-loader": "^8.0.14",
+    "typescript": "^4.1.3",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
+  }
+}
