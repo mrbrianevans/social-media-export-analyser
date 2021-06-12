@@ -1,15 +1,2 @@
-# 🚀 Template for blank react website
-
-This project has been created using **webpack scaffold**, you can now run
-
-```
-npm run build
-```
-
-or
-
-```
-yarn build
-```
-
-to bundle your application
+# Social media export analyser
+Analyse GDPR exports of your data from big social media companies 

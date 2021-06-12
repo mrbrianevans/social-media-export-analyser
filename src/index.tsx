@@ -1,5 +1,5 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import { PageRouter } from './PageRouter'
 
-console.log('Hello World from your main file!')
-ReactDOM.render(<h1>Frontend</h1>, document.getElementById('root'))
+ReactDOM.render(<PageRouter/>, document.getElementById('root'))
