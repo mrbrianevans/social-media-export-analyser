@@ -2,6 +2,7 @@
   import logo from './assets/svelte.png'
   import DataTable from './components/DataTable.svelte'
   import FileUploader from './components/FileUploader.svelte'
+  import InstagramPostsList from './visualisations/lists/InstagramPostsList.svelte'
   // import JsonEditor from './components/JsonEditor.svelte'
   //
   // import { compileJSONPointer } from '/node_modules/immutable-json-patch/lib/esm/index.js?v=149adca5'
@@ -38,16 +39,16 @@
 <main>
   <img src={logo} alt="Svelte Logo" />
   <h1>Hello Typescript Svelte!</h1>
-
+  <InstagramPostsList/>
   <input type='file' on:input={handleFileSelect}/>
 <!--  <ol>-->
 <!--    {#each files as file}-->
 <!--      <li>{file.name} {JSON.stringify(file)}</li>-->
 <!--    {/each}-->
 <!--  </ol>-->
-  <FileUploader />
+<!--  <FileUploader />-->
 <!--  <JsonEditor/>-->
-  <DataTable/>
+<!--  <DataTable/>-->
 </main>
 
 <style>
