@@ -1,18 +1,19 @@
 <script lang="ts">
-  import logo from './assets/svelte.png'
   import DataTable from './components/DataTable.svelte'
   import FileUploader from './components/FileUploader.svelte'
   let data
+  let dataTitle: string = ''
 </script>
 
 
 <svelte:head>
-  <title>CSV viewer</title>
+  <title>CSV & JSON viewer</title>
 </svelte:head>
 
 <main>
-  <h1>CSV viewer</h1>
-  <FileUploader bind:data />
+  <h1>CSV & JSON viewer</h1>
+  <FileUploader bind:data  bind:dataTitle/>
+  <h2>{dataTitle}</h2>
   <DataTable data={data}/>
 </main>
 

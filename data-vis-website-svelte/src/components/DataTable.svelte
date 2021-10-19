@@ -20,7 +20,7 @@
     </tr>
     </thead>
     <tbody>
-    {#each data as row, index}
+    {#each data.slice(0,50) as row, index}
       <tr>
         <td>{index + 1}</td>
         {#each Object.keys(data[0]) as columnName}
@@ -30,6 +30,10 @@
     {/each}
     </tbody>
   </table>
+  <p>Showing {Math.min(50,data.length)} out of {data.length} rows</p>
+  <pre>
+    {JSON.stringify(data.slice(0,5), null, 2)}
+  </pre>
 </div>
 {/if}
 

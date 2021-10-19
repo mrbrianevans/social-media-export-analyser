@@ -1,11 +1,7 @@
 <script lang="ts">
-  import FilePond, { registerPlugin, supported } from 'svelte-filepond';
+  import FilePond, { registerPlugin } from 'svelte-filepond';
   import * as papa from 'papaparse'
-  // Import the Image EXIF Orientation and Image Preview plugins
-  // Note: These need to be installed separately
-  // `npm i filepond-plugin-image-preview filepond-plugin-image-exif-orientation --save`
   import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
-  import type { ParseResult } from 'papaparse'
 
   // Register the plugins
   registerPlugin( FilePondPluginImagePreview);
@@ -17,22 +13,42 @@
   // the name to use for the internal file input
   let name = 'filepond';
 
-  // handle filepond events
-  function handleInit() {
-    console.log('FilePond has initialised');
-  }
   export let data
+  export let dataTitle
+
   function handleAddFile(err, fileItem) {
     console.log('A file has been added', fileItem);
-    if(fileItem.fileExtension !== 'csv') return pond.removeFile()
-    console.time('Read file '+ fileItem.filename)
-    papa.parse(fileItem.file, {complete(results, file) {
-        console.timeEnd('Read file '+ fileItem.filename)
-        data = results.data
-      }, header: true, worker: true})
+    if(fileItem.fileExtension === 'csv') {
+      console.time('Read file ' + fileItem.filename)
+      papa.parse(fileItem.file, {
+        complete(results, file) {
+          console.timeEnd('Read file ' + fileItem.filename)
+          dataTitle = fileItem.filenameWithoutExtension
+          data = results.data
+        }, header: true, worker: true
+      })
+    }else if(fileItem.fileExtension === 'json'){
+      fileItem.file.text().then(t=> {
+        const json = JSON.parse(t)
+        if(json instanceof Array) data = json
+        else{
+          for (const [key, value] of Object.entries(json)) {
+            if(value instanceof Array) {
+              dataTitle = fileItem.filenameWithoutExtension + ' ' + key
+              data = value
+              return
+            }
+          }
+        }
+      })
+    }
+    else{
+      pond.removeFile()
+    }
   }
   function handleRemoveFile(err, fileItem){
     data = null
+    dataTitle = ''
   }
 
 </script>
@@ -40,7 +56,6 @@
 <div class="file-uploader">
   <FilePond bind:this={pond} {name}
             allowMultiple={false}
-            oninit={handleInit}
             onaddfile={handleAddFile}
             onremovefile={handleRemoveFile}
             credits={false}
