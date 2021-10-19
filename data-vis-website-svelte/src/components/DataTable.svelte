@@ -1,7 +1,5 @@
-<script>
-  import { data } from './data'
-  import { Datatable, rows } from 'svelte-simple-datatables'
-
+<script lang="ts">
+  export let data
   const settings = {
     sortable: true,
     pagination: true,
@@ -10,23 +8,63 @@
   }
 </script>
 
-<Datatable settings={settings} data={data}>
-  <thead>
-  <th data-key="id">ID</th>
-  <th data-key="first_name">First Name</th>
-  <th data-key="last_name">Last Name</th>
-  <th data-key="email">Email</th>
-  <th data-key="ip_address">IP Adress</th>
-  </thead>
-  <tbody>
-  {#each $rows as row}
+{#if data}
+<div class='container'>
+  <table class='datatable'>
+    <thead>
     <tr>
-      <td>{row.id}</td>
-      <td>{row.first_name}</td>
-      <td>{row.last_name}</td>
-      <td>{row.email}</td>
-      <td>{row.ip_address}</td>
+      <th></th>
+      {#each Object.keys(data[0]) as columnName}
+        <th>{columnName}</th>
+      {/each}
     </tr>
-  {/each}
-  </tbody>
-</Datatable>
+    </thead>
+    <tbody>
+    {#each data as row, index}
+      <tr>
+        <td>{index + 1}</td>
+        {#each Object.keys(data[0]) as columnName}
+          <td>{row[columnName]}</td>
+        {/each}
+      </tr>
+    {/each}
+    </tbody>
+  </table>
+</div>
+{/if}
+
+<style>
+    div.container{
+        max-width: 100%;
+        overflow-x: scroll;
+    }
+  table.datatable {
+      border-collapse: collapse;
+      background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+  }
+  table.datatable > thead {
+      border-bottom: 1px solid black;
+  }
+  table.datatable > thead > tr > th{
+      max-width: 10rem;
+  }
+  table.datatable > tbody > tr > td:first-child {
+      border-right: 1px solid black;
+      text-align: right;
+      padding-right: 0.2rem;
+  }
+  table.datatable a {
+      text-decoration: underline;
+      display: inline-block;
+  }
+  table.datatable a:hover {
+      font-weight: bold;
+  }
+  table.datatable td {
+      padding: 0.4em 0.2em;
+      max-width: 20rem;
+  }
+  table.datatable > tbody > tr:hover {
+      background: #fff6;
+  }
+</style>
