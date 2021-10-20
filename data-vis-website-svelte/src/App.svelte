@@ -1,6 +1,7 @@
 <script lang="ts">
   import DataTable from './components/DataTable.svelte'
   import FileUploader from './components/FileUploader.svelte'
+  import WhatsAppChatHistory from './visualisations/chats/WhatsAppChatHistory.svelte'
   let data
   let dataTitle: string = ''
 </script>
