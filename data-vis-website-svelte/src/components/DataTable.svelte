@@ -1,5 +1,6 @@
 <script lang="ts">
   export let data
+  export let maxItems = 50
   const settings = {
     sortable: true,
     pagination: true,
@@ -8,7 +9,7 @@
   }
 </script>
 
-{#if data}
+{#if data && data.length}
 <div class='container'>
   <table class='datatable'>
     <thead>
@@ -20,7 +21,7 @@
     </tr>
     </thead>
     <tbody>
-    {#each data.slice(0,50) as row, index}
+    {#each data.slice(0,maxItems) as row, index}
       <tr>
         <td>{index + 1}</td>
         {#each Object.keys(data[0]) as columnName}
@@ -30,10 +31,7 @@
     {/each}
     </tbody>
   </table>
-  <p>Showing {Math.min(50,data.length)} out of {data.length} rows</p>
-  <pre>
-    {JSON.stringify(data.slice(0,5), null, 2)}
-  </pre>
+  <p>Showing {Math.min(maxItems,data.length)} out of {data.length} rows</p>
 </div>
 {/if}
 

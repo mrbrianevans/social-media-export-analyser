@@ -28,7 +28,8 @@ export const parseWhatsAppChatHistory = (
         }
       }
     })
-    .sort((a, b) => a.timestamp - b.timestamp)
+    .filter((m) => m.from !== 'System parser')
+    .sort((a, b) => b.timestamp - a.timestamp)
 }
 
 type WhatsAppChatHistoryItem = {

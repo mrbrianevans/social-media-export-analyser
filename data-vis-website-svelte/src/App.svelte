@@ -1,21 +1,34 @@
 <script lang="ts">
   import DataTable from './components/DataTable.svelte'
   import FileUploader from './components/FileUploader.svelte'
-  import WhatsAppChatHistory from './visualisations/chats/WhatsAppChatHistory.svelte'
-  let data
-  let dataTitle: string = ''
+  import MessageHistory from './visualisations/chats/MessageHistory.svelte'
+  import type { FileItem } from './types/FileItem'
+  import JsonEditor from './components/JsonEditor.svelte'
+  let files: FileItem[] = []
+  let activeIndex = 0
+  let componentMap = {csv: DataTable, json: JsonEditor, messages: MessageHistory}
 </script>
 
 
 <svelte:head>
-  <title>CSV & JSON viewer</title>
+  <title>Social media data viewer</title>
 </svelte:head>
 
 <main>
-  <h1>CSV & JSON viewer</h1>
-  <FileUploader bind:data  bind:dataTitle/>
-  <h2>{dataTitle}</h2>
-  <DataTable data={data}/>
+  <h1>Social media data viewer</h1>
+  <FileUploader bind:files/>
+<!--  tab selectors -->
+  {#each files as file, index}
+    <button on:click={()=>activeIndex=index}>{file.title ?? file.name}</button>
+  {/each}
+
+<!-- selected tab content -->
+  {#each files as file, index}
+    {#if index === activeIndex}
+      <h2>{file.title ?? file.name}</h2>
+      <svelte:component this={componentMap[file.category]} data={file.data} maxItems={10}/>
+    {/if}
+  {/each}
 </main>
 
 <style>

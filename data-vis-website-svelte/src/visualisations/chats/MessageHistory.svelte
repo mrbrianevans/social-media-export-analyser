@@ -2,14 +2,16 @@
   import '@vaadin/message-list';
   import { onMount } from 'svelte';
 
-  export let messages: { time: string; text: string; userName: string }[] = []
-
+  export let data: { time: string; text: string; userName: string }[] = []
+  let mounted = false
   onMount(() => {
-    $: {
-      console.log('updating the messages')
-      document.querySelector('vaadin-message-list').items = messages
-    }
+    mounted = true
   });
+  $: if(mounted) {
+      console.log('updating the messages')
+      document.querySelector('vaadin-message-list').items = data
+  }
+
 </script>
 
 <div class='container'>
