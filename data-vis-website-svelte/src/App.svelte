@@ -9,11 +9,6 @@
   let componentMap = {csv: DataTable, json: JsonEditor, messages: MessageHistory}
 </script>
 
-
-<svelte:head>
-  <title>Social media data viewer</title>
-</svelte:head>
-
 <main>
   <h1>Social media data viewer</h1>
   <FileUploader bind:files/>
@@ -36,5 +31,4 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
-
 </style>
