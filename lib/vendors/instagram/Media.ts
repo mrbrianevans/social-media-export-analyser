@@ -2,7 +2,8 @@ import { RandHex, RandInt } from '../../common/RandomUtils/RandomNumberUtils'
 import { RandElem } from '../../common/RandomUtils/RandomArrayUtils'
 import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
 
-type DateString = `${number}-${number}-${number}T${number}:${number}:${number}+${number}:${number}`
+type DateString =
+  `${number}-${number}-${number}T${number}:${number}:${number}+${number}:${number}`
 //2021-01-01T19:48:10+00:00
 type PathString<
   topLevelDirectory extends string,
@@ -37,7 +38,7 @@ interface Story extends MediaItem {
 type TopLevelObject = {
   [key: string]: MediaItem[]
 }
-interface Media {
+export interface Media {
   photos: Photo[]
   profile: Profile[]
   stories: Story[]
@@ -85,16 +86,10 @@ const generateRandomDateString = (date?: Date): DateString => {
   return <DateString>(
     `${date.getFullYear()}-${(date.getMonth() + 1)
       .toString()
-      .padStart(2, '0')}-${date
-      .getDate()
-      .toString()
-      .padStart(2, '0')}T${date
+      .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}T${date
       .getHours()
       .toString()
-      .padStart(2, '0')}:${date
-      .getMinutes()
-      .toString()
-      .padStart(2, '0')}:${date
+      .padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date
       .getSeconds()
       .toString()
       .padStart(2, '0')}${offsetDirection}${Math.abs(hoursOffset)
@@ -138,11 +133,9 @@ const generatePath = <
   date?: Date
 ): PathString<TopLevelDirectory, FileExtension> => {
   date ??= RandDate()
-  return (
-    `${topLevelDirectory}/${date.getFullYear()}${date.getMonth() + 1}/${RandHex(
-      32
-    )}.${fileExtension}`
-  )
+  return `${topLevelDirectory}/${date.getFullYear()}${
+    date.getMonth() + 1
+  }/${RandHex(32)}.${fileExtension}`
 }
 //todo: make this object oriented
 export const generateSampleMediaData = ({

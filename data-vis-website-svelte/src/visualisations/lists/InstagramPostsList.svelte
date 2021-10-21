@@ -1,13 +1,12 @@
 <script lang="ts">
-  import { generateSampleMediaData } from '../../../../lib/vendors/instagram/Media'
-
-  let posts = generateSampleMediaData({})
+  import { Media } from '../../../../lib/vendors/instagram/Media'
+  export let data: Media
 </script>
 
 <div>
   <h3>Instagram posts</h3>
   <div class='container'>
-  {#each posts.photos as post}
+  {#each data.photos as post}
     <div>
     <p>
       <b>{post.caption}</b>
