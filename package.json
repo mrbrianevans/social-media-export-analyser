@@ -2,7 +2,10 @@
   "name": "social-media-export-analyser",
   "version": "1.0.0",
   "description": "Svelte website to view GDPR data portability exports",
-  "scripts": {},
+  "scripts": {
+    "start": "cd data-vis-website-svelte && npm run build && npm run serve",
+    "test": "cd lib-testing && npm run test"
+  },
   "keywords": [
     "gdpr",
     "data-portability",

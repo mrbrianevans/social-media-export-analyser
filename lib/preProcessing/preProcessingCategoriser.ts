@@ -7,22 +7,22 @@ import {
 
 const preProcessingTesters: PreProcessingTester[] = [
   {
-    filenameRegex: /^WhatsApp Chat with .*?.txt$/,
+    filenameRegex: /^WhatsApp Chat with .*?\.txt$/,
     fileTypes: ['text/plain'],
     preProcessingCategory: 'whatsapp'
   },
   {
-    filenameRegex: /.json$/,
+    filenameRegex: /\.json$/,
     fileTypes: ['application/json'],
     preProcessingCategory: 'json'
   },
   {
-    filenameRegex: /.csv$/,
+    filenameRegex: /\.csv$/,
     fileTypes: ['text/csv', 'application/vnd.ms-excel'],
     preProcessingCategory: 'csv'
   },
   {
-    filenameRegex: /.csv$/,
+    filenameRegex: /\.csv$/,
     fileTypes: ['text/csv', 'application/vnd.ms-excel'],
     preProcessingCategory: 'csv'
   }

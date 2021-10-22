@@ -12,9 +12,15 @@ export type PreProcessedFileInfo = {
   fileType: string
 }
 
-type PreProcessedOutput = { data: Object; title: string; metadata: Object }
+export type PreProcessedOutput = {
+  data: KeyValueObject
+  title: string
+  metadata: KeyValueObject
+}
 export type PreProcessor = (input: {
   fileContent: string
   filename: string
   fileType: string
 }) => PreProcessedOutput
+
+type KeyValueObject = { [key: string]: any }

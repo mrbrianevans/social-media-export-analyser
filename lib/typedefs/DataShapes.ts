@@ -1,1 +1,1 @@
-export type DataShape = 'csv' | 'messages' | 'json' | 'media' | 'string'
+export type DataShape = ''
