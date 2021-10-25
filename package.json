@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Svelte website to view GDPR data portability exports",
   "scripts": {
-    "start": "cd data-vis-website-svelte && npm run build && npm run serve",
+    "start": "cd client && npm run build && npm run serve",
     "test": "cd lib-testing && npm run test"
   },
   "keywords": [
