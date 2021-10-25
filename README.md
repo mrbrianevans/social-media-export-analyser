@@ -7,9 +7,11 @@ The `lib` directory contains javascript that can be run in the browser or on a s
 This is the preferred location for code that doesn't require 
 browser or node specific APIs.
 
-# `data-vis-website-svelte`
+# `client`
 This is the frontend website, written in [Svelte](https://svelte.dev/). 
 It runs completely in the browser, not sending any data to a server.
+
+Run `npm run start` in this directory to run the website locally.
 
 # Typescript
 Wherever possible, Typescript is preferred in this project due to the better IDE support.

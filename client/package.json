@@ -6,6 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
+    "start": "npm run build && npm run serve",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
