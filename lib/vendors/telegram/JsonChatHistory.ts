@@ -25,7 +25,7 @@ type TelegramEvent = TelegramMessage | TelegramServiceEvent
 export interface TelegramChatHistory {
   name: string
   type: string
-  id: string
+  id: number
   messages: TelegramEvent[]
 }
 export const convertTelegramJsonChatHistoryToVaadinMessages = (

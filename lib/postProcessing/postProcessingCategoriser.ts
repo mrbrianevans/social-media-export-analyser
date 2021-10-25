@@ -20,7 +20,7 @@ const postProcessingTesters: PostProcessingTester[] = [
     postProcessingCategory: 'default-array'
   },
   {
-    filenameRegex: /./,
+    filenameRegex: /^result\.json$/,
     preProcessingCategory: 'json',
     topLevelIsArray: false,
     postProcessingCategory: 'telegram-messages',
