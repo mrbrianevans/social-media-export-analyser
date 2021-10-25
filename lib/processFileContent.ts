@@ -10,6 +10,8 @@ export const processFileContent: (input: {
   fileType: string
 }) => PostProcessedOutput = ({ fileContent, filename, fileType }) => {
   const category = preProcessingCategoriser({ filename, fileType })
+  //@ts-ignore
+  console.log('Using', category, 'for preprocessing')
   const preProcessor = preProcessorMap[category]
   const preProcessedOutput = preProcessor({ filename, fileType, fileContent })
 
@@ -18,6 +20,8 @@ export const processFileContent: (input: {
     fileType,
     preProcessedOutput
   })
+  //@ts-ignore
+  console.log('Using', postCategory, 'for postprocessing')
   const postProcessor = postProcessorMap[postCategory]
   const postProcessedOutput = postProcessor({
     filename,
@@ -25,5 +29,7 @@ export const processFileContent: (input: {
     preProcessedOutput
   })
 
+  //@ts-ignore
+  console.log('Finished postprocessing')
   return postProcessedOutput
 }

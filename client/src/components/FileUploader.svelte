@@ -3,6 +3,7 @@
   import * as papa from 'papaparse'
   import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
   import JsonParser from '../workers/jsonParserWorker?worker'
+  import ProcessingWorker from '../workers/processingWorker?worker'
   import {
     convertWhatsappHistoryToVaadinMessages,
     parseWhatsAppChatHistory
@@ -22,7 +23,17 @@
   async function handleAddFile(err, fileItem) {
     console.log('Relative path', fileItem.relativePath)
     console.log('fileItem', fileItem)
-    const worker = new JsonParser()
+    const jsonWorker = new JsonParser()
+    const worker = new ProcessingWorker()
+
+    worker.postMessage(fileItem.file)
+    const workerOutput = await new Promise(resolve => {
+      worker.onmessage = message => {
+        resolve(message.data)
+      }
+    })
+    console.log({ workerOutput })
+    // files = [...files, workerOutput]
     const file: FileItem = {name: fileItem.filename, title: fileItem.filenameWithoutExtension}
     console.log('A file has been added', fileItem.filename,fileItem.fileType);
     if(fileItem.fileExtension === 'csv' || fileItem.fileType === 'application/vnd.ms-excel'|| fileItem.fileType === 'text/csv') {
@@ -35,9 +46,9 @@
       file.category = 'csv'
     }else if(fileItem.fileExtension === 'json'){
         // sends the file contents to a worker, and waits for the parsed response
-        worker.postMessage(fileItem.file)
+        jsonWorker.postMessage(fileItem.file)
         file.data = await new Promise(resolve => {
-          worker.onmessage = message => {
+          jsonWorker.onmessage = message => {
             resolve(message.data)
           }
         })
