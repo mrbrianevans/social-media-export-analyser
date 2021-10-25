@@ -1,4 +1,5 @@
 import { PreProcessedOutput, PreProcessingCategory } from './PreProcess'
+import { ComponentName } from './Components'
 
 export type PostProcessingCategory =
   | 'default-object'
@@ -17,21 +18,26 @@ export type PostProcessingTester = {
   // classification
   postProcessingCategory: PostProcessingCategory
 }
-export type PostProcessedFileInput = {
+export type PostProcessedFileInput<
+  DataShape extends KeyValueObject = KeyValueObject
+> = {
   filename: string
   filepath?: string
   fileType: string
-  preProcessedOutput: PreProcessedOutput
+  preProcessedOutput: PreProcessedOutput<DataShape>
 }
 
-export type PostProcessedOutput = {
-  data: KeyValueObject
+export type PostProcessedOutput<
+  DataShape extends KeyValueObject = KeyValueObject
+> = {
+  data: DataShape
   title: string
-  componentName: string
+  componentName: ComponentName
   metadata: KeyValueObject
 }
-export type PostProcessor = (
-  input: PostProcessedFileInput
-) => PostProcessedOutput
+export type PostProcessor<
+  Input extends KeyValueObject = KeyValueObject,
+  Output extends KeyValueObject = KeyValueObject
+> = (input: PostProcessedFileInput<Input>) => PostProcessedOutput<Output>
 
 type KeyValueObject = { [key: string]: any }

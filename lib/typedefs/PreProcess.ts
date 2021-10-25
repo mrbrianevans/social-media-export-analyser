@@ -12,15 +12,18 @@ export type PreProcessedFileInfo = {
   fileType: string
 }
 
-export type PreProcessedOutput = {
-  data: KeyValueObject
+export type PreProcessedOutput<
+  DataShape extends KeyValueObject = KeyValueObject
+> = {
+  data: DataShape
   title: string
   metadata: KeyValueObject
 }
-export type PreProcessor = (input: {
-  fileContent: string
-  filename: string
-  fileType: string
-}) => PreProcessedOutput
+export type PreProcessor<DataShape extends KeyValueObject = KeyValueObject> =
+  (input: {
+    fileContent: string
+    filename: string
+    fileType: string
+  }) => PreProcessedOutput<DataShape>
 
 type KeyValueObject = { [key: string]: any }

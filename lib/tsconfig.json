@@ -4,9 +4,8 @@
     "target": "es5",
     "sourceMap": true,
     "composite": true,
+    "rootDir": "./",
     "lib": ["ES2020"]
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

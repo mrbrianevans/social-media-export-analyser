@@ -1,3 +1,5 @@
+import { VaadinMessageHistoryFormat } from '../../typedefs/Components'
+
 export const parseWhatsAppChatHistory = (
   chatHistory: string
 ): WhatsAppChatHistoryArray => {
@@ -42,7 +44,7 @@ export type WhatsAppChatHistoryArray = WhatsAppChatHistoryItem[]
 
 export const convertWhatsappHistoryToVaadinMessages = (
   history: WhatsAppChatHistoryArray
-) => {
+): VaadinMessageHistoryFormat => {
   return history.map((item) => ({
     time: new Date(item.timestamp).toString(),
     userName: item.from,

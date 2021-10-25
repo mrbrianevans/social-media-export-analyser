@@ -1,18 +1,18 @@
 import DataTable from './DataTable.svelte'
-import type { DataShape } from '../../../lib/typedefs/DataShapes'
 import type { SvelteComponent } from 'svelte'
 import JsonEditor from './JsonEditor.svelte'
 import MessageHistory from '../visualisations/chats/MessageHistory.svelte'
 import InstagramPostsList from '../visualisations/lists/InstagramPostsList.svelte'
 import StringBox from './StringBox.svelte'
+import type { ComponentName } from '../../../lib/typedefs/Components'
 
-// mapped type forces component to exist for every DataShape
+// by using mapped types, this ensures a component exists for every ComponentName
 export const ComponentForShape: {
-  [shape in DataShape]: typeof SvelteComponent
+  [componentName in ComponentName]: typeof SvelteComponent
 } = {
-  csv: DataTable,
-  json: JsonEditor,
-  messages: MessageHistory,
-  media: InstagramPostsList,
-  string: StringBox
+  DataTable,
+  JsonEditor,
+  MessageHistory,
+  InstagramPostsList,
+  StringBox
 }

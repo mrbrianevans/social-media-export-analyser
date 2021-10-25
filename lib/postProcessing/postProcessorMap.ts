@@ -4,7 +4,8 @@ import {
   PostProcessingCategory,
   PostProcessor
 } from '../typedefs/PostProcess'
-import { whatsappMessagesPostProcessor } from './postProcessors/messages'
+import { whatsappMessagesPostProcessor } from './postProcessors/whatsappMessages'
+import { telegramMessagesPostProcessor } from './postProcessors/telegramMessages'
 
 export const postProcessorMap: {
   [key in PostProcessingCategory]: PostProcessor
@@ -13,13 +14,21 @@ export const postProcessorMap: {
     return undefined
   },
   'default-array'(input: PostProcessedFileInput): PostProcessedOutput {
-    return undefined
+    return {
+      componentName: 'DataTable',
+      data: input.preProcessedOutput.data,
+      metadata: input.preProcessedOutput.metadata,
+      title: input.preProcessedOutput.title
+    }
   },
   'default-object'(input: PostProcessedFileInput): PostProcessedOutput {
-    return undefined
+    return {
+      componentName: 'DataTable',
+      data: input.preProcessedOutput.data,
+      metadata: input.preProcessedOutput.metadata,
+      title: input.preProcessedOutput.title
+    }
   },
-  'telegram-messages'(input: PostProcessedFileInput): PostProcessedOutput {
-    return undefined
-  },
+  'telegram-messages': telegramMessagesPostProcessor,
   'whatsapp-messages': whatsappMessagesPostProcessor
 }

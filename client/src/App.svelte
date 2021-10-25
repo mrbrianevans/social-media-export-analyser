@@ -2,7 +2,8 @@
   import FileUploader from './components/FileUploader.svelte'
   import type { FileItem } from './types/FileItem'
   import { ComponentForShape } from './components/ComponentMap'
-  let files: FileItem[] = []
+  import { PostProcessedOutput } from '../../lib/typedefs/PostProcess'
+  let files: PostProcessedOutput[] = []
   let activeIndex = 0
 </script>
 
@@ -11,14 +12,14 @@
   <FileUploader bind:files/>
 <!--  tab selectors -->
   {#each files as file, index}
-    <button on:click={()=>activeIndex=index}>{file.title ?? file.name}</button>
+    <button on:click={()=>activeIndex=index}>{file.title}</button>
   {/each}
 
 <!-- selected tab content -->
   {#each files as file, index}
     {#if index === activeIndex}
-      <h2>{file.title ?? file.name}</h2>
-      <svelte:component this={ComponentForShape[file.category]} data={file.data} maxItems={10}/>
+      <h2>{file.title}</h2>
+      <svelte:component this={ComponentForShape[file.componentName]} data={file.data} maxItems={10}/>
     {/if}
   {/each}
 </main>

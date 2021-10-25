@@ -11,7 +11,7 @@ export const jsonPreProcessor: PreProcessor = ({
     data: object,
     title: filename,
     metadata: {
-      numberOfKeys: Object.keys(object),
+      keys: Object.keys(object),
       isArray: object instanceof Array
     }
   }

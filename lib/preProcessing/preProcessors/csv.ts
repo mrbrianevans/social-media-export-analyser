@@ -15,7 +15,10 @@ export const csvPreProcessor: PreProcessor = ({
 }
 
 const readCsvStringToObject = (csvString) => {
-  const rawData = csvString.split(/\r\n|\r|\n/).map((line) => line.split(','))
+  const rawData = csvString
+    .split(/\r\n|\r|\n/)
+    .map((line) => line.split(',').filter((v) => v.length))
+    .filter((line: string[]) => line.length)
   const headers = rawData[0]
   const data = rawData
     .slice(1)

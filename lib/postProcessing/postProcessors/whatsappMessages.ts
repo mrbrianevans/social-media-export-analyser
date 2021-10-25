@@ -3,14 +3,19 @@ import {
   convertWhatsappHistoryToVaadinMessages,
   WhatsAppChatHistoryArray
 } from '../../vendors/whatsapp/ChatHistory'
+import { VaadinMessageHistoryFormat } from '../../typedefs/Components'
 
-export const whatsappMessagesPostProcessor: PostProcessor = (input) => {
+export const whatsappMessagesPostProcessor: PostProcessor<
+  WhatsAppChatHistoryArray,
+  VaadinMessageHistoryFormat
+> = (input) => {
   return {
     data: convertWhatsappHistoryToVaadinMessages(
-      <WhatsAppChatHistoryArray>input.preProcessedOutput.data
+      input.preProcessedOutput.data
     ).slice(0, 100),
     metadata: {
-      source: 'whatsapp'
+      source: 'whatsapp',
+      ...input.preProcessedOutput.metadata
     },
     title:
       'WhatsApp messages with ' + input.preProcessedOutput.metadata.recipient,
