@@ -1,4 +1,9 @@
 import { VaadinMessageHistoryFormat } from '../../typedefs/Components'
+import { getRandomFullName } from '../../common/RandomUtils/RandomContent/RandomNames'
+import { RandInt } from '../../common/RandomUtils/RandomNumberUtils'
+import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
+import { RandElem } from '../../common/RandomUtils/RandomArrayUtils'
+import { generateTextMessage } from '../../common/RandomUtils/RandomContent/RandomSentence'
 
 interface TelegramMessage {
   id: number
@@ -40,4 +45,43 @@ export const convertTelegramJsonChatHistoryToVaadinMessages = (
       time: new Date(message.date).toString(),
       userName: message.from
     }))
+}
+
+const formatDate = (date: Date): string => {
+  const time = Intl.DateTimeFormat('en-GB', { timeStyle: 'medium' }).format(
+    date
+  ) // 20:39:22
+  return `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}T${time}`
+}
+
+const generateUserId = () => {
+  return `user${RandInt(1_000_000, 1_000_000_000)}`
+}
+export const generateTelegramChatHistory = ({
+  numberOfMessages = 20
+}): TelegramChatHistory => {
+  const sender = getRandomFullName()
+  const recipient = getRandomFullName()
+  const names = [sender, recipient]
+  const userIds = [generateUserId(), generateUserId()]
+  return {
+    id: RandInt(1000000, 1000000000),
+    name: recipient,
+    type: 'private_chat',
+    messages: Array(numberOfMessages)
+      .fill(null)
+      .map((n, index) => {
+        const actor = RandInt(0, 1)
+        return {
+          id: index,
+          type: 'message',
+          date: formatDate(RandDate(index, index + 1)),
+          from: names[actor],
+          from_id: userIds[actor],
+          text: generateTextMessage()
+        }
+      })
+  }
 }

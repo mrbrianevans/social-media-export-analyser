@@ -2,6 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { generateSampleMediaData } from '../lib/vendors/instagram/Media'
 import { generateWhatsAppChatHistory } from '../lib/vendors/whatsapp/ChatHistory'
+import { generateTelegramChatHistory } from '../lib/vendors/telegram/JsonChatHistory'
 
 const demoFilePath = (filename) => path.resolve('..', 'demo-files', filename)
 export const generateDemoFiles = async () => {
@@ -13,10 +14,21 @@ export const generateDemoFiles = async () => {
   )
 
   //whatsapp WhatsApp Chat with Demo.txt
-  const whatsappConversation = generateWhatsAppChatHistory({})
+  const whatsappConversation = generateWhatsAppChatHistory({
+    numberOfMessages: 5
+  })
   fs.writeFileSync(
     demoFilePath('whatsapp/WhatsApp Chat with Demo.txt'),
     whatsappConversation
+  )
+
+  //telegram result.json
+  const telegramConversation = generateTelegramChatHistory({
+    numberOfMessages: 5
+  })
+  fs.writeFileSync(
+    demoFilePath('telegram/result.json'),
+    JSON.stringify(telegramConversation, null, 2)
   )
 }
 
