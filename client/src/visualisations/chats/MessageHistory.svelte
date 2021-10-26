@@ -1,27 +1,28 @@
 <script lang="ts">
   import '@vaadin/message-list';
   import { onMount } from 'svelte';
+  import type { VaadinMessageHistoryFormat } from '../../../../lib/typedefs/Components'
 
-  export let data: { time: string; text: string; userName: string }[] = []
+  export let data: VaadinMessageHistoryFormat = []
+  export let maxItems: number = 1000
+  let messageListElement
   let mounted = false
   onMount(() => {
     mounted = true
   });
+  let timeFormatter = Intl.DateTimeFormat(undefined, {dateStyle: 'medium', timeStyle: 'medium'})
   $: if(mounted) {
-      console.log('updating the messages')
-      document.querySelector('vaadin-message-list').items = data
+    messageListElement.items = data.slice(0, maxItems).map(m=>({...m, time: timeFormatter.format(new Date(m.time))}))
   }
 
 </script>
 
 <div class='container'>
-  <p>Whatsapp history</p>
-  <vaadin-message-list></vaadin-message-list>
+  <vaadin-message-list bind:this={messageListElement}></vaadin-message-list>
 </div>
 
 <style>
   .container{
-      border: 2px solid #369763;
-      border-radius: 0.5rem;
+
   }
 </style>
