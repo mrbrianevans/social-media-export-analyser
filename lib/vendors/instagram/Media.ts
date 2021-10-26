@@ -1,6 +1,7 @@
 import { RandHex, RandInt } from '../../common/RandomUtils/RandomNumberUtils'
 import { RandElem } from '../../common/RandomUtils/RandomArrayUtils'
 import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
+import { generateCaption } from '../../common/RandomUtils/RandomContent/RandomSentence'
 
 type DateString =
   `${number}-${number}-${number}T${number}:${number}:${number}+${number}:${number}`
@@ -98,32 +99,6 @@ const generateRandomDateString = (date?: Date): DateString => {
   )
 }
 
-const generateCaption = (minLength = 10, maxLength = minLength): string => {
-  const words = [
-    'blog',
-    'like',
-    'post',
-    'today',
-    'favorite',
-    'look',
-    'detail',
-    'direct',
-    'little',
-    'day',
-    'link',
-    '🎈',
-    '🏀',
-    '🍕',
-    '🍂',
-    '🚲',
-    '🔸🔹'
-  ]
-  const length = RandInt(minLength, maxLength)
-  return Array(length)
-    .fill('')
-    .map(() => RandElem(words))
-    .join(' ')
-}
 const generatePath = <
   TopLevelDirectory extends string,
   FileExtension extends string = 'mp4' | 'jpg'

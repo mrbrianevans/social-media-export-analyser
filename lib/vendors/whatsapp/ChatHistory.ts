@@ -1,4 +1,8 @@
 import { VaadinMessageHistoryFormat } from '../../typedefs/Components'
+import { getRandomFullName } from '../../common/RandomUtils/RandomContent/RandomNames'
+import { RandElem } from '../../common/RandomUtils/RandomArrayUtils'
+import { generateTextMessage } from '../../common/RandomUtils/RandomContent/RandomSentence'
+import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
 
 export const parseWhatsAppChatHistory = (
   chatHistory: string
@@ -50,4 +54,34 @@ export const convertWhatsappHistoryToVaadinMessages = (
     userName: item.from,
     text: item.content
   }))
+}
+
+const formatDate = (date: Date) => {
+  const datePart = Intl.DateTimeFormat('en-US', {
+    year: '2-digit',
+    month: 'numeric',
+    day: 'numeric'
+  }).format(date) // - mm/dd/yy
+  const time = Intl.DateTimeFormat('en-GB', {
+    timeStyle: 'short',
+    hour12: true
+  })
+    .format(date)
+    .toUpperCase()
+  return `${datePart}, ${time}`
+}
+
+export const generateWhatsAppChatHistory = ({ numberOfMessages = 20 }) => {
+  const sender = getRandomFullName()
+  const recipient = getRandomFullName()
+  const names = [sender, recipient]
+  return Array(numberOfMessages)
+    .fill('')
+    .map(
+      () =>
+        `${formatDate(RandDate())} - ${RandElem(
+          names
+        )}: ${generateTextMessage()}`
+    )
+    .join('\n')
 }

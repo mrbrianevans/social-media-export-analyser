@@ -1,3 +1,4 @@
+// inclusive of max and min
 export const RandInt = (min: number, max: number) => {
   return Math.round(Math.random() * (max - min) + min)
 }
