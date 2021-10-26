@@ -11,7 +11,12 @@ export const postProcessorMap: {
   [key in PostProcessingCategory]: PostProcessor
 } = {
   'instagram-posts'(input: PostProcessedFileInput): PostProcessedOutput {
-    return undefined
+    return {
+      componentName: 'InstagramPostsList',
+      data: input.preProcessedOutput.data,
+      metadata: input.preProcessedOutput.metadata,
+      title: 'Instagram posts'
+    }
   },
   'default-array'(input: PostProcessedFileInput): PostProcessedOutput {
     return {
@@ -23,7 +28,7 @@ export const postProcessorMap: {
   },
   'default-object'(input: PostProcessedFileInput): PostProcessedOutput {
     return {
-      componentName: 'DataTable',
+      componentName: 'JsonEditor',
       data: input.preProcessedOutput.data,
       metadata: input.preProcessedOutput.metadata,
       title: input.preProcessedOutput.title

@@ -26,10 +26,11 @@
         resolve(message.data)
       }
     })
+    console.log('metadata:', workerOutput.metadata)
     files = [...files, workerOutput]
   }
   function handleRemoveFile(err, fileItem){
-    files = files.filter(v=>v.metadata.filename!==fileItem.filename, files.length)
+    files = files.filter(v=>v.metadata.filename !== fileItem.filename)
   }
 
 </script>

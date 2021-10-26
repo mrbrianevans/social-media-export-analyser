@@ -12,6 +12,6 @@ addEventListener('message', async (e: MessageEvent<File>) => {
     filename,
     fileType
   })
-  console.log('Output data in worker', postProcessedOutput.data)
+  postProcessedOutput.metadata.filename = filename
   postMessage(postProcessedOutput)
 })

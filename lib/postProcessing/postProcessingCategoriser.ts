@@ -31,7 +31,14 @@ const postProcessingTesters: PostProcessingTester[] = [
     preProcessingCategory: 'json',
     topLevelIsArray: false,
     postProcessingCategory: 'instagram-posts',
-    topLevelKeys: ['photos', 'videos', 'stories', 'profiles']
+    topLevelKeys: ['photos', 'videos', 'stories', 'profile']
+  },
+  {
+    filenameRegex: /^likes\.json$/,
+    preProcessingCategory: 'json',
+    topLevelIsArray: false,
+    postProcessingCategory: 'default-object',
+    topLevelKeys: ['media_likes', 'comment_likes']
   },
   {
     filenameRegex: /.*/,

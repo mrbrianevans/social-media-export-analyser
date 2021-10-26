@@ -2,7 +2,8 @@
   "name": "lib-testing",
   "version": "1.0.0",
   "scripts": {
-    "test": "mocha --require ts-node/register test/**/*.spec.ts"
+    "test": "mocha --require ts-node/register test/**/*.spec.ts",
+    "generate": "ts-node generateDemoFiles.ts"
   },
   "dependencies": {
     "better-assert": "^1.0.2",
