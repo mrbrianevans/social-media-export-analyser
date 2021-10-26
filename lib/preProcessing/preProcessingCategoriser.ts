@@ -20,11 +20,6 @@ const preProcessingTesters: PreProcessingTester[] = [
     filenameRegex: /\.csv$/,
     fileTypes: ['text/csv', 'application/vnd.ms-excel'],
     preProcessingCategory: 'csv'
-  },
-  {
-    filenameRegex: /\.csv$/,
-    fileTypes: ['text/csv', 'application/vnd.ms-excel'],
-    preProcessingCategory: 'csv'
   }
 ]
 
@@ -36,6 +31,6 @@ export const preProcessingCategoriser = (
       (tester) =>
         tester.filenameRegex.test(file.filename) &&
         tester.fileTypes.includes(file.fileType)
-    ).preProcessingCategory ?? 'text'
+    )?.preProcessingCategory ?? 'text'
   )
 }

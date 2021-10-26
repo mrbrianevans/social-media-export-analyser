@@ -1,6 +1,6 @@
 import { PreProcessor } from '../../typedefs/PreProcess'
 
-export const csvPreProcessor: PreProcessor = ({
+export const csvPreProcessor: PreProcessor<{ [key: string]: string }[]> = ({
   filename,
   fileType,
   fileContent
