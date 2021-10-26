@@ -1,0 +1,8 @@
+language: node
+install:
+  - npm install
+  - cd lib && npm install && cd ..
+  - cd lib-testing && npm install && cd ..
+script:
+  - cd lib && npm run build && cd ..
+  - cd lib-testing && npm test && cd ..

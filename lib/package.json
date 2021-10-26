@@ -1,6 +1,9 @@
 {
   "name": "social-media-export-analyser-lib",
   "version": "1.0.0",
+  "scripts": {
+    "build": "tsc --build"
+  },
   "devDependencies": {
     "typescript": "^4.4.4"
   }

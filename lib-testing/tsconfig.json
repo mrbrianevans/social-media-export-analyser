@@ -5,6 +5,8 @@
     "sourceMap": true
   },
   "exclude": ["node_modules"],
+  "composite": true,
+  "rootDir": "./",
   "references": [
     {
       "path": "../lib"
