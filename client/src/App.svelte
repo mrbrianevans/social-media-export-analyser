@@ -55,44 +55,8 @@
       margin: 0 var(--lumo-space-l);
   }
 
-  :global(.filepond--root) {
-    max-height: 10em;
-      font-family: var(--lumo-font-family);
-  }
-
-  :global(.filepond--panel-root) {
-      background-color: var(--lumo-contrast-10pct);
-  }
-  :global(.filepond--drop-label) {
-      color: var(--lumo-primary-text-color);
-  }
-  :global(.filepond--label-action) {
-    text-decoration-color: var(--lumo-primary-text-color);
-  }
-  :global(.filepond--item-panel) {
-      background-color: var(--lumo-contrast-50pct);
-  }
-  :global(.filepond--item) {
-      width: calc(50% - 0.5em);
-  }
-  /* the background color of the drop circle */
-  :global(.filepond--drip-blob) {
-      background-color: var(--lumo-contrast-90pct);
-  }
-
-  /* the background color of the black action buttons */
-  :global(.filepond--file-action-button) {
-      background-color: var(--lumo-primary-color-10pct);
-  }
-
-  /* the icon color of the black action buttons */
-  :global(.filepond--file-action-button) {
-      color: var(--lumo-contrast);
-  }
-
-  /* the text color of the file status and info labels */
-  :global(.filepond--file) {
-      color: var(--lumo-contrast);
+  :global(body){
+      margin: 0;
   }
 
 </style>

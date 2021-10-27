@@ -50,4 +50,51 @@
 <style global>
     @import 'filepond/dist/filepond.css';
     @import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+
+    .file-uploader{
+        background: var(--lumo-contrast-10pct);
+    }
+    /* styling overrides for the file upload component */
+
+    .filepond--root {
+        max-height: 10em;
+        font-family: var(--lumo-font-family);
+    }
+
+    .filepond--panel-root {
+        background-color: transparent;
+        border-radius: 0;
+    }
+    .filepond--drop-label {
+        color: var(--lumo-primary-text-color);
+    }
+    .filepond--label-action {
+        text-decoration-color: var(--lumo-primary-text-color);
+    }
+    .filepond--item-panel {
+        background-color: transparent;
+        border: 2px solid var(--lumo-contrast-50pct)
+    }
+    .filepond--item {
+        width: calc(50% - 0.5em);
+    }
+    /* the background color of the drop circle */
+    .filepond--drip-blob {
+        background-color: var(--lumo-contrast-90pct);
+    }
+
+    /* the background color of the black action buttons */
+    .filepond--file-action-button {
+        background-color: var(--lumo-contrast-10pct);
+    }
+
+    /* the icon color of the black action buttons */
+    .filepond--file-action-button {
+        color: var(--lumo-contrast);
+    }
+
+    /* the text color of the file status and info labels */
+    .filepond--file {
+        color: var(--lumo-contrast);
+    }
 </style>
