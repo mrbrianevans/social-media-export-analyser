@@ -7,25 +7,18 @@
   import '@vaadin/vaadin-button/theme/material/vaadin-button';
   import '@vaadin/horizontal-layout/theme/material/vaadin-horizontal-layout';
   import VaadinGrid from './visualisations/grids/VaadinGrid.svelte'
+  import ThemeToggle from './components/ThemeToggle.svelte'
   let files: PostProcessedOutput[] = []
   let activeIndex = 0
-  let darkTheme = false
+  let theme
 </script>
 
 
-<main theme={darkTheme ? 'dark':'light'}>
+<main theme={theme}>
   <vaadin-app-layout>
     <vaadin-horizontal-layout slot="navbar" theme="" style='justify-content: space-between; width: 100%; align-items: center'>
       <h1 class='navbar-title' style='display: inline-block'>Social media data viewer</h1>
-      <vaadin-tabs>
-        <vaadin-tab>
-          <a tabindex="-1" href='/'>View data</a>
-        </vaadin-tab>
-        <vaadin-tab>
-          <a tabindex="-1" href='about'>About</a>
-        </vaadin-tab>
-      </vaadin-tabs>
-      <vaadin-button on:click={()=>darkTheme = !darkTheme}>theme</vaadin-button>
+      <ThemeToggle bind:theme/>
     </vaadin-horizontal-layout>
     <FileUploader bind:files/>
     <!--  tab selectors -->

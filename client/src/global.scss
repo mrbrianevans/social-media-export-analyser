@@ -178,8 +178,11 @@ vaadin-icon[theme~='badge'][icon][theme~='small'] {
   --lumo-line-height-m: 1.625;
 }
 
-
-
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 [theme~='dark'] {
   /* Base (background) */
