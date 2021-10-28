@@ -21,6 +21,7 @@
     "vite": "^2.6.4"
   },
   "dependencies": {
+    "@vaadin/grid": "^22.0.0-alpha10",
     "@vaadin/horizontal-layout": "^22.0.0-alpha6",
     "@vaadin/icons": "^22.0.0-alpha7",
     "@vaadin/message-list": "^22.0.0-alpha10",

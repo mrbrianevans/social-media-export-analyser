@@ -1,12 +1,6 @@
 <script lang="ts">
   export let data
   export let maxItems = 50
-  const settings = {
-    sortable: true,
-    pagination: true,
-    rowPerPage: 50,
-    columnFilter: true,
-  }
 </script>
 
 {#if data && data.length}
@@ -42,31 +36,24 @@
     }
   table.datatable {
       border-collapse: collapse;
-      background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+      border: 1px solid var(--lumo-contrast-20pct);
   }
   table.datatable > thead {
-      border-bottom: 1px solid black;
+      border-bottom: 1px solid var(--lumo-contrast-20pct);
   }
   table.datatable > thead > tr > th{
       max-width: 10rem;
   }
   table.datatable > tbody > tr > td:first-child {
-      border-right: 1px solid black;
+      border-right: 1px solid var(--lumo-contrast-20pct);
       text-align: right;
       padding-right: 0.2rem;
-  }
-  table.datatable a {
-      text-decoration: underline;
-      display: inline-block;
-  }
-  table.datatable a:hover {
-      font-weight: bold;
   }
   table.datatable td {
       padding: 0.4em 0.2em;
       max-width: 20rem;
   }
   table.datatable > tbody > tr:hover {
-      background: #fff6;
+      background: var(--lumo-contrast-5pct);
   }
 </style>

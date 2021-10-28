@@ -6,6 +6,7 @@
   import '@vaadin/vaadin-app-layout/vaadin-app-layout.js';
   import '@vaadin/vaadin-button/theme/material/vaadin-button';
   import '@vaadin/horizontal-layout/theme/material/vaadin-horizontal-layout';
+  import VaadinGrid from './visualisations/grids/VaadinGrid.svelte'
   let files: PostProcessedOutput[] = []
   let activeIndex = 0
   let darkTheme = false
@@ -28,7 +29,7 @@
     </vaadin-horizontal-layout>
     <FileUploader bind:files/>
     <!--  tab selectors -->
-    <vaadin-tabs>
+    <vaadin-tabs slot="drawer" orientation="vertical">
       {#each files as file, index}
         <vaadin-tab>
           <a tabindex="-1" on:click={()=>activeIndex=index}>{file.title}</a>
@@ -38,13 +39,16 @@
     <!-- selected tab content -->
     {#each files as file, index}
       {#if index === activeIndex}
+        {#if file.componentName === 'VaadinGrid'}
+          <VaadinGrid data={file.data}/>
+        {/if}
         <svelte:component this={ComponentForShape[file.componentName]} data={file.data} maxItems={10}/>
       {/if}
     {/each}
   </vaadin-app-layout>
 </main>
 
-<style >
+<style>
   :root {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
