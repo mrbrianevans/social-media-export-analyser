@@ -25,6 +25,11 @@ const preProcessingTesters: PreProcessingTester[] = [
     filenameRegex: /\.txt$/,
     fileTypes: ['text/plain'],
     preProcessingCategory: 'text'
+  },
+  {
+    filenameRegex: /\.js$/,
+    fileTypes: ['text/javascript'],
+    preProcessingCategory: 'twitterJs'
   }
 ]
 

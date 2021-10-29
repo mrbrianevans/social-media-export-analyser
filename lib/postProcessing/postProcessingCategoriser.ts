@@ -65,6 +65,18 @@ const postProcessingTesters: PostProcessingTester[] = [
     topLevelIsArray: false,
     topLevelKeys: ['text'],
     postProcessingCategory: 'text'
+  },
+  {
+    filenameRegex: /^manifest.js$/,
+    preProcessingCategory: 'twitterJs',
+    topLevelIsArray: false,
+    postProcessingCategory: 'default-object'
+  },
+  {
+    filenameRegex: /.*/,
+    preProcessingCategory: 'twitterJs',
+    topLevelIsArray: true,
+    postProcessingCategory: 'default-array'
   }
 ]
 

@@ -1,4 +1,4 @@
-type DateFormatter = (date: Date) => string
+export type DateFormatter = (date: Date) => string
 // eg 2014-06-03T22:01:26
 export const formatDateEurTime: DateFormatter = (date) => {
   const time = Intl.DateTimeFormat('en-GB', { timeStyle: 'medium' }).format(

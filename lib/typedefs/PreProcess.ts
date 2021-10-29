@@ -1,4 +1,9 @@
-export type PreProcessingCategory = 'json' | 'csv' | 'whatsapp' | 'text'
+export type PreProcessingCategory =
+  | 'json'
+  | 'csv'
+  | 'whatsapp'
+  | 'text'
+  | 'twitterJs'
 export type PreProcessingTester = {
   // tests
   filenameRegex?: RegExp

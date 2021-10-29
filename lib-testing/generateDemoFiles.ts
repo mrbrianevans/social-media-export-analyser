@@ -4,6 +4,10 @@ import { generateSampleMediaData } from '../lib/vendors/instagram/Media'
 import { generateWhatsAppChatHistory } from '../lib/vendors/whatsapp/ChatHistory'
 import { generateTelegramChatHistory } from '../lib/vendors/telegram/JsonChatHistory'
 import { generateInstagramProfile } from '../lib/vendors/instagram/Profile'
+import {
+  generateTwitterTweetFile,
+  generateTwitterTweets
+} from '../lib/vendors/twitter/Tweets'
 
 const demoFilePath = (filename) => path.resolve('..', 'demo-files', filename)
 export const generateDemoFiles = async () => {
@@ -37,6 +41,10 @@ export const generateDemoFiles = async () => {
     demoFilePath('telegram/result.json'),
     JSON.stringify(telegramConversation, null, 2)
   )
+
+  //twitter
+  const twitterTweets = generateTwitterTweetFile({})
+  fs.writeFileSync(demoFilePath('twitter/tweet.js'), twitterTweets)
 }
 
 generateDemoFiles()
