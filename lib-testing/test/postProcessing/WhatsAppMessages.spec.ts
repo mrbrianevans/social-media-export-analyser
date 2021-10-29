@@ -12,7 +12,8 @@ describe('post process whatsapp json object to vaadin messages format', function
         data: [],
         title: 'WhatsApp messages with Joe Blogs',
         metadata: {}
-      }
+      },
+      preProcessingCategory: 'whatsapp'
     })
 
     assert(category === 'whatsapp-messages')
@@ -44,7 +45,8 @@ describe('post process whatsapp json object to vaadin messages format', function
         title: 'WhatsApp messages with Joe Blogs'
       },
       fileType: 'text/plain',
-      filename: 'WhatsApp Chat with Joe Blogs.txt'
+      filename: 'WhatsApp Chat with Joe Blogs.txt',
+      preProcessingCategory: 'whatsapp'
     })
 
     assert(output.data.length === messages.length)

@@ -27,7 +27,8 @@ const testData: PostProcessedFileInput<TelegramChatHistory> = {
     title: 'result.json',
     metadata: { filename: 'result.json' },
     data: fileData
-  }
+  },
+  preProcessingCategory: 'json'
 }
 describe('post process telegram messages', function () {
   it('should categorise telegram messages based on object keys', function () {

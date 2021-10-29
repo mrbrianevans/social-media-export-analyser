@@ -123,8 +123,12 @@ const formatDate: DateFormatter = (date) => {
     hour12: false
   }).format(date)
   const timezoneHour = Math.floor(date.getTimezoneOffset() / 60)
+  const timezoneHours = Math.abs(timezoneHour).toString().padStart(2, '0')
+  const timezoneSign = date.getTimezoneOffset() > 0 ? '+' : '-'
   const timezoneMinute = Math.abs(date.getTimezoneOffset() - 60 * timezoneHour)
-  return `${dayPart} ${time} ${timezoneHour}${timezoneMinute} ${year}`
+    .toString()
+    .padStart(2, '0')
+  return `${dayPart} ${time} ${timezoneSign}${timezoneHours}${timezoneMinute} ${year}`
 }
 
 const sources = [
@@ -136,7 +140,7 @@ export const generateTwitterTweets = ({ qty = 10 }): Tweet[] => {
   return Array(qty)
     .fill(null)
     .map((e, i): Tweet => {
-      const full_text = generateCaption(10, 20).slice(0,240)
+      const full_text = generateCaption(10, 20).slice(0, 240)
       const id: QuotedNumber = `${RandInt(1_000_000, 1_000_000_000)}`
       return {
         created_at: formatDate(RandDate(10, 20)),

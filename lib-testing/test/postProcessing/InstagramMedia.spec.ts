@@ -16,7 +16,8 @@ const testData: PostProcessedFileInput<Media> = {
     },
     title: 'Instagram posts',
     metadata: {}
-  }
+  },
+  preProcessingCategory: 'json'
 }
 
 describe('post process instagram media.json file of posts', function () {
