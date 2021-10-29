@@ -9,13 +9,7 @@ export const captionWords = [
   'direct',
   'little',
   'day',
-  'link',
-  '🎈',
-  '🏀',
-  '🍕',
-  '🍂',
-  '🚲',
-  '🔸🔹'
+  'link'
 ]
 
 export const textMessageWords = [

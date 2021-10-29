@@ -3,10 +3,7 @@
   import '@vaadin/grid/vaadin-grid-column';
   import '@vaadin/grid/vaadin-grid-sort-column';
   import { onMount } from 'svelte'
-console.log('Vaadin gred render')
-  $: console.log('Vaadin gred render DOLLAR')
-  export let data = {'search engines': [{name:'google'},{name:'duckduckgo'},{name:'opera'}]}
-  export let maxItems = 50
+  export let data
 
   let items: any[] = []
   let grid
@@ -29,8 +26,6 @@ console.log('Vaadin gred render')
     return i ? Object.keys(i[0]) : []
   }
   $: columns = getColumns(items)
-  $: console.log(columns)
-  $: console.log(items?.length, 'items')
 </script>
 
 <vaadin-grid theme="compact" column-reordering-allowed multi-sort bind:this={grid}>

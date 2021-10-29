@@ -1,0 +1,58 @@
+import { RandElem } from '../RandomArrayUtils'
+import { Emojis } from './RandomEmojis'
+
+const bios = [
+  'Be all in or get out. There is no in-between.',
+  'Risk taker. Adventurer.',
+  'Together we could be unstoppable.',
+  'Falling for you.',
+  'Creativity solves everything.',
+  'I would rather die of passion than of boredom.',
+  'All I do is win, win, win. No matter what.',
+  'Making history.',
+  'A very caffeine dependent life form.',
+  'The best of me is yet to come.',
+  'Life isn’t perfect but your photos can be',
+  'Happiness never goes out of style.',
+  'Who runs the world? ME.',
+  'It took me __ years to look like this.',
+  'Everyone else was taken so this is me.',
+  'In a world of worriers, be the warrior.',
+  'Simplicity is the key to happiness.',
+  'I practice what I post.',
+  'It’s my time to step into the spotlight, I’ve earned it.',
+  'A day in the life of me: Eat avocado toast, post Instagram videos, reply to Instagram comments.',
+  'Life is what happens to you while you scroll through Instagram.',
+  'She turned her cants into cans and her dreams into plans.',
+  'It won’t always be easy, but always try to do what’s right.',
+  'Your life becomes a masterpiece when you learn to master peace.',
+  'Just make sure to love your life.',
+  'Be anything but predictable.',
+  'Life is not a problem to be solved but a reality to be experienced.',
+  'Your life does not get better by chance. It gets better by a change.',
+  'Going where I feel most alive.',
+  'Creating my own sunshine.',
+  'Don’t ever be afraid to shine.',
+  'Throwing kindness around like confetti.',
+  'Stay humble. Be kind. Work hard.',
+  'Take care of your body, it’s the only place you have to live.',
+  'Die having memories don’t die with just dreams.',
+  'You is kind, you is smart, you is important.',
+  'I survived because the fire inside me burned brighter than the fire around me.',
+  'I don’t want to forget something that once made us smile.',
+  'When it rains look for rainbows when it’s dark I look for stars.',
+  'Just making sure to love life.',
+  'Serving you a feast of vibrant grids.',
+  'We have tomorrows for a reason.',
+  'Trying to remember who I was before the world told me who to be.',
+  'Strong desire to travel the world and explore new places.',
+  'Creating a life I love.',
+  'Trying to become the best. That is why first I am being the worst.',
+  'Captivated from life, showing it here.',
+  'Loving fiercely. Stopping along the way to take photos.',
+  'Making every day magical.'
+]
+
+export const generateRandomBio = () => {
+  return RandElem(bios) + RandElem(Emojis)
+}

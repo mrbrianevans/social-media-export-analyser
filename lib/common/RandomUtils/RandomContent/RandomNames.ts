@@ -1,17 +1,19 @@
 import { RandElem } from '../RandomArrayUtils'
 import { capitiliseEveryWord } from '../../StringUtils'
 
-export const getRandomFirstName = () => {
-  return RandElem(FirstNames)
+export const getRandomFirstName = (male?: boolean) => {
+  return RandElem(
+    male === undefined ? FirstNames : male ? MaleFirstNames : FemaleFirstNames
+  )
 }
 export const getRandomLastName = () => {
   return RandElem(LastNames)
 }
-export const getRandomFullName = () => {
-  return getRandomFirstName() + ' ' + getRandomLastName()
+export const getRandomFullName = (male?: boolean) => {
+  return getRandomFirstName(male) + ' ' + getRandomLastName()
 }
 
-export const FirstNames = [
+const MaleFirstNames = [
   'DAVID',
   'JOHN',
   'PAUL',
@@ -28,14 +30,12 @@ export const FirstNames = [
   'IAN',
   'SIMON',
   'ANTHONY',
-  'SUSAN',
   'THOMAS',
   'ALAN',
   'MARTIN',
   'MATTHEW',
   'STEVEN',
   'DAVID JOHN',
-  'SARAH',
   'WILLIAM',
   'KEVIN',
   'GARY',
@@ -44,14 +44,21 @@ export const FirstNames = [
   'JONATHAN',
   'PHILIP',
   'NEIL',
-  'KAREN',
   'NICHOLAS',
   'ADAM',
+  'COLIN'
+].map(capitiliseEveryWord)
+
+const FemaleFirstNames = [
+  'SUSAN',
+  'SARAH',
+  'KAREN',
   'JULIE',
   'ELIZABETH',
-  'COLIN',
   'HELEN'
 ].map(capitiliseEveryWord)
+
+export const FirstNames = MaleFirstNames.concat(FemaleFirstNames)
 export const LastNames = [
   'SMITH',
   'JONES',

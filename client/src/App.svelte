@@ -17,7 +17,7 @@
 <main theme={theme}>
   <vaadin-app-layout>
     <vaadin-horizontal-layout slot="navbar" theme="" style='justify-content: space-between; width: 100%; align-items: center'>
-      <h1 class='navbar-title' style='display: inline-block'>Social media data viewer</h1>
+      <h1 class='navbar-title'>Social media data viewer</h1>
       <ThemeToggle bind:theme/>
     </vaadin-horizontal-layout>
     <FileUploader bind:files/>
@@ -42,13 +42,13 @@
 </main>
 
 <style>
-  :root {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  main{
+      min-height: 100vh;
   }
 
   h1.navbar-title{
-      font-size: var(--lumo-font-size-l);
+      display: inline-block;
+      font-size: var(--lumo-font-size-xl);
       margin: 0 var(--lumo-space-l);
   }
 

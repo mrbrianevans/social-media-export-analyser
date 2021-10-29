@@ -4,6 +4,7 @@ import { RandInt } from '../../common/RandomUtils/RandomNumberUtils'
 import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
 import { RandElem } from '../../common/RandomUtils/RandomArrayUtils'
 import { generateTextMessage } from '../../common/RandomUtils/RandomContent/RandomSentence'
+import { formatDateEurTime } from '../../common/DateUtils'
 
 interface TelegramMessage {
   id: number
@@ -47,15 +48,6 @@ export const convertTelegramJsonChatHistoryToVaadinMessages = (
     }))
 }
 
-const formatDate = (date: Date): string => {
-  const time = Intl.DateTimeFormat('en-GB', { timeStyle: 'medium' }).format(
-    date
-  ) // 20:39:22
-  return `${date.getFullYear()}-${(date.getMonth() + 1)
-    .toString()
-    .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}T${time}`
-}
-
 const generateUserId = () => {
   return `user${RandInt(1_000_000, 1_000_000_000)}`
 }
@@ -77,7 +69,7 @@ export const generateTelegramChatHistory = ({
         return {
           id: index,
           type: 'message',
-          date: formatDate(RandDate(index, index + 1)),
+          date: formatDateEurTime(RandDate(index, index + 1)),
           from: names[actor],
           from_id: userIds[actor],
           text: generateTextMessage()
