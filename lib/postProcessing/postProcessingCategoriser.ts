@@ -5,6 +5,7 @@ import {
   PostProcessingTester
 } from '../typedefs/PostProcess'
 import { arrayEqualsPreserveOrder, arrayEquals } from '../common/ArrayUtils'
+import { preProcessingCategoriser } from '../preProcessing/preProcessingCategoriser'
 
 const postProcessingTesters: PostProcessingTester[] = [
   {
@@ -57,24 +58,39 @@ const postProcessingTesters: PostProcessingTester[] = [
     preProcessingCategory: 'csv',
     topLevelIsArray: true,
     postProcessingCategory: 'default-array'
+  },
+  {
+    filenameRegex: /.*/,
+    preProcessingCategory: 'text',
+    topLevelIsArray: false,
+    topLevelKeys: ['text'],
+    postProcessingCategory: 'text'
   }
 ]
 
 export const postProcessingCategoriser = (
   file: PostProcessedFileInput
 ): PostProcessingCategory => {
-  return (
-    postProcessingTesters.find(
-      (tester) =>
-        tester.filenameRegex.test(file.filename) &&
-        (tester.fileTypes === undefined ||
-          tester.fileTypes.includes(file.fileType)) &&
-        (tester.topLevelKeys === undefined ||
-          arrayEquals(
-            tester.topLevelKeys,
-            Object.keys(file.preProcessedOutput.data)
-          )) &&
-        tester.topLevelIsArray === file.preProcessedOutput.data instanceof Array
-    ).postProcessingCategory ?? 'default-object'
-  )
+  const matchingCategory = postProcessingTesters.find(
+    (tester) =>
+      tester.filenameRegex.test(file.filename) &&
+      (tester.fileTypes === undefined ||
+        tester.fileTypes.includes(file.fileType)) &&
+      (tester.topLevelKeys === undefined ||
+        arrayEquals(
+          tester.topLevelKeys,
+          Object.keys(file.preProcessedOutput.data)
+        )) &&
+      tester.topLevelIsArray ===
+        file.preProcessedOutput.data instanceof Array &&
+      tester.preProcessingCategory === file.preProcessingCategory
+  ).postProcessingCategory
+  if (!matchingCategory) {
+    // @ts-ignore
+    console.log('failed to find category')
+  } else {
+    // @ts-ignore
+    console.log('found', matchingCategory, 'as matching category')
+  }
+  return matchingCategory ?? 'default-object'
 }

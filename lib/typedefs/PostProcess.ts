@@ -7,6 +7,7 @@ export type PostProcessingCategory =
   | 'telegram-messages'
   | 'default-array'
   | 'instagram-posts'
+  | 'text'
 
 export type PostProcessingTester = {
   // tests
@@ -24,6 +25,7 @@ export type PostProcessedFileInput<
   filename: string
   filepath?: string
   fileType: string
+  preProcessingCategory: PreProcessingCategory
   preProcessedOutput: PreProcessedOutput<DataShape>
 }
 

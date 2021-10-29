@@ -22,9 +22,7 @@ export const postProcessorMap: {
   'default-array'(input: PostProcessedFileInput): PostProcessedOutput {
     return {
       componentName: 'VaadinGrid',
-      data: input.preProcessedOutput.data,
-      metadata: input.preProcessedOutput.metadata,
-      title: input.preProcessedOutput.title
+      ...input.preProcessedOutput
     }
   },
   'default-object'(input: PostProcessedFileInput): PostProcessedOutput {
@@ -49,5 +47,11 @@ export const postProcessorMap: {
     }
   },
   'telegram-messages': telegramMessagesPostProcessor,
-  'whatsapp-messages': whatsappMessagesPostProcessor
+  'whatsapp-messages': whatsappMessagesPostProcessor,
+  text(input: PostProcessedFileInput): PostProcessedOutput {
+    return {
+      componentName: 'StringBox',
+      ...input.preProcessedOutput
+    }
+  }
 }

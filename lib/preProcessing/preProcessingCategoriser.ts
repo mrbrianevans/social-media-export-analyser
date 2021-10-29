@@ -20,6 +20,11 @@ const preProcessingTesters: PreProcessingTester[] = [
     filenameRegex: /\.csv$/,
     fileTypes: ['text/csv', 'application/vnd.ms-excel'],
     preProcessingCategory: 'csv'
+  },
+  {
+    filenameRegex: /\.txt$/,
+    fileTypes: ['text/plain'],
+    preProcessingCategory: 'text'
   }
 ]
 

@@ -1,17 +1,21 @@
 <script lang="ts">
-  export let data: string
+  export let data: { text: string }
 </script>
 
 
-<p class='string'>
-  {data.toString()}
-</p>
+<pre class='string'>
+  {data.text.toString()}
+</pre>
 
 
 <style>
-  p.string{
-      padding: 1rem;
-      margin: 1rem;
-      border: 1px dashed #369763;
+  .string{
+      padding: var(--lumo-space-l);
+      margin: var(--lumo-space-l);
+      white-space: pre-wrap;
+      font-family: "JetBrains Mono", monospace;
+  }
+  .string::selection{
+      background: var(--lumo-primary-color-50pct);
   }
 </style>
