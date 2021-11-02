@@ -32,10 +32,10 @@
     <!-- selected tab content -->
     {#each files as file, index}
       {#if index === activeIndex}
-        {#if file.componentName === 'VaadinGrid'}
+        {#if file.component === 'VaadinGrid'}
           <VaadinGrid data={file.data}/>
         {/if}
-        <svelte:component this={ComponentForShape[file.componentName]} data={file.data} maxItems={10}/>
+        <svelte:component this={ComponentForShape[file.component]} data={file.data} maxItems={10}/>
       {/if}
     {/each}
   </vaadin-app-layout>

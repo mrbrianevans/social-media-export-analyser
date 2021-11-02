@@ -18,7 +18,11 @@ describe('post process whatsapp json object to vaadin messages format', function
       preProcessingCategory: 'whatsapp'
     })
 
-    assert(category.code === 'whatsapp-chat')
+    assert(category === 'WhatsAppPostProcess')
+
+    const postProcess = getPostProcessByCode(category)
+
+    assert(postProcess.code === 'whatsapp-chat')
   })
 
   it('should process known valid messages', function () {
@@ -40,18 +44,18 @@ describe('post process whatsapp json object to vaadin messages format', function
         from: 'system'
       }
     ]
-    const output = getPostProcessByCode('whatsapp-chat').postProcessingFunction(
-      {
-        preProcessedOutput: {
-          data: messages,
-          metadata: {},
-          title: 'WhatsApp messages with Joe Blogs'
-        },
-        fileType: 'text/plain',
-        filename: 'WhatsApp Chat with Joe Blogs.txt',
-        preProcessingCategory: 'whatsapp'
-      }
-    )
+    const output = getPostProcessByCode(
+      'WhatsAppPostProcess'
+    ).postProcessingFunction({
+      preProcessedOutput: {
+        data: messages,
+        metadata: {},
+        title: 'WhatsApp messages with Joe Blogs'
+      },
+      fileType: 'text/plain',
+      filename: 'WhatsApp Chat with Joe Blogs.txt',
+      preProcessingCategory: 'whatsapp'
+    })
 
     assert(output.data.length === messages.length)
 

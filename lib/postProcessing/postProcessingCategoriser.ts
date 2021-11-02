@@ -19,11 +19,12 @@ import {
   KeyValuePostProcess,
   NestedKeyValuePostProcess
 } from './postProcessors/genericFallbacks/keyValue'
-import { DefaultPostProcess } from './postProcessors/genericFallbacks/default'
 import { FileType } from '../typedefs/FileTypes'
+import { DefaultPostProcess } from './postProcessors/genericFallbacks/default'
 
+type PostProcessorCategory = keyof typeof postProcessors | 'DefaultPostProcess'
 // order is important. the first one in this array that matches is used
-const postProcessors: PostProcess[] = [
+const postProcessors = {
   WhatsAppPostProcess,
   TelegramPostProcess,
   InstagramPostsPostProcess,
@@ -36,13 +37,16 @@ const postProcessors: PostProcess[] = [
   TextPostProcess,
   ContactsCsvPostProcess,
   KeyValuePostProcess,
-  NestedKeyValuePostProcess
-]
+  NestedKeyValuePostProcess,
+  DefaultPostProcess
+}
 
 export const postProcessingCategoriser = (
   file: PostProcessedFileInput
-): PostProcess => {
-  const matchingCategory = postProcessors.find((processor) => {
+): PostProcessorCategory => {
+  const matchingCategory = (<[PostProcessorCategory, PostProcess][]>(
+    Object.entries(postProcessors)
+  )).find(([, processor]) => {
     const tester = processor.classifier
     return (
       tester.filenameRegex.test(file.filename) &&
@@ -57,10 +61,12 @@ export const postProcessingCategoriser = (
         file.preProcessedOutput.data instanceof Array &&
       tester.preProcessingCategory === file.preProcessingCategory
     )
-  })
-  return matchingCategory ?? DefaultPostProcess
+  })?.[0]
+  return matchingCategory ?? 'DefaultPostProcess'
 }
 
-export const getPostProcessByCode = (code: string) => {
-  return postProcessors.find((p) => p.code === code)
+export const getPostProcessByCode = (
+  code: PostProcessorCategory
+): PostProcess => {
+  return postProcessors[code]
 }

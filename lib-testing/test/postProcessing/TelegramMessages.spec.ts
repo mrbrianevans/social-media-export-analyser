@@ -35,12 +35,15 @@ const testData: PostProcessedFileInput<TelegramChatHistory> = {
 describe('post process telegram messages', function () {
   it('should categorise telegram messages based on object keys', function () {
     const category = postProcessingCategoriser(testData)
-    assert(category.code === 'telegram-chat')
+    assert(category === 'TelegramPostProcess')
+    const postProcess = getPostProcessByCode(category)
+    assert(postProcess.code === 'telegram-chat')
   })
 
   it('should output the correctly formatted message objects for vaadin message history to display', function () {
-    const output =
-      getPostProcessByCode('telegram-chat')?.postProcessingFunction(testData)
+    const output = getPostProcessByCode(
+      'TelegramPostProcess'
+    )?.postProcessingFunction(testData)
 
     assert(
       output.data.length === testData.preProcessedOutput.data.messages.length
