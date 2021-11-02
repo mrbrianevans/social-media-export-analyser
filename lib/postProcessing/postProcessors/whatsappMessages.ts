@@ -1,4 +1,4 @@
-import { PostProcessor } from '../../typedefs/PostProcess'
+import { PostProcess, PostProcessor } from '../../typedefs/PostProcess'
 import {
   convertWhatsappHistoryToVaadinMessages,
   WhatsAppChatHistoryArray
@@ -18,7 +18,21 @@ export const whatsappMessagesPostProcessor: PostProcessor<
       ...input.preProcessedOutput.metadata
     },
     title:
-      'WhatsApp messages with ' + input.preProcessedOutput.metadata.recipient,
-    componentName: 'MessageHistory'
+      'WhatsApp messages with ' + input.preProcessedOutput.metadata.recipient
   }
+}
+
+export const WhatsAppPostProcess: PostProcess = {
+  name: 'WhatsApp chat',
+  code: 'whatsapp-chat',
+  nameFormat: 'WhatsApp chat with {}',
+  classifier: {
+    filenameRegex: /WhatsApp Chat with .*/,
+    fileTypes: ['text/plain'],
+    preProcessingCategory: 'whatsapp',
+    topLevelIsArray: true
+  },
+  vendor: 'WhatsApp',
+  postProcessingFunction: whatsappMessagesPostProcessor,
+  component: 'MessageHistory'
 }

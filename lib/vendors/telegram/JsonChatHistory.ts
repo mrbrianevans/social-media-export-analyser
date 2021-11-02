@@ -2,7 +2,6 @@ import { VaadinMessageHistoryFormat } from '../../typedefs/Components'
 import { getRandomFullName } from '../../common/RandomUtils/RandomContent/RandomNames'
 import { RandInt } from '../../common/RandomUtils/RandomNumberUtils'
 import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
-import { RandElem } from '../../common/RandomUtils/RandomArrayUtils'
 import { generateTextMessage } from '../../common/RandomUtils/RandomContent/RandomSentence'
 import { formatDateEurTime } from '../../common/DateUtils'
 

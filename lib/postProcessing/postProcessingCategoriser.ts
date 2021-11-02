@@ -1,108 +1,72 @@
-// order is important. the first one in this array that matches is used
+import { PostProcess, PostProcessedFileInput } from '../typedefs/PostProcess'
+import { arrayEquals } from '../common/ArrayUtils'
+import { WhatsAppPostProcess } from './postProcessors/whatsappMessages'
+import { TelegramPostProcess } from './postProcessors/telegramMessages'
 import {
-  PostProcessedFileInput,
-  PostProcessingCategory,
-  PostProcessingTester
-} from '../typedefs/PostProcess'
-import { arrayEqualsPreserveOrder, arrayEquals } from '../common/ArrayUtils'
-import { preProcessingCategoriser } from '../preProcessing/preProcessingCategoriser'
+  InstagramLikesPostProcess,
+  InstagramPostsPostProcess,
+  InstagramProfilePostProcess
+} from './postProcessors/instagram'
+import {
+  TwitterFallbackPostProcess,
+  TwitterManifestPostProcess,
+  TwitterProfilePostProcess,
+  TwitterTweetsPostProcess
+} from './postProcessors/twitter'
+import { TextPostProcess } from './postProcessors/genericFallbacks/text'
+import { ContactsCsvPostProcess } from './postProcessors/contacts'
+import {
+  KeyValuePostProcess,
+  NestedKeyValuePostProcess
+} from './postProcessors/genericFallbacks/keyValue'
+import { FileType } from '../typedefs/FileTypes'
+import { DefaultPostProcess } from './postProcessors/genericFallbacks/default'
 
-const postProcessingTesters: PostProcessingTester[] = [
-  {
-    filenameRegex: /^WhatsApp Chat with .*?\.txt$/,
-    preProcessingCategory: 'whatsapp',
-    topLevelIsArray: true,
-    postProcessingCategory: 'whatsapp-messages'
-  },
-  {
-    filenameRegex: /^contacts\.csv$/,
-    preProcessingCategory: 'csv',
-    topLevelIsArray: true,
-    postProcessingCategory: 'default-array'
-  },
-  {
-    filenameRegex: /^result\.json$/,
-    preProcessingCategory: 'json',
-    topLevelIsArray: false,
-    postProcessingCategory: 'telegram-messages',
-    topLevelKeys: ['name', 'type', 'id', 'messages']
-  },
-  {
-    filenameRegex: /^media\.json$/,
-    preProcessingCategory: 'json',
-    topLevelIsArray: false,
-    postProcessingCategory: 'instagram-posts',
-    topLevelKeys: ['photos', 'videos', 'stories', 'profile']
-  },
-  {
-    filenameRegex: /^likes\.json$/,
-    preProcessingCategory: 'json',
-    topLevelIsArray: false,
-    postProcessingCategory: 'default-object',
-    topLevelKeys: ['media_likes', 'comment_likes']
-  },
-  {
-    filenameRegex: /.*/,
-    preProcessingCategory: 'json',
-    topLevelIsArray: false,
-    postProcessingCategory: 'default-object'
-  },
-  {
-    filenameRegex: /.*/,
-    preProcessingCategory: 'json',
-    topLevelIsArray: true,
-    postProcessingCategory: 'default-array'
-  },
-  {
-    filenameRegex: /.*/,
-    preProcessingCategory: 'csv',
-    topLevelIsArray: true,
-    postProcessingCategory: 'default-array'
-  },
-  {
-    filenameRegex: /.*/,
-    preProcessingCategory: 'text',
-    topLevelIsArray: false,
-    topLevelKeys: ['text'],
-    postProcessingCategory: 'text'
-  },
-  {
-    filenameRegex: /^manifest.js$/,
-    preProcessingCategory: 'twitterJs',
-    topLevelIsArray: false,
-    postProcessingCategory: 'default-object'
-  },
-  {
-    filenameRegex: /.*/,
-    preProcessingCategory: 'twitterJs',
-    topLevelIsArray: true,
-    postProcessingCategory: 'default-array'
-  }
-]
+type PostProcessorCategory = keyof typeof postProcessors | 'DefaultPostProcess'
+// order is important. the first one in this array that matches is used
+const postProcessors = {
+  WhatsAppPostProcess,
+  TelegramPostProcess,
+  InstagramPostsPostProcess,
+  InstagramProfilePostProcess,
+  InstagramLikesPostProcess,
+  TwitterProfilePostProcess,
+  TwitterTweetsPostProcess,
+  TwitterFallbackPostProcess,
+  TwitterManifestPostProcess,
+  TextPostProcess,
+  ContactsCsvPostProcess,
+  KeyValuePostProcess,
+  NestedKeyValuePostProcess,
+  DefaultPostProcess
+}
 
 export const postProcessingCategoriser = (
   file: PostProcessedFileInput
-): PostProcessingCategory => {
-  const matchingCategory = postProcessingTesters.find(
-    (tester) =>
+): PostProcessorCategory => {
+  const matchingCategory = (<[PostProcessorCategory, PostProcess][]>(
+    Object.entries(postProcessors)
+  )).find(([, processor]) => {
+    const tester = processor.classifier
+    return (
       tester.filenameRegex.test(file.filename) &&
       (tester.fileTypes === undefined ||
-        tester.fileTypes.includes(file.fileType)) &&
-      (tester.topLevelKeys === undefined ||
+        tester.fileTypes.includes(<FileType>file.fileType)) &&
+      (tester.itemCriteria?.keys === undefined ||
         arrayEquals(
-          tester.topLevelKeys,
+          tester.itemCriteria?.keys,
           Object.keys(file.preProcessedOutput.data)
         )) &&
       tester.topLevelIsArray ===
         file.preProcessedOutput.data instanceof Array &&
       tester.preProcessingCategory === file.preProcessingCategory
-  ).postProcessingCategory
-  if (!matchingCategory) {
-    // @ts-ignore
-    console.log('failed to find category')
-  } else {
-    // @ts-ignore
-    console.log('found', matchingCategory, 'as matching category')
-  }
-  return matchingCategory ?? 'default-object'
+    )
+  })?.[0]
+  return matchingCategory ?? 'DefaultPostProcess'
+}
+
+export const getPostProcessByCode = (
+  code: PostProcessorCategory
+): PostProcess => {
+  return postProcessors[code]
 }

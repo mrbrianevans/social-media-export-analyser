@@ -1,6 +1,8 @@
 # Social media export analyser
 Analyse GDPR data portability exports of your data from big social media companies
 
+Website URL: https://social-media-export-analyser-mrybc.ondigitalocean.app/
+
 # Directories
 ## `lib`
 The `lib` directory contains javascript that can be run in the browser or on a server. 

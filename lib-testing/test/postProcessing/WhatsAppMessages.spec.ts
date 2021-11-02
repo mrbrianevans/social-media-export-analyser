@@ -1,6 +1,8 @@
-import { postProcessingCategoriser } from '../../../lib/postProcessing/postProcessingCategoriser'
+import {
+  getPostProcessByCode,
+  postProcessingCategoriser
+} from '../../../lib/postProcessing/postProcessingCategoriser'
 import * as assert from 'better-assert'
-import { postProcessorMap } from '../../../lib/postProcessing/postProcessorMap'
 import { arrayEquals } from '../../../lib/common/ArrayUtils'
 
 describe('post process whatsapp json object to vaadin messages format', function () {
@@ -16,7 +18,11 @@ describe('post process whatsapp json object to vaadin messages format', function
       preProcessingCategory: 'whatsapp'
     })
 
-    assert(category === 'whatsapp-messages')
+    assert(category === 'WhatsAppPostProcess')
+
+    const postProcess = getPostProcessByCode(category)
+
+    assert(postProcess.code === 'whatsapp-chat')
   })
 
   it('should process known valid messages', function () {
@@ -38,7 +44,9 @@ describe('post process whatsapp json object to vaadin messages format', function
         from: 'system'
       }
     ]
-    const output = postProcessorMap['whatsapp-messages']({
+    const output = getPostProcessByCode(
+      'WhatsAppPostProcess'
+    ).postProcessingFunction({
       preProcessedOutput: {
         data: messages,
         metadata: {},

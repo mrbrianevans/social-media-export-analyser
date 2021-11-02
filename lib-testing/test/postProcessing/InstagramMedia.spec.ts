@@ -1,6 +1,8 @@
-import { postProcessorMap } from '../../../lib/postProcessing/postProcessorMap'
 import assert = require('better-assert')
-import { postProcessingCategoriser } from '../../../lib/postProcessing/postProcessingCategoriser'
+import {
+  getPostProcessByCode,
+  postProcessingCategoriser
+} from '../../../lib/postProcessing/postProcessingCategoriser'
 import { Media } from '../../../lib/vendors/instagram/Media'
 import { PostProcessedFileInput } from '../../../lib/typedefs/PostProcess'
 
@@ -23,11 +25,9 @@ const testData: PostProcessedFileInput<Media> = {
 describe('post process instagram media.json file of posts', function () {
   it('should categorise instagram media file correctly', function () {
     const category = postProcessingCategoriser(testData)
-    assert(category === 'instagram-posts')
-  })
-
-  it('should return the correct component', function () {
-    const output = postProcessorMap['instagram-posts'](testData)
-    assert(output.componentName === 'InstagramPostsList')
+    assert(category === 'InstagramPostsPostProcess')
+    const postProcess = getPostProcessByCode(category)
+    assert(postProcess.code === 'instagram-posts')
+    assert(postProcess.component === 'InstagramPostsList')
   })
 })
