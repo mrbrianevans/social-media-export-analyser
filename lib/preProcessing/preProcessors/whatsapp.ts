@@ -1,8 +1,5 @@
 import { PreProcessor } from '../../typedefs/PreProcess'
-import {
-  convertWhatsappHistoryToVaadinMessages,
-  parseWhatsAppChatHistory
-} from '../../vendors/whatsapp/ChatHistory'
+import { parseWhatsAppChatHistory } from '../../vendors/whatsapp/ChatHistory'
 
 export const whatsappPreProcessor: PreProcessor = ({
   fileContent,

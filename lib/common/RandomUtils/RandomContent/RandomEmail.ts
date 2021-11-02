@@ -1,6 +1,4 @@
 import { RandElem } from '../RandomArrayUtils'
-import { FirstNames, LastNames } from './RandomNames'
-import { RandBoolean } from '../RandomBooleanUtils'
 import { RandInt } from '../RandomNumberUtils'
 import { generateUsername } from './RandomUsername'
 

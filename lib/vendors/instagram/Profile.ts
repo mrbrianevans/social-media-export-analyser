@@ -1,5 +1,3 @@
-import { generateSentence } from '../../common/RandomUtils/RandomContent/RandomSentence'
-import { RandElem } from '../../common/RandomUtils/RandomArrayUtils'
 import { generateRandomBio } from '../../common/RandomUtils/RandomContent/RandomBios'
 import { RandBoolean } from '../../common/RandomUtils/RandomBooleanUtils'
 import { generateEmail } from '../../common/RandomUtils/RandomContent/RandomEmail'

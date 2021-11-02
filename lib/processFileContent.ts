@@ -1,7 +1,6 @@
 import { preProcessingCategoriser } from './preProcessing/preProcessingCategoriser'
 import { preProcessorMap } from './preProcessing/preProcessorMap'
 import { postProcessingCategoriser } from './postProcessing/postProcessingCategoriser'
-import { postProcessorMap } from './postProcessing/postProcessorMap'
 import { PostProcessedOutput } from './typedefs/PostProcess'
 
 export const processFileContent: (input: {
@@ -22,16 +21,15 @@ export const processFileContent: (input: {
     preProcessingCategory
   })
   //@ts-ignore
-  console.log('Using', postCategory, 'for postprocessing')
-  const postProcessor = postProcessorMap[postCategory]
+  console.log('Using', postCategory.code, 'for postprocessing')
+  const postProcessor =
+    postCategory.postProcessingFunction ??
+    ((i) => ({ ...i.preProcessedOutput }))
   const postProcessedOutput = postProcessor({
     filename,
     fileType,
     preProcessedOutput,
     preProcessingCategory
   })
-
-  //@ts-ignore
-  console.log('Finished postprocessing')
   return postProcessedOutput
 }

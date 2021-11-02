@@ -1,5 +1,4 @@
-import { RandHex, RandInt } from '../../common/RandomUtils/RandomNumberUtils'
-import { RandElem } from '../../common/RandomUtils/RandomArrayUtils'
+import { RandHex } from '../../common/RandomUtils/RandomNumberUtils'
 import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
 import { generateCaption } from '../../common/RandomUtils/RandomContent/RandomSentence'
 

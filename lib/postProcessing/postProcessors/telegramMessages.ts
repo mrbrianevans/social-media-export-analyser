@@ -1,4 +1,4 @@
-import { PostProcessor } from '../../typedefs/PostProcess'
+import { PostProcess, PostProcessor } from '../../typedefs/PostProcess'
 import {
   convertTelegramJsonChatHistoryToVaadinMessages,
   TelegramChatHistory
@@ -19,7 +19,22 @@ export const telegramMessagesPostProcessor: PostProcessor<
       chat_type: input.preProcessedOutput.data.type,
       ...input.preProcessedOutput.metadata
     },
-    title: 'Telegram messages with ' + input.preProcessedOutput.data.name,
-    componentName: 'MessageHistory'
+    title: 'Telegram messages with ' + input.preProcessedOutput.data.name
   }
+}
+
+export const TelegramPostProcess: PostProcess = {
+  classifier: {
+    filenameRegex: /^result\.json$/,
+    fileTypes: ['application/json'],
+    preProcessingCategory: 'json',
+    topLevelIsArray: false,
+    itemCriteria: { keys: ['name', 'type', 'id', 'messages'] }
+  },
+  component: 'MessageHistory',
+  name: 'Telegram Chat',
+  code: 'telegram-chat',
+  nameFormat: 'Telegram chat with {}',
+  postProcessingFunction: telegramMessagesPostProcessor,
+  vendor: 'Telegram'
 }
