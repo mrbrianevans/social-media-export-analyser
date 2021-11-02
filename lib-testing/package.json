@@ -6,6 +6,7 @@
     "generate": "ts-node generateDemoFiles.ts"
   },
   "dependencies": {
+    "assert-js": "^1.0.0",
     "better-assert": "^1.0.2",
     "mocha": "^9.1.3"
   },
