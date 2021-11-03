@@ -34,6 +34,7 @@
     "filepond-plugin-image-preview": "^4.6.10",
     "lumo-css-framework": "^4.0.10",
     "papaparse": "^5.3.1",
+    "sass": "^1.43.2",
     "svelte-filepond": "^0.2.0"
   }
 }
