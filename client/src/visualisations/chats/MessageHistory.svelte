@@ -1,5 +1,5 @@
 <script lang="ts">
-  import '@vaadin/message-list/theme/lumo/vaadin-message-list';
+  import '@vaadin/message-list/vaadin-message-list';
   import { onMount } from 'svelte';
   import type { VaadinMessageHistoryFormat } from '../../../../lib/typedefs/Components'
 

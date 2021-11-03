@@ -2,9 +2,9 @@
   import FileUploader from './components/FileUploader.svelte'
   import { ComponentForShape } from './components/ComponentMap'
   import { PostProcessedOutput } from '../../lib/typedefs/PostProcess'
-  import '@vaadin/vaadin-tabs/vaadin-tabs.js'
+  import '@vaadin/tabs'
   import '@vaadin/vaadin-app-layout/vaadin-app-layout.js';
-  import '@vaadin/vaadin-button/theme/material/vaadin-button';
+  import '@vaadin/button';
   import '@vaadin/horizontal-layout/theme/material/vaadin-horizontal-layout';
   import VaadinGrid from './visualisations/grids/VaadinGrid.svelte'
   import ThemeToggle from './components/ThemeToggle.svelte'
