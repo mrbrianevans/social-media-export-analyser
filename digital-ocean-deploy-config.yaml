@@ -1,0 +1,16 @@
+alerts:
+- rule: DEPLOYMENT_FAILED
+- rule: DOMAIN_FAILED
+name: social-media-export-analyser
+region: lon
+static_sites:
+- build_command: cd ../lib && npm i && cd ../client && npm run build
+  environment_slug: node-js
+  github:
+    branch: master
+    deploy_on_push: true
+    repo: mrbrianevans/social-media-export-analyser
+  name: social-media-export-analyser
+  routes:
+  - path: /
+  source_dir: /client
