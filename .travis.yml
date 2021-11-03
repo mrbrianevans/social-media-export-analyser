@@ -3,8 +3,10 @@ node_js:
   - 16
 install:
   - npm install
-  - cd lib && npm install && cd ..
-  - cd lib-testing && npm install && cd ..
+  - cd lib && npm ci && cd ..
+  - cd lib-testing && npm ci && cd ..
+  - cd client && npm ci && cd ..
 script:
-  - cd lib && npm run build && cd ..
+  - cd client && npm run build && cd ..
+  - cd lib && npm run build && npm run build -- --clean && cd ..
   - cd lib-testing && npm test && cd ..
