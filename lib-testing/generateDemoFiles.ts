@@ -4,10 +4,7 @@ import { generateSampleMediaData } from '../lib/vendors/instagram/Media'
 import { generateWhatsAppChatHistory } from '../lib/vendors/whatsapp/ChatHistory'
 import { generateTelegramChatHistory } from '../lib/vendors/telegram/JsonChatHistory'
 import { generateInstagramProfile } from '../lib/vendors/instagram/Profile'
-import {
-  generateTwitterTweetFile,
-  generateTwitterTweets
-} from '../lib/vendors/twitter/Tweets'
+import { generateTwitterTweetFile } from '../lib/vendors/twitter/Tweets'
 
 const demoFilePath = (filename) => path.resolve('..', 'demo-files', filename)
 export const generateDemoFiles = async () => {

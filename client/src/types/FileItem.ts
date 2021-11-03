@@ -1,6 +1,6 @@
 export type FileItem = {
   name: string
   category?: string
-  data?: Object[]
+  data?: Record<string, unknown>[]
   title?: string
 }

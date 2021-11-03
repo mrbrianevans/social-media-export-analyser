@@ -1,0 +1,20 @@
+{
+  "plugins": [
+    "@typescript-eslint/eslint-plugin",
+    "eslint-plugin-tsdoc"
+  ],
+  "extends":  [
+    "plugin:@typescript-eslint/recommended", "prettier"
+  ],
+  "parser":  "@typescript-eslint/parser",
+  "parserOptions": {
+    "tsconfigRootDir": ".",
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "rules": {
+    "tsdoc/syntax": "warn",
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-unused-vars": 0
+  }
+}

@@ -4,7 +4,11 @@
   "description": "Svelte website to view GDPR data portability exports",
   "scripts": {
     "start": "cd client && npm run build && npm run serve",
-    "test": "cd lib-testing && npm run test"
+    "test": "cd lib-testing && npm run test",
+    "lint:check": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format:check": "prettier --check **/*.ts --ignore-path .gitignore",
+    "format:write": "prettier --write **/*.ts --ignore-path .gitignore"
   },
   "keywords": [
     "gdpr",
@@ -13,6 +17,16 @@
   ],
   "author": "Brian Evans",
   "devDependencies": {
-    "prettier": "^2.4.1"
-  }
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
+    "prettier": "^2.4.1",
+    "typescript": "^4.4.4"
+  },
+  "eslintIgnore": [
+    "**/node_modules",
+    "**/*.d.ts"
+  ]
 }

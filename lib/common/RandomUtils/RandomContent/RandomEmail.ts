@@ -11,6 +11,6 @@ const EmailDomains = [
 
 export const generateEmail = (firstName?: string, lastName?: string) => {
   const domain = RandElem(EmailDomains)
-  let username = generateUsername(firstName, lastName)
+  const username = generateUsername(firstName, lastName)
   return `${username}${RandInt(1, 1000)}@${domain}`.toLowerCase()
 }

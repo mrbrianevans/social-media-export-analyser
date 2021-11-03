@@ -2,6 +2,5 @@
   "semi": false,
   "singleQuote": true,
   "trailingComma": "none",
-  "jsxBracketSameLine": true,
   "tabWidth": 2
 }

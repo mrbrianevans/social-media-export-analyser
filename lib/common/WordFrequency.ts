@@ -1,5 +1,4 @@
 export const calculateWordFrequency = (content: string[]) => {
-  // @ts-ignore
   console.time('Calculate word frequency')
   const words = content
     .flatMap((m) => m.split(' '))
@@ -11,8 +10,6 @@ export const calculateWordFrequency = (content: string[]) => {
     frequency
   }))
   result.sort((a, b) => b.frequency - a.frequency)
-  // @ts-ignore
   console.timeEnd('Calculate word frequency')
-  // @ts-ignore
   console.log(result.slice(0, 120).map((w) => w.word))
 }

@@ -56,8 +56,8 @@ const genericPostProcessors = {
 /**
  * Pick the best fitting post processing category based on characteristics of
  * a file and its data.
- * @param file the file after preprocessing.
- * @return category as a string. Get the processor with `getPostProcessByCode()`
+ * @param file - the file after preprocessing.
+ * @returns category - as a string. Get the processor with `getPostProcessByCode()`
  */
 export const postProcessingCategoriser = (
   file: PostProcessedFileInput

@@ -4,9 +4,6 @@
   "scripts": {
     "build": "tsc --build"
   },
-  "devDependencies": {
-    "typescript": "^4.4.4"
-  },
   "dependencies": {
     "camelcase": "^6.2.0",
     "snake-case": "^3.0.4"

@@ -5,17 +5,17 @@ export const arrayEqualsPreserveOrder = (a: any[], b: any[]) =>
 export const arrayEquals = (a: any[], b: any[]) =>
   arrayEqualsPreserveOrder(a.sort(), b.sort())
 
-export const objectKeysEqual = (a: {}, b: string[]) => {
+export const objectKeysEqual = (a: Record<string, unknown>, b: string[]) => {
   return arrayEquals(Object.keys(a), b)
 }
 
 /**
  * Checks if an object has at least all the specific keys. Could have more.
- * @param a the object to check the keys of.
- * @param b the list of keys the object must include. string array.
- * @returns {boolean} if the object has all the keys in the array.
+ * @param a - the object to check the keys of.
+ * @param b - the list of keys the object must include. string array.
+ * @returns if the object has all the keys in the array.
  */
-export const objectKeysInclude = (a: {}, b?: string[]) => {
+export const objectKeysInclude = (a: Record<string, unknown>, b?: string[]) => {
   return b?.every((k) => Object.keys(a).includes(k)) ?? false
 }
 
@@ -44,10 +44,10 @@ export const keysInclude = (obj, keys) => {
 /**
  * Calculates the maximum depth of an object by traversing every path.
  * Can be expensive on large objects, so use sparingly.
- * @param obj
- * @param maxDepthReached
+ * @param obj - the object to calculate depth of
+ * @param maxDepthReached - a starting value, used for recursion. not recommended
  */
-export const objectDepth = (obj: {}, maxDepthReached = 0) => {
+export const objectDepth = (obj: any, maxDepthReached = 0) => {
   if (typeof obj === 'object') {
     let highest = maxDepthReached++
     if (obj instanceof Array) obj = obj.slice(0, 5)
@@ -62,7 +62,7 @@ export const objectDepth = (obj: {}, maxDepthReached = 0) => {
 
 /**
  * Get the depth of an object, or if its an array then the depth of the items.
- * @param obj the object or array to get depth of.
+ * @param obj - the object or array to get depth of.
  */
 export const objectOrArrayDepth = (obj) => {
   return objectDepth(obj) - (obj instanceof Array ? 1 : 0)
