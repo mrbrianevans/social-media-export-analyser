@@ -1,5 +1,12 @@
 import { PostProcess, PostProcessedFileInput } from '../typedefs/PostProcess'
-import { arrayEquals } from '../common/ArrayUtils'
+import {
+  arrayEquals,
+  keysInclude,
+  objectDepth,
+  objectKeysEqual,
+  objectKeysInclude,
+  objectOrArrayDepth
+} from '../common/ArrayUtils'
 import { WhatsAppPostProcess } from './postProcessors/whatsappMessages'
 import { TelegramPostProcess } from './postProcessors/telegramMessages'
 import {
@@ -21,8 +28,11 @@ import {
 } from './postProcessors/genericFallbacks/keyValue'
 import { FileType } from '../typedefs/FileTypes'
 import { DefaultPostProcess } from './postProcessors/genericFallbacks/default'
+import { TabularDataPostProcess } from './postProcessors/genericFallbacks/tabularData'
 
-type PostProcessorCategory = keyof typeof postProcessors | 'DefaultPostProcess'
+type PostProcessorCategory =
+  | keyof typeof postProcessors
+  | keyof typeof genericPostProcessors
 // order is important. the first one in this array that matches is used
 const postProcessors = {
   WhatsAppPostProcess,
@@ -34,17 +44,26 @@ const postProcessors = {
   TwitterTweetsPostProcess,
   TwitterFallbackPostProcess,
   TwitterManifestPostProcess,
-  TextPostProcess,
   ContactsCsvPostProcess,
+  TextPostProcess
+}
+const genericPostProcessors = {
+  TabularDataPostProcess,
   KeyValuePostProcess,
   NestedKeyValuePostProcess,
   DefaultPostProcess
 }
-
+/**
+ * Pick the best fitting post processing category based on characteristics of
+ * a file and its data.
+ * @param file the file after preprocessing.
+ * @return category as a string. Get the processor with `getPostProcessByCode()`
+ */
 export const postProcessingCategoriser = (
   file: PostProcessedFileInput
 ): PostProcessorCategory => {
-  const matchingCategory = (<[PostProcessorCategory, PostProcess][]>(
+  const depth = objectOrArrayDepth(file.preProcessedOutput.data)
+  let matchingCategory = (<[PostProcessorCategory, PostProcess][]>(
     Object.entries(postProcessors)
   )).find(([, processor]) => {
     const tester = processor.classifier
@@ -53,20 +72,53 @@ export const postProcessingCategoriser = (
       (tester.fileTypes === undefined ||
         tester.fileTypes.includes(<FileType>file.fileType)) &&
       (tester.itemCriteria?.keys === undefined ||
-        arrayEquals(
-          tester.itemCriteria?.keys,
-          Object.keys(file.preProcessedOutput.data)
+        objectKeysEqual(
+          file.preProcessedOutput.data,
+          tester.itemCriteria.keys
         )) &&
       tester.topLevelIsArray ===
         file.preProcessedOutput.data instanceof Array &&
-      tester.preProcessingCategory === file.preProcessingCategory
+      (tester.preProcessingCategory === undefined ||
+        tester.preProcessingCategory === file.preProcessingCategory) &&
+      (tester.itemCriteria?.maxDepth === undefined ||
+        depth <= tester.itemCriteria.maxDepth) &&
+      (tester.itemCriteria?.minDepth === undefined ||
+        depth >= tester.itemCriteria.minDepth)
     )
   })?.[0]
-  return matchingCategory ?? 'DefaultPostProcess'
+  // if can't find a perfectly matching one, try again but ignore filename/filetype
+  matchingCategory ??= (<[PostProcessorCategory, PostProcess][]>(
+    Object.entries(postProcessors)
+  )).find(([, processor]) => {
+    const tester = processor.classifier
+    return (
+      keysInclude(file.preProcessedOutput.data, tester.itemCriteria?.keys) &&
+      tester.topLevelIsArray ===
+        file.preProcessedOutput.data instanceof Array &&
+      (tester.itemCriteria?.maxDepth === undefined ||
+        depth <= tester.itemCriteria.maxDepth) &&
+      (tester.itemCriteria?.minDepth === undefined ||
+        depth >= tester.itemCriteria.minDepth)
+    )
+  })?.[0]
+  // check the generics for object depth and array status
+  matchingCategory ??= (<[PostProcessorCategory, PostProcess][]>(
+    Object.entries(genericPostProcessors)
+  )).find(([, processor]) => {
+    const tester = processor.classifier
+    return (
+      tester.topLevelIsArray ===
+        file.preProcessedOutput.data instanceof Array &&
+      ((tester.itemCriteria?.maxDepth !== undefined &&
+        depth <= tester.itemCriteria.maxDepth) ||
+        (tester.itemCriteria?.minDepth !== undefined &&
+          depth >= tester.itemCriteria.minDepth))
+    )
+  })?.[0]
+  matchingCategory ??= 'DefaultPostProcess'
+  return matchingCategory
 }
 
-export const getPostProcessByCode = (
-  code: PostProcessorCategory
-): PostProcess => {
-  return postProcessors[code]
+export function getPostProcessByCode(code: PostProcessorCategory): PostProcess {
+  return postProcessors[code] ?? genericPostProcessors[code]
 }

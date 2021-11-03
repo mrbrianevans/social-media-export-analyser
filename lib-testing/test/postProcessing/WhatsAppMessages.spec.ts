@@ -4,6 +4,7 @@ import {
 } from '../../../lib/postProcessing/postProcessingCategoriser'
 import * as assert from 'better-assert'
 import { arrayEquals } from '../../../lib/common/ArrayUtils'
+import * as Assert from 'assert'
 
 describe('post process whatsapp json object to vaadin messages format', function () {
   it('should categorise data as whatsapp based on filename', function () {
@@ -23,6 +24,25 @@ describe('post process whatsapp json object to vaadin messages format', function
     const postProcess = getPostProcessByCode(category)
 
     assert(postProcess.code === 'whatsapp-chat')
+  })
+
+  it('should categorise data as whatsapp json based on object keys without original filename', function () {
+    const category = postProcessingCategoriser({
+      fileType: 'text/plain',
+      filename: 'renamedFile',
+      preProcessedOutput: {
+        data: [],
+        title: 'WhatsApp messages with Joe Blogs',
+        metadata: {}
+      },
+      preProcessingCategory: 'text'
+    })
+
+    Assert.equal(category, 'WhatsAppPostProcess')
+
+    const postProcess = getPostProcessByCode(category)
+
+    Assert.equal(postProcess.code, 'whatsapp-chat')
   })
 
   it('should process known valid messages', function () {

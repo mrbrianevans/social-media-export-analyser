@@ -6,6 +6,7 @@ import { TelegramChatHistory } from '../../../lib/vendors/telegram/JsonChatHisto
 import { PostProcessedFileInput } from '../../../lib/typedefs/PostProcess'
 import { arrayEquals } from '../../../lib/common/ArrayUtils'
 import assert = require('better-assert')
+import * as Assert from 'assert-js'
 
 const fileData: TelegramChatHistory = {
   name: 'My Group',
@@ -33,11 +34,20 @@ const testData: PostProcessedFileInput<TelegramChatHistory> = {
   preProcessingCategory: 'json'
 }
 describe('post process telegram messages', function () {
-  it('should categorise telegram messages based on object keys', function () {
+  it('should categorise telegram messages with original filename', function () {
+    testData.filename = 'result.json'
     const category = postProcessingCategoriser(testData)
     assert(category === 'TelegramPostProcess')
     const postProcess = getPostProcessByCode(category)
     assert(postProcess.code === 'telegram-chat')
+  })
+
+  it('should categorise telegram messages based on object keys if filename not recognised', function () {
+    testData.filename = 'renamed'
+    const category = postProcessingCategoriser(testData)
+    assert(category === 'TelegramPostProcess')
+    const postProcess = getPostProcessByCode(category)
+    Assert.equal(postProcess.code, 'telegram-chat')
   })
 
   it('should output the correctly formatted message objects for vaadin message history to display', function () {
