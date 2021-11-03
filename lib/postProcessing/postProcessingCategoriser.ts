@@ -24,6 +24,7 @@ import { TextPostProcess } from './postProcessors/genericFallbacks/text'
 import { ContactsCsvPostProcess } from './postProcessors/contacts'
 import {
   KeyValuePostProcess,
+  NestedArrayPostProcess,
   NestedKeyValuePostProcess
 } from './postProcessors/genericFallbacks/keyValue'
 import { FileType } from '../typedefs/FileTypes'
@@ -51,6 +52,7 @@ const genericPostProcessors = {
   TabularDataPostProcess,
   KeyValuePostProcess,
   NestedKeyValuePostProcess,
+  NestedArrayPostProcess,
   DefaultPostProcess
 }
 /**
@@ -70,6 +72,7 @@ export const postProcessingCategoriser = (
     return (
       tester.filenameRegex.test(file.filename) &&
       (tester.fileTypes === undefined ||
+        file.fileType === '' ||
         tester.fileTypes.includes(<FileType>file.fileType)) &&
       (tester.preProcessingCategory === undefined ||
         tester.preProcessingCategory === file.preProcessingCategory)

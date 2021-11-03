@@ -4,7 +4,6 @@ export const KeyValuePostProcess: PostProcess = {
   code: 'simple-key-value',
   classifier: {
     filenameRegex: /.*/,
-    preProcessingCategory: 'json',
     topLevelIsArray: false,
     itemCriteria: {
       maxDepth: 1
@@ -17,8 +16,19 @@ export const NestedKeyValuePostProcess: PostProcess = {
   code: 'nested-key-value',
   classifier: {
     filenameRegex: /.*/,
-    preProcessingCategory: 'json',
     topLevelIsArray: false,
+    itemCriteria: {
+      minDepth: 2
+    }
+  },
+  component: 'JsonEditor'
+}
+
+export const NestedArrayPostProcess: PostProcess = {
+  code: 'nested-key-value',
+  classifier: {
+    filenameRegex: /.*/,
+    topLevelIsArray: true,
     itemCriteria: {
       minDepth: 2
     }

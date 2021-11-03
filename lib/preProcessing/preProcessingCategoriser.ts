@@ -28,7 +28,7 @@ const preProcessingTesters: PreProcessingTester[] = [
   },
   {
     filenameRegex: /\.js$/,
-    fileTypes: ['text/javascript'],
+    fileTypes: ['text/javascript', 'application/x-javascript'],
     preProcessingCategory: 'twitterJs'
   }
 ]
@@ -40,7 +40,7 @@ export const preProcessingCategoriser = (
     preProcessingTesters.find(
       (tester) =>
         tester.filenameRegex.test(file.filename) &&
-        tester.fileTypes.includes(file.fileType)
+        (file.fileType === '' || tester.fileTypes.includes(file.fileType))
     )?.preProcessingCategory ?? 'text'
   )
 }
