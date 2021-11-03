@@ -71,19 +71,8 @@ export const postProcessingCategoriser = (
       tester.filenameRegex.test(file.filename) &&
       (tester.fileTypes === undefined ||
         tester.fileTypes.includes(<FileType>file.fileType)) &&
-      (tester.itemCriteria?.keys === undefined ||
-        objectKeysEqual(
-          file.preProcessedOutput.data,
-          tester.itemCriteria.keys
-        )) &&
-      tester.topLevelIsArray ===
-        file.preProcessedOutput.data instanceof Array &&
       (tester.preProcessingCategory === undefined ||
-        tester.preProcessingCategory === file.preProcessingCategory) &&
-      (tester.itemCriteria?.maxDepth === undefined ||
-        depth <= tester.itemCriteria.maxDepth) &&
-      (tester.itemCriteria?.minDepth === undefined ||
-        depth >= tester.itemCriteria.minDepth)
+        tester.preProcessingCategory === file.preProcessingCategory)
     )
   })?.[0]
   // if can't find a perfectly matching one, try again but ignore filename/filetype

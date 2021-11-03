@@ -30,7 +30,8 @@ export const WhatsAppPostProcess: PostProcess = {
     filenameRegex: /WhatsApp Chat with .*/,
     fileTypes: ['text/plain'],
     preProcessingCategory: 'whatsapp',
-    topLevelIsArray: true
+    topLevelIsArray: true,
+    itemCriteria: { keys: ['content', 'timestamp', 'from'] }
   },
   vendor: 'WhatsApp',
   postProcessingFunction: whatsappMessagesPostProcessor,

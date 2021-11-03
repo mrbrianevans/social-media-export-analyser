@@ -48,7 +48,7 @@ describe('post processing of an unrecognised json file with multiple layers of n
       preProcessedOutput,
       filename: 'renamedfile',
       fileType: 'unknown',
-      preProcessingCategory: 'text'
+      preProcessingCategory: 'json'
     })
     Assert.equal(postProcessCategory, 'NestedKeyValuePostProcess')
   })

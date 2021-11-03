@@ -25,7 +25,20 @@ export const TwitterTweetsPostProcess: PostProcess = {
     fileTypes: ['application/javascript'],
     preProcessingCategory: 'twitterJs',
     filenameRegex: /^tweet\.js$/,
-    topLevelIsArray: true
+    topLevelIsArray: true,
+    itemCriteria: {
+      keys: [
+        'source',
+        'retweeted',
+        'entities',
+        'display_text_range',
+        'favorite_count',
+        'id_str',
+        'truncated',
+        'retweet_count',
+        'id'
+      ]
+    }
   },
   component: 'VaadinGrid'
 }

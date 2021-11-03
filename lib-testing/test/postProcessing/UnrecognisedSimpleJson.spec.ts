@@ -42,7 +42,7 @@ describe('post processing of an unrecognised json file', function () {
       preProcessedOutput,
       filename: 'renamed',
       fileType: 'unknown',
-      preProcessingCategory: 'text'
+      preProcessingCategory: 'json'
     })
     Assert.equal(postProcessCategory, 'KeyValuePostProcess')
   })

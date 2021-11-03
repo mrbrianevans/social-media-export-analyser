@@ -5,7 +5,24 @@ import {
 import * as assert from 'better-assert'
 import { arrayEquals } from '../../../lib/common/ArrayUtils'
 import * as Assert from 'assert'
-
+const messages = [
+  {
+    content: 'hello this is message',
+    timestamp: 1348090200000,
+    from: 'Jane Blogs'
+  },
+  {
+    content: 'hi I am a message',
+    timestamp: 1348089900000,
+    from: 'Joe Blogs'
+  },
+  {
+    content:
+      'Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them. Tap to learn more.',
+    timestamp: 1348089720000,
+    from: 'system'
+  }
+]
 describe('post process whatsapp json object to vaadin messages format', function () {
   it('should categorise data as whatsapp based on filename', function () {
     const category = postProcessingCategoriser({
@@ -31,11 +48,11 @@ describe('post process whatsapp json object to vaadin messages format', function
       fileType: 'text/plain',
       filename: 'renamedFile',
       preProcessedOutput: {
-        data: [],
+        data: messages,
         title: 'WhatsApp messages with Joe Blogs',
         metadata: {}
       },
-      preProcessingCategory: 'text'
+      preProcessingCategory: 'whatsapp'
     })
 
     Assert.equal(category, 'WhatsAppPostProcess')
@@ -46,24 +63,6 @@ describe('post process whatsapp json object to vaadin messages format', function
   })
 
   it('should process known valid messages', function () {
-    const messages = [
-      {
-        content: 'hello this is message',
-        timestamp: 1348090200000,
-        from: 'Jane Blogs'
-      },
-      {
-        content: 'hi I am a message',
-        timestamp: 1348089900000,
-        from: 'Joe Blogs'
-      },
-      {
-        content:
-          'Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them. Tap to learn more.',
-        timestamp: 1348089720000,
-        from: 'system'
-      }
-    ]
     const output = getPostProcessByCode(
       'WhatsAppPostProcess'
     ).postProcessingFunction({
