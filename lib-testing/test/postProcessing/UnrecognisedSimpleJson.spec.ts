@@ -37,4 +37,13 @@ describe('post processing of an unrecognised json file', function () {
     })
     Assert.equal(postProcessCategory, 'KeyValuePostProcess')
   })
+  it('should correctly categorise unrecognised json without filename or filetype', function () {
+    const postProcessCategory = postProcessingCategoriser({
+      preProcessedOutput,
+      filename: 'renamed',
+      fileType: 'unknown',
+      preProcessingCategory: 'text'
+    })
+    Assert.equal(postProcessCategory, 'KeyValuePostProcess')
+  })
 })

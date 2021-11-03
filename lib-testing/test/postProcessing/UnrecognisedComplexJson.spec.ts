@@ -42,4 +42,14 @@ describe('post processing of an unrecognised json file with multiple layers of n
     })
     Assert.equal(postProcessCategory, 'NestedKeyValuePostProcess')
   })
+
+  it('should correctly categorise nested object without filename or filetype', function () {
+    const postProcessCategory = postProcessingCategoriser({
+      preProcessedOutput,
+      filename: 'renamedfile',
+      fileType: 'unknown',
+      preProcessingCategory: 'text'
+    })
+    Assert.equal(postProcessCategory, 'NestedKeyValuePostProcess')
+  })
 })

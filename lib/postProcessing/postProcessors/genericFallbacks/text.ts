@@ -4,7 +4,7 @@ export const TextPostProcess: PostProcess = {
   code: 'text',
   component: 'StringBox',
   classifier: {
-    itemCriteria: { keys: ['text'] },
+    itemCriteria: { keys: ['text'], maxDepth: 1 },
     topLevelIsArray: false,
     filenameRegex: /.*/,
     preProcessingCategory: 'text'

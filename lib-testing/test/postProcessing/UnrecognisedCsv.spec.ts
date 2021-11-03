@@ -36,4 +36,14 @@ describe('post process an unrecognised csv file', function () {
     const postProcess = getPostProcessByCode('TabularDataPostProcess')
     Assert.equal(postProcess.component, 'VaadinGrid')
   })
+
+  it('should correctly categorise data as tabular even without csv filename', function () {
+    const postProcessingCategory = postProcessingCategoriser({
+      filename: 'renamed.extension',
+      preProcessingCategory: 'json',
+      fileType: 'weird/excel/format',
+      preProcessedOutput
+    })
+    Assert.equal(postProcessingCategory, 'TabularDataPostProcess')
+  })
 })

@@ -1,4 +1,7 @@
-import { objectDepth } from '../../../lib/common/ArrayUtils'
+import {
+  objectDepth,
+  objectOrArrayDepth
+} from '../../../../lib/common/ArrayUtils'
 import * as Assert from 'assert-js'
 
 describe('Calculate the depth of an object', function () {
@@ -139,5 +142,43 @@ describe('Calculate the depth of an object', function () {
     const depth = objectDepth(obj)
 
     Assert.equal(depth, 5)
+  })
+})
+
+describe('object or array depth', function () {
+  it('should get the right depth for the items of an array', function () {
+    const obj = [
+      {
+        set4: {
+          key1: 'value1',
+          key2: 'value2'
+        }
+      },
+      {
+        set3: {
+          key1: 'value1',
+          key2: 'value2'
+        }
+      },
+      {
+        set2: {
+          key1: 'value1',
+          key2: 'value2'
+        }
+      }
+    ]
+    const depth = objectOrArrayDepth(obj)
+    Assert.equal(depth, 2)
+  })
+
+  it('should get the correct depth for an object', function () {
+    const obj = {
+      set4: {
+        key1: 'value1',
+        key2: 'value2'
+      }
+    }
+    const depth = objectOrArrayDepth(obj)
+    Assert.equal(depth, 2)
   })
 })

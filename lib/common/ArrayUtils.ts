@@ -9,8 +9,36 @@ export const objectKeysEqual = (a: {}, b: string[]) => {
   return arrayEquals(Object.keys(a), b)
 }
 
-export const objectKeysInclude = (a: {}, b: string[]) => {
-  return b.every((k) => Object.keys(a).includes(k))
+/**
+ * Checks if an object has at least all the specific keys. Could have more.
+ * @param a the object to check the keys of.
+ * @param b the list of keys the object must include. string array.
+ * @returns {boolean} if the object has all the keys in the array.
+ */
+export const objectKeysInclude = (a: {}, b?: string[]) => {
+  return b?.every((k) => Object.keys(a).includes(k)) ?? false
+}
+
+/**
+ * Array agnostic version of `objectKeysInclude`.
+ *
+ * Checks if the keys of an object are a superset of a list, or if the object is an
+ * array, it checks the first 5 items.
+ *
+ * @example
+ * ```ts
+ * keysInclude({name:'Sam'}, ['name']) // true
+ * keysInclude([{age:30}, {age:31, name: 'Sam'}], ['age']) // true
+ * ```
+ * @param obj - the object/array to check.
+ * @param keys - the list of keys each object must include. string array.
+ */
+export const keysInclude = (obj, keys) => {
+  let items = [obj]
+  if (obj instanceof Array) {
+    items = obj.slice(0, 5)
+  }
+  return items.every((i) => objectKeysInclude(i, keys))
 }
 
 /**
@@ -30,4 +58,12 @@ export const objectDepth = (obj: {}, maxDepthReached = 0) => {
   } else {
     return maxDepthReached
   }
+}
+
+/**
+ * Get the depth of an object, or if its an array then the depth of the items.
+ * @param obj the object or array to get depth of.
+ */
+export const objectOrArrayDepth = (obj) => {
+  return objectDepth(obj) - (obj instanceof Array ? 1 : 0)
 }
