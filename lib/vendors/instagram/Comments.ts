@@ -1,5 +1,5 @@
 import { PostProcessor } from '../../typedefs/PostProcess'
-import { formatDateEurTimeWithTz } from '../../common/DateUtils'
+import { formatDateEurTimeWithTz, longDateTime } from '../../common/DateUtils'
 import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
 import { generateSentence } from '../../common/RandomUtils/RandomContent/RandomSentence'
 import { generateUsername } from '../../common/RandomUtils/RandomContent/RandomUsername'
@@ -17,7 +17,7 @@ export const instagramCommentsPostProcessingFunction: PostProcessor<
   InstagramCommentsProcessed
 > = (input) => {
   const comments = input.preProcessedOutput.data.media_comments.map((c) => ({
-    date: c[0],
+    date: longDateTime(new Date(c[0])),
     content: c[1],
     username: c[2]
   }))

@@ -1,6 +1,7 @@
 import { PostProcess } from '../../typedefs/PostProcess'
 import { instagramConnectionsPostProcessingFunction } from '../../vendors/instagram/Connections'
 import { instagramCommentsPostProcessingFunction } from '../../vendors/instagram/Comments'
+import { instagramLikesPostProcessFunction } from '../../vendors/instagram/Likes'
 
 export const InstagramPostsPostProcess: PostProcess = {
   classifier: {
@@ -40,7 +41,8 @@ export const InstagramLikesPostProcess: PostProcess = {
   component: 'JsonEditor',
   name: 'Instagram Likes',
   code: 'instagram-likes',
-  vendor: 'Instagram'
+  vendor: 'Instagram',
+  postProcessingFunction: instagramLikesPostProcessFunction
 }
 
 export const InstagramConnectionsPostProcess: PostProcess = {

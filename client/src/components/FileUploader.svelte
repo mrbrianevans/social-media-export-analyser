@@ -14,8 +14,8 @@
   let name = 'filepond';
   export let files: PostProcessedOutput[] = []
   async function handleAddFile(err, fileItem) {
-    console.log('Relative path', fileItem.relativePath)
-    console.log('fileItem', fileItem)
+    // console.log('Relative path', fileItem.relativePath)
+    // console.log('fileItem', fileItem)
     const worker = new ProcessingWorker()
 
     worker.postMessage(fileItem.file)
@@ -24,7 +24,7 @@
         resolve(message.data)
       }
     })
-    console.log('metadata:', workerOutput.metadata)
+    // console.log('metadata:', workerOutput.metadata)
     files = [...files, workerOutput]
   }
   function handleRemoveFile(err, fileItem){
@@ -39,7 +39,7 @@
             onaddfile={handleAddFile}
             onremovefile={handleRemoveFile}
             credits={false}
-            labelIdle='Drag & Drop your CSV files or <span class="filepond--label-action"> Browse </span>'
+            labelIdle='Drag & Drop your files or <span class="filepond--label-action"> Browse </span>'
   />
 
 </div>
