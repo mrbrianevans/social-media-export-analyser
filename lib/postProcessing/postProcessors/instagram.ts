@@ -68,3 +68,26 @@ export const InstagramConnectionsPostProcess: PostProcess = {
   vendor: 'Instagram',
   postProcessingFunction: instagramConnectionsPostProcessingFunction
 }
+
+export const InstagramCommentsPostProcess: PostProcess = {
+  classifier: {
+    filenameRegex: /^comments\.json$/,
+    topLevelIsArray: false,
+    itemCriteria: {
+      keys: ['media_comments'],
+      minDepth: 3,
+      maxDepth: 3
+    }
+  },
+  code: 'instagram-comments',
+  name: 'Instagram Comments',
+  vendor: 'Instagram',
+  component: 'JsonEditor'
+}
+/*TODO:
+    comments
+    account_history
+    likes
+    devices
+    information about you
+ */
