@@ -6,6 +6,10 @@
   },
   "dependencies": {
     "camelcase": "^6.2.0",
-    "snake-case": "^3.0.4"
+    "snake-case": "^3.0.4",
+    "ua-parser-js": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/ua-parser-js": "^0.7.36"
   }
 }

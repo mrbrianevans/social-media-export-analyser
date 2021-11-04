@@ -2,6 +2,7 @@ import { PostProcess } from '../../typedefs/PostProcess'
 import { instagramConnectionsPostProcessingFunction } from '../../vendors/instagram/Connections'
 import { instagramCommentsPostProcessingFunction } from '../../vendors/instagram/Comments'
 import { instagramLikesPostProcessFunction } from '../../vendors/instagram/Likes'
+import { instagramAccountHistoryPostProcessor } from '../../vendors/instagram/AccountHistory'
 
 export const InstagramPostsPostProcess: PostProcess = {
   classifier: {
@@ -92,8 +93,19 @@ export const InstagramCommentsPostProcess: PostProcess = {
   component: 'JsonEditor',
   postProcessingFunction: instagramCommentsPostProcessingFunction
 }
+
+export const InstagramAccountHistoryPostProcess: PostProcess = {
+  classifier: {
+    filenameRegex: /account_history\.json/,
+    topLevelIsArray: false,
+    itemCriteria: { keys: ['login_history'] }
+  },
+  name: 'Instagram Account History',
+  code: 'instagram-account-history',
+  component: 'JsonEditor',
+  postProcessingFunction: instagramAccountHistoryPostProcessor
+}
 /*TODO:
-    account_history
     devices
     information about you
  */

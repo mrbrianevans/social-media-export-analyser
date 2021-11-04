@@ -48,7 +48,7 @@ export const keysInclude = (obj, keys) => {
  * @param maxDepthReached - a starting value, used for recursion. not recommended
  */
 export const objectDepth = (obj: any, maxDepthReached = 0) => {
-  if (typeof obj === 'object') {
+  if (typeof obj === 'object' && obj !== null) {
     let highest = maxDepthReached++
     if (obj instanceof Array) obj = obj.slice(0, 5)
     for (const [key, value] of Object.entries(obj)) {

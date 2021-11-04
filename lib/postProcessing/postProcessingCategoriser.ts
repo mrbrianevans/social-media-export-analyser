@@ -3,6 +3,7 @@ import { keysInclude, objectOrArrayDepth } from '../common/ArrayUtils'
 import { WhatsAppPostProcess } from './postProcessors/whatsappMessages'
 import { TelegramPostProcess } from './postProcessors/telegramMessages'
 import {
+  InstagramAccountHistoryPostProcess,
   InstagramCommentsPostProcess,
   InstagramConnectionsPostProcess,
   InstagramLikesPostProcess,
@@ -37,6 +38,7 @@ const postProcessors = {
   InstagramProfilePostProcess,
   InstagramCommentsPostProcess,
   InstagramConnectionsPostProcess,
+  InstagramAccountHistoryPostProcess,
   InstagramLikesPostProcess,
   TwitterProfilePostProcess,
   TwitterTweetsPostProcess,
