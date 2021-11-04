@@ -9,6 +9,6 @@ export const generateRandomIpAddress = (ipv6 = false): string => {
       repeat(4, () => RandElem(HexCharacters)).join('')
     ).join('.')
   } else {
-    return repeat(4, () => RandInt(0, 999)).join('.')
+    return repeat(4, () => RandInt(0, 300)).join('.')
   }
 }
