@@ -7,6 +7,7 @@ import { generateInstagramProfile } from '../lib/vendors/instagram/Profile'
 import { generateTwitterTweetFile } from '../lib/vendors/twitter/Tweets'
 import { generateInstagramConnections } from '../lib/vendors/instagram/Connections'
 import { generateInstagramComments } from '../lib/vendors/instagram/Comments'
+import { generateInstagramLikes } from '../lib/vendors/instagram/Likes'
 
 const demoFilePath = (filename) => path.resolve('..', 'demo-files', filename)
 export const generateDemoFiles = async () => {
@@ -35,6 +36,12 @@ export const generateDemoFiles = async () => {
   fs.writeFileSync(
     demoFilePath('instagram/comments.json'),
     JSON.stringify(instagramComments, null, 2)
+  )
+  //instagram likes.json
+  const instagramLikes = generateInstagramLikes({})
+  fs.writeFileSync(
+    demoFilePath('instagram/likes.json'),
+    JSON.stringify(instagramLikes, null, 2)
   )
 
   //whatsapp WhatsApp Chat with Demo.txt

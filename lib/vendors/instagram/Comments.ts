@@ -3,7 +3,6 @@ import { formatDateEurTimeWithTz, longDateTime } from '../../common/DateUtils'
 import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
 import { generateSentence } from '../../common/RandomUtils/RandomContent/RandomSentence'
 import { generateUsername } from '../../common/RandomUtils/RandomContent/RandomUsername'
-import { calculateWordFrequency } from '../../common/WordFrequency'
 import { commentWords } from '../../common/RandomUtils/RandomContent/RandomWords'
 
 export interface InstagramComments {
@@ -30,7 +29,7 @@ export const instagramCommentsPostProcessingFunction: PostProcessor<
 
 export const generateInstagramComments = ({ qty = 10 }): InstagramComments => {
   const media_comments: [string, string, string][] = Array.from(
-    { length: 10 },
+    { length: qty },
     () => ({
       date: formatDateEurTimeWithTz(RandDate()),
       content: generateSentence(1, 5, commentWords),
