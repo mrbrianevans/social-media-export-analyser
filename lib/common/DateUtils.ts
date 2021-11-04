@@ -6,7 +6,16 @@ export const formatDateEurTime: DateFormatter = (date) => {
   ) // 20:39:22
   return `${formatDateEur(date)}T${time}`
 }
-
+// eg 2020-10-29T23:54:59+00:00
+export const formatDateEurTimeWithTz: DateFormatter = (date) => {
+  const hoursOffset = Math.floor(date.getTimezoneOffset() / 60)
+  const minutesOffset = Math.abs(date.getTimezoneOffset() - hoursOffset * 60)
+  const offsetDirection = hoursOffset < 0 ? '-' : '+'
+  // return `${2020}-${11}-${4}T${19}:${55}:${55}+${00}:${00}`
+  return `${formatDateEurTime(date)}${offsetDirection}${Math.abs(hoursOffset)
+    .toString()
+    .padStart(2, '0')}:${minutesOffset.toString().padStart(2, '0')}`
+}
 // returns yyyy-mm-dd date format european style
 export const formatDateEur: DateFormatter = (
   date

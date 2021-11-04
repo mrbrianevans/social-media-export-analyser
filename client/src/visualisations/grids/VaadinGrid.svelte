@@ -1,8 +1,9 @@
 <script lang="ts">
-  import '@vaadin/grid/vaadin-grid.js';
-  import '@vaadin/grid/vaadin-grid-column';
-  import '@vaadin/grid/vaadin-grid-sort-column';
+  import '@vaadin/grid/vaadin-grid.js'
+  import '@vaadin/grid/vaadin-grid-column'
+  import '@vaadin/grid/vaadin-grid-sort-column'
   import { onMount } from 'svelte'
+
   export let data
 
   let items: any[] = []

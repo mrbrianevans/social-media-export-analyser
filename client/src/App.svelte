@@ -3,11 +3,13 @@
   import { ComponentForShape } from './components/ComponentMap'
   import { PostProcessedOutput } from '../../lib/typedefs/PostProcess'
   import '@vaadin/tabs'
-  import '@vaadin/vaadin-app-layout/vaadin-app-layout.js';
-  import '@vaadin/button';
-  import '@vaadin/horizontal-layout/theme/material/vaadin-horizontal-layout';
+  import '@vaadin/vaadin-app-layout/vaadin-app-layout.js'
+  import '@vaadin/button'
+  import '@vaadin/horizontal-layout/theme/material/vaadin-horizontal-layout'
   import VaadinGrid from './visualisations/grids/VaadinGrid.svelte'
   import ThemeToggle from './components/ThemeToggle.svelte'
+  import InstagramConnections from './visualisations/specific/InstagramConnections.svelte'
+
   let files: PostProcessedOutput[] = []
   let activeIndex = 0
   let theme
@@ -25,7 +27,7 @@
     <vaadin-tabs slot="drawer" orientation="vertical">
       {#each files as file, index}
         <vaadin-tab>
-          <a tabindex="-1" on:click={()=>activeIndex=index}>{file.title}</a>
+          <span tabindex="-1" on:click={()=>activeIndex=index}>{file.title}</span>
         </vaadin-tab>
       {/each}
     </vaadin-tabs>
@@ -34,6 +36,9 @@
       {#if index === activeIndex}
         {#if file.component === 'VaadinGrid'}
           <VaadinGrid data={file.data}/>
+        {/if}
+        {#if file.component === 'InstagramConnections'}
+          <InstagramConnections data={file.data}/>
         {/if}
         <svelte:component this={ComponentForShape[file.component]} data={file.data} maxItems={10}/>
       {/if}

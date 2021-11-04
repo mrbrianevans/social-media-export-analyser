@@ -1,4 +1,5 @@
 import { PostProcess } from '../../typedefs/PostProcess'
+import { instagramConnectionsPostProcessingFunction } from '../../vendors/instagram/Connections'
 
 export const InstagramPostsPostProcess: PostProcess = {
   classifier: {
@@ -39,4 +40,31 @@ export const InstagramLikesPostProcess: PostProcess = {
   name: 'Instagram Likes',
   code: 'instagram-likes',
   vendor: 'Instagram'
+}
+
+export const InstagramConnectionsPostProcess: PostProcess = {
+  classifier: {
+    filenameRegex: /^connections\.json$/,
+    topLevelIsArray: false,
+    itemCriteria: {
+      keys: [
+        // these keys appear in some files, but not all.
+        // 'dismissed_suggested_users',
+        // 'follow_requests_sent',
+        // 'close_friends',
+        // 'hide_stories_from',
+        // 'blocked_users',
+        'following',
+        'followers'
+      ],
+      minDepth: 2,
+      maxDepth: 2
+    },
+    preProcessingCategory: 'json'
+  },
+  component: 'InstagramConnections',
+  name: 'Instagram Connections',
+  code: 'instagram-connections',
+  vendor: 'Instagram',
+  postProcessingFunction: instagramConnectionsPostProcessingFunction
 }

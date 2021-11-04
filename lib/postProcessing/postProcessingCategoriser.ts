@@ -1,15 +1,9 @@
 import { PostProcess, PostProcessedFileInput } from '../typedefs/PostProcess'
-import {
-  arrayEquals,
-  keysInclude,
-  objectDepth,
-  objectKeysEqual,
-  objectKeysInclude,
-  objectOrArrayDepth
-} from '../common/ArrayUtils'
+import { keysInclude, objectOrArrayDepth } from '../common/ArrayUtils'
 import { WhatsAppPostProcess } from './postProcessors/whatsappMessages'
 import { TelegramPostProcess } from './postProcessors/telegramMessages'
 import {
+  InstagramConnectionsPostProcess,
   InstagramLikesPostProcess,
   InstagramPostsPostProcess,
   InstagramProfilePostProcess
@@ -40,6 +34,7 @@ const postProcessors = {
   TelegramPostProcess,
   InstagramPostsPostProcess,
   InstagramProfilePostProcess,
+  InstagramConnectionsPostProcess,
   InstagramLikesPostProcess,
   TwitterProfilePostProcess,
   TwitterTweetsPostProcess,

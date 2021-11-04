@@ -1,9 +1,7 @@
 <script lang="ts">
-  import FilePond, { registerPlugin } from 'svelte-filepond';
-  import * as papa from 'papaparse'
+  import FilePond, { registerPlugin } from 'svelte-filepond'
   import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
   import ProcessingWorker from '../workers/processingWorker?worker'
-  import type { FileItem } from '../types/FileItem'
   import type { PostProcessedOutput } from '../../../lib/typedefs/PostProcess'
   // Register the plugins
   registerPlugin( FilePondPluginImagePreview);
