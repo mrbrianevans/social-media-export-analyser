@@ -1,7 +1,8 @@
 export const getLanguageFromCode = (code: string) => {
   return LanguageCodes[code]
 }
-const LanguageCodes = {
+// from https://www.w3schools.com/tags/ref_language_codes.asp
+export const LanguageCodes = {
   ab: 'Abkhazian',
   aa: 'Afar',
   af: 'Afrikaans',
@@ -54,7 +55,7 @@ const LanguageCodes = {
   fr: 'French',
   ff: 'Pular',
   gl: 'Galician',
-  gd: '(Scottish)',
+  gd: 'Gaelic (Scottish)',
   gv: 'Manx',
   ka: 'Georgian',
   de: 'German',
@@ -186,7 +187,6 @@ const LanguageCodes = {
   wo: 'Wolof',
   fy: 'Frisian',
   xh: 'Xhosa',
-  ji: 'yi,',
   yo: 'Yoruba',
   za: 'Chuang',
   zu: 'Zulu'
