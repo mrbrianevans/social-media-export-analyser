@@ -1,6 +1,10 @@
 import { RandHex } from '../../common/RandomUtils/RandomNumberUtils'
 import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
 import { generateCaption } from '../../common/RandomUtils/RandomContent/RandomSentence'
+import {
+  formatDateEurTime,
+  formatDateEurTimeWithTz
+} from '../../common/DateUtils'
 
 type DateString =
   `${number}-${number}-${number}T${number}:${number}:${number}+${number}:${number}`
@@ -79,23 +83,7 @@ const staticSampleData: Media = {
 
 const generateRandomDateString = (date?: Date): DateString => {
   date ??= RandDate()
-  const hoursOffset = Math.floor(date.getTimezoneOffset() / 60)
-  const minutesOffset = Math.abs(date.getTimezoneOffset() - hoursOffset * 60)
-  const offsetDirection = hoursOffset < 0 ? '-' : '+'
-  // return `${2020}-${11}-${4}T${19}:${55}:${55}+${12}:${23}`
-  return <DateString>(
-    `${date.getFullYear()}-${(date.getMonth() + 1)
-      .toString()
-      .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}T${date
-      .getHours()
-      .toString()
-      .padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date
-      .getSeconds()
-      .toString()
-      .padStart(2, '0')}${offsetDirection}${Math.abs(hoursOffset)
-      .toString()
-      .padStart(2, '0')}:${minutesOffset.toString().padStart(2, '0')}`
-  )
+  return <DateString>formatDateEurTimeWithTz(date)
 }
 
 const generatePath = <
@@ -111,7 +99,7 @@ const generatePath = <
     date.getMonth() + 1
   }/${RandHex(32)}.${fileExtension}`
 }
-//todo: make this object oriented
+
 export const generateSampleMediaData = ({
   photos = 10,
   videos = 2,

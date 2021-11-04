@@ -10,6 +10,7 @@ import {
 import { WhatsAppPostProcess } from './postProcessors/whatsappMessages'
 import { TelegramPostProcess } from './postProcessors/telegramMessages'
 import {
+  InstagramConnectionsPostProcess,
   InstagramLikesPostProcess,
   InstagramPostsPostProcess,
   InstagramProfilePostProcess
@@ -40,6 +41,7 @@ const postProcessors = {
   TelegramPostProcess,
   InstagramPostsPostProcess,
   InstagramProfilePostProcess,
+  InstagramConnectionsPostProcess,
   InstagramLikesPostProcess,
   TwitterProfilePostProcess,
   TwitterTweetsPostProcess,
