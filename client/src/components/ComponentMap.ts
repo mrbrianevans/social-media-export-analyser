@@ -6,6 +6,7 @@ import InstagramPostsList from '../visualisations/lists/InstagramPostsList.svelt
 import StringBox from './StringBox.svelte'
 import VaadinGrid from '../visualisations/grids/VaadinGrid.svelte'
 import type { ComponentName } from '../../../lib/typedefs/Components'
+import InstagramConnections from '../visualisations/specific/InstagramConnections.svelte'
 
 // by using mapped types, this ensures a component exists for every ComponentName
 export const ComponentForShape: {
@@ -16,5 +17,6 @@ export const ComponentForShape: {
   MessageHistory,
   InstagramPostsList,
   StringBox,
-  VaadinGrid
+  VaadinGrid,
+  InstagramConnections
 }

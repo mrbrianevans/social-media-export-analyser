@@ -47,20 +47,21 @@ export const InstagramConnectionsPostProcess: PostProcess = {
     topLevelIsArray: false,
     itemCriteria: {
       keys: [
-        'dismissed_suggested_users',
+        // these keys appear in some files, but not all.
+        // 'dismissed_suggested_users',
+        // 'follow_requests_sent',
+        // 'close_friends',
+        // 'hide_stories_from',
+        // 'blocked_users',
         'following',
-        'followers',
-        'follow_requests_sent',
-        'close_friends',
-        'hide_stories_from',
-        'blocked_users'
+        'followers'
       ],
       minDepth: 2,
       maxDepth: 2
     },
     preProcessingCategory: 'json'
   },
-  component: 'JsonEditor',
+  component: 'InstagramConnections',
   name: 'Instagram Connections',
   code: 'instagram-connections',
   vendor: 'Instagram'
