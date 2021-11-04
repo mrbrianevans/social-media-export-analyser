@@ -1,4 +1,5 @@
 import { PostProcess } from '../../typedefs/PostProcess'
+import { instagramConnectionsPostProcessingFunction } from '../../vendors/instagram/Connections'
 
 export const InstagramPostsPostProcess: PostProcess = {
   classifier: {
@@ -64,5 +65,6 @@ export const InstagramConnectionsPostProcess: PostProcess = {
   component: 'InstagramConnections',
   name: 'Instagram Connections',
   code: 'instagram-connections',
-  vendor: 'Instagram'
+  vendor: 'Instagram',
+  postProcessingFunction: instagramConnectionsPostProcessingFunction
 }

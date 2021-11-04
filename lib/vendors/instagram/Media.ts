@@ -1,10 +1,7 @@
 import { RandHex } from '../../common/RandomUtils/RandomNumberUtils'
 import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
 import { generateCaption } from '../../common/RandomUtils/RandomContent/RandomSentence'
-import {
-  formatDateEurTime,
-  formatDateEurTimeWithTz
-} from '../../common/DateUtils'
+import { formatDateEurTimeWithTz } from '../../common/DateUtils'
 
 type DateString =
   `${number}-${number}-${number}T${number}:${number}:${number}+${number}:${number}`

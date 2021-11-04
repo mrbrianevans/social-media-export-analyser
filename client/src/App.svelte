@@ -3,12 +3,13 @@
   import { ComponentForShape } from './components/ComponentMap'
   import { PostProcessedOutput } from '../../lib/typedefs/PostProcess'
   import '@vaadin/tabs'
-  import '@vaadin/vaadin-app-layout/vaadin-app-layout.js';
-  import '@vaadin/button';
-  import '@vaadin/horizontal-layout/theme/material/vaadin-horizontal-layout';
+  import '@vaadin/vaadin-app-layout/vaadin-app-layout.js'
+  import '@vaadin/button'
+  import '@vaadin/horizontal-layout/theme/material/vaadin-horizontal-layout'
   import VaadinGrid from './visualisations/grids/VaadinGrid.svelte'
   import ThemeToggle from './components/ThemeToggle.svelte'
   import InstagramConnections from './visualisations/specific/InstagramConnections.svelte'
+
   let files: PostProcessedOutput[] = []
   let activeIndex = 0
   let theme

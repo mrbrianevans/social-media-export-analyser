@@ -1,7 +1,8 @@
 <script lang='ts'>
   // the keys of data are used as tab labels, the value are passed through to child component
   import { SvelteComponent } from 'svelte'
-  import { sentenceCase } from "sentence-case";
+  import { sentenceCase } from 'sentence-case'
+
   export let data: Record<string, any> = {}
   export let childComponent: SvelteComponent
 

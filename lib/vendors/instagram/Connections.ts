@@ -2,6 +2,7 @@ import { RandInt } from '../../common/RandomUtils/RandomNumberUtils'
 import { generateUsername } from '../../common/RandomUtils/RandomContent/RandomUsername'
 import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
 import { formatDateEurTimeWithTz } from '../../common/DateUtils'
+import { PostProcessor } from '../../typedefs/PostProcess'
 
 export interface InstagramConnections {
   dismissed_suggested_users?: Record<string, string>
@@ -44,4 +45,23 @@ export const generateInstagramConnections = ({
     following,
     close_friends: closeFriends.length ? closeFriends : undefined
   }
+}
+
+export const instagramConnectionsPostProcessingFunction: PostProcessor<
+  InstagramConnections,
+  InstagramConnections
+> = (input) => {
+  for (const [key, valueObject] of Object.entries(
+    input.preProcessedOutput.data
+  )) {
+    let newValueObject: Record<string, string> = valueObject
+    for (const [username, dateString] of Object.entries(newValueObject)) {
+      newValueObject[username] = Intl.DateTimeFormat('en', {
+        dateStyle: 'long',
+        timeStyle: 'medium'
+      }).format(new Date(dateString))
+    }
+    input.preProcessedOutput.data[key] = newValueObject
+  }
+  return input.preProcessedOutput
 }

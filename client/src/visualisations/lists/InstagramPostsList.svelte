@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Media } from '../../../../lib/vendors/instagram/Media'
+
   export let data: Media
 </script>
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import '@vaadin/message-list/vaadin-message-list';
-  import { onMount } from 'svelte';
+  import '@vaadin/message-list/vaadin-message-list'
+  import { onMount } from 'svelte'
   import type { VaadinMessageHistoryFormat } from '../../../../lib/typedefs/Components'
 
   export let data: VaadinMessageHistoryFormat = []
