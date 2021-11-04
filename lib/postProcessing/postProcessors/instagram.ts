@@ -1,5 +1,6 @@
 import { PostProcess } from '../../typedefs/PostProcess'
 import { instagramConnectionsPostProcessingFunction } from '../../vendors/instagram/Connections'
+import { instagramCommentsPostProcessingFunction } from '../../vendors/instagram/Comments'
 
 export const InstagramPostsPostProcess: PostProcess = {
   classifier: {
@@ -82,10 +83,10 @@ export const InstagramCommentsPostProcess: PostProcess = {
   code: 'instagram-comments',
   name: 'Instagram Comments',
   vendor: 'Instagram',
-  component: 'JsonEditor'
+  component: 'JsonEditor',
+  postProcessingFunction: instagramCommentsPostProcessingFunction
 }
 /*TODO:
-    comments
     account_history
     likes
     devices
