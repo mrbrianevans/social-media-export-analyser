@@ -35,7 +35,11 @@ export const InstagramLikesPostProcess: PostProcess = {
   classifier: {
     filenameRegex: /^profile\.json$/,
     topLevelIsArray: false,
-    itemCriteria: { keys: ['media_likes', 'comment_likes'] },
+    itemCriteria: {
+      keys: ['media_likes', 'comment_likes'],
+      minDepth: 3,
+      maxDepth: 3
+    },
     preProcessingCategory: 'json'
   },
   component: 'JsonEditor',
