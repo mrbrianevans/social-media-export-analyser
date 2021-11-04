@@ -12,6 +12,20 @@ export const captionWords = [
   'link'
 ]
 
+export const commentWords = [
+  'i',
+  'the',
+  'you',
+  'a',
+  'your',
+  'is',
+  'to',
+  'it',
+  'love',
+  'looks',
+  'great',
+  'nice'
+]
 export const textMessageWords = [
   'I',
   'the',

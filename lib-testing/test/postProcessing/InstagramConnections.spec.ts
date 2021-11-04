@@ -35,7 +35,7 @@ describe('post processing instagram connections', function () {
     Assert.equal(Object.keys(output.data).length, 1)
     Assert.equal(Object.keys(output.data)[0], 'followers')
     Assert.equal(Object.keys(output.data.followers).length, 1)
-    Assert.equal(Object.keys(output.data.followers)[0], 'username1')
+    Assert.equal(Object.keys(output.data.followers)[0], '@username1')
     // tests the date formatting:
     Assert.true(
       (<string>Object.values(output.data.followers)[0]).startsWith('September')

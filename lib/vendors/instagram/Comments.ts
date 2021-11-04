@@ -1,4 +1,10 @@
 import { PostProcessor } from '../../typedefs/PostProcess'
+import { formatDateEurTimeWithTz } from '../../common/DateUtils'
+import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
+import { generateSentence } from '../../common/RandomUtils/RandomContent/RandomSentence'
+import { generateUsername } from '../../common/RandomUtils/RandomContent/RandomUsername'
+import { calculateWordFrequency } from '../../common/WordFrequency'
+import { commentWords } from '../../common/RandomUtils/RandomContent/RandomWords'
 
 export interface InstagramComments {
   media_comments: [string, string, string][]
@@ -20,4 +26,16 @@ export const instagramCommentsPostProcessingFunction: PostProcessor<
     data: comments,
     metadata: input.preProcessedOutput.metadata
   }
+}
+
+export const generateInstagramComments = ({ qty = 10 }): InstagramComments => {
+  const media_comments: [string, string, string][] = Array.from(
+    { length: 10 },
+    () => ({
+      date: formatDateEurTimeWithTz(RandDate()),
+      content: generateSentence(1, 5, commentWords),
+      username: generateUsername()
+    })
+  ).map((c) => [c.date, c.content, c.username])
+  return { media_comments }
 }

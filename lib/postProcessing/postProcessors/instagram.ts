@@ -88,7 +88,6 @@ export const InstagramCommentsPostProcess: PostProcess = {
 }
 /*TODO:
     account_history
-    likes
     devices
     information about you
  */
