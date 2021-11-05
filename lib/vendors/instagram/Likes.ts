@@ -19,21 +19,32 @@ export const instagramLikesPostProcessFunction: PostProcessor<
   InstagramLikes,
   InstagramLikesPostProcess
 > = (input) => {
-  const mediaLikes: InstagramLikesPostProcess =
-    input.preProcessedOutput.data.media_likes.map((l) => ({
-      username: l[1],
-      date: longDateTime(new Date(l[0])),
-      postType: 'media'
-    }))
-  const commentLikes: InstagramLikesPostProcess =
-    input.preProcessedOutput.data.comment_likes.map((l) => ({
-      username: l[1],
-      date: longDateTime(new Date(l[0])),
-      postType: 'comment'
-    }))
+  const mediaLikes: (InstagramLikesPostProcess[number] & {
+    timestamp: number
+  })[] = input.preProcessedOutput.data.media_likes.map((l) => ({
+    username: l[1],
+    date: longDateTime(new Date(l[0])),
+    postType: 'media',
+    timestamp: new Date(l[0]).getTime()
+  }))
+  const commentLikes: (InstagramLikesPostProcess[number] & {
+    timestamp: number
+  })[] = input.preProcessedOutput.data.comment_likes.map((l) => ({
+    username: l[1],
+    date: longDateTime(new Date(l[0])),
+    postType: 'comment',
+    timestamp: new Date(l[0]).getTime()
+  }))
   return {
     ...input.preProcessedOutput,
-    data: mediaLikes.concat(...commentLikes)
+    data: mediaLikes
+      .concat(...commentLikes)
+      .sort((a, b) => a.timestamp - b.timestamp)
+      .map((a) => ({
+        username: a.username,
+        date: a.date,
+        postType: a.postType
+      }))
   }
 }
 

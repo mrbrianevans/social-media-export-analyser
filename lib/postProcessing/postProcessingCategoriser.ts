@@ -26,7 +26,10 @@ import {
 } from './postProcessors/genericFallbacks/keyValue'
 import { FileType } from '../typedefs/FileTypes'
 import { DefaultPostProcess } from './postProcessors/genericFallbacks/default'
-import { TabularDataPostProcess } from './postProcessors/genericFallbacks/tabularData'
+import {
+  ArrayDataPostProcess,
+  TabularDataPostProcess
+} from './postProcessors/genericFallbacks/tabularData'
 
 type PostProcessorCategory =
   | keyof typeof postProcessors
@@ -50,6 +53,7 @@ const postProcessors = {
   TextPostProcess
 }
 const genericPostProcessors = {
+  ArrayDataPostProcess,
   TabularDataPostProcess,
   KeyValuePostProcess,
   NestedKeyValuePostProcess,

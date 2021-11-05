@@ -11,3 +11,15 @@ export const TabularDataPostProcess: PostProcess = {
   },
   component: 'VaadinGrid'
 }
+
+export const ArrayDataPostProcess: PostProcess = {
+  code: 'array',
+  classifier: {
+    filenameRegex: /.*\.(json)$/,
+    topLevelIsArray: true,
+    itemCriteria: {
+      maxDepth: 0
+    }
+  },
+  component: 'StringBox'
+}

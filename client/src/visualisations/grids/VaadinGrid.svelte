@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang='ts'>
   import '@vaadin/grid/vaadin-grid.js'
   import '@vaadin/grid/vaadin-grid-column'
   import '@vaadin/grid/vaadin-grid-sort-column'
@@ -9,15 +9,15 @@
   let items: any[] = []
   let grid
   let mounted = false
-  $: if(mounted){
+  $: if (mounted) {
     grid.items = items
   }
-  onMount(()=>mounted = true)
+  onMount(() => mounted = true)
 
-  const getGridData = (d:any):[]=> {
-    if(d instanceof Array) return d
+  const getGridData = (d: any): [] => {
+    if (d instanceof Array) return d
     for (const key in d) {
-      if(d[key] instanceof Array && d[key].length) return d[key]
+      if (d[key] instanceof Array && d[key].length) return d[key]
     }
     console.log('Couldnt find any array data in vaadin grid')
   }
@@ -29,7 +29,7 @@
   $: columns = getColumns(items)
 </script>
 
-<vaadin-grid theme="compact" column-reordering-allowed multi-sort bind:this={grid}>
+<vaadin-grid bind:this={grid} column-reordering-allowed multi-sort theme='compact'>
   {#each columns as column}
     <vaadin-grid-sort-column auto-width path={column} resizable></vaadin-grid-sort-column>
   {/each}

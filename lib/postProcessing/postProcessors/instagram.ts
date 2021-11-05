@@ -25,7 +25,7 @@ export const InstagramProfilePostProcess: PostProcess = {
     itemCriteria: { keys: ['username', 'biography', 'name'] }, // there are more
     preProcessingCategory: 'json'
   },
-  component: 'JsonEditor',
+  component: 'KeyValueCard',
   name: 'Instagram Profile',
   nameFormat: 'Instagram Profile for {}',
   code: 'instagram-profile',
@@ -43,7 +43,7 @@ export const InstagramLikesPostProcess: PostProcess = {
     },
     preProcessingCategory: 'json'
   },
-  component: 'JsonEditor',
+  component: 'InstagramLikes',
   name: 'Instagram Likes',
   code: 'instagram-likes',
   vendor: 'Instagram',
@@ -90,7 +90,7 @@ export const InstagramCommentsPostProcess: PostProcess = {
   code: 'instagram-comments',
   name: 'Instagram Comments',
   vendor: 'Instagram',
-  component: 'JsonEditor',
+  component: 'InstagramComments',
   postProcessingFunction: instagramCommentsPostProcessingFunction
 }
 
@@ -114,5 +114,5 @@ export const InstagramInformationAboutYouPostProcess: PostProcess = {
   },
   name: 'Instagram Information About You',
   code: 'instagram-information-about-you',
-  component: 'JsonEditor'
+  component: 'KeyValueCard'
 }

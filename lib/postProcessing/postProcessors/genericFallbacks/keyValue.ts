@@ -6,10 +6,10 @@ export const KeyValuePostProcess: PostProcess = {
     filenameRegex: /.*/,
     topLevelIsArray: false,
     itemCriteria: {
-      maxDepth: 1
+      maxDepth: 2
     }
   },
-  component: 'JsonEditor'
+  component: 'KeyValueCard'
 }
 
 export const NestedKeyValuePostProcess: PostProcess = {
@@ -18,7 +18,7 @@ export const NestedKeyValuePostProcess: PostProcess = {
     filenameRegex: /.*/,
     topLevelIsArray: false,
     itemCriteria: {
-      minDepth: 2
+      minDepth: 3
     }
   },
   component: 'JsonEditor'

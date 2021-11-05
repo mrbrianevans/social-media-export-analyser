@@ -31,3 +31,9 @@ export const longDateTime: DateFormatter = (date) => {
     timeStyle: 'medium'
   }).format(date)
 }
+
+export const longDate: DateFormatter = (date) => {
+  return Intl.DateTimeFormat('en', {
+    dateStyle: 'long'
+  }).format(date)
+}

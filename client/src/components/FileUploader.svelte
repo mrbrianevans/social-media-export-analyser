@@ -1,18 +1,19 @@
-<script lang="ts">
+<script lang='ts'>
   import FilePond, { registerPlugin } from 'svelte-filepond'
   import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
   import ProcessingWorker from '../workers/processingWorker?worker'
   import type { PostProcessedOutput } from '../../../lib/typedefs/PostProcess'
   // Register the plugins
-  registerPlugin( FilePondPluginImagePreview);
+  registerPlugin(FilePondPluginImagePreview)
 
   // a reference to the component, used to call FilePond methods
-  let pond;
+  let pond
   // pond.getFiles() will return the active files
 
   // the name to use for the internal file input
-  let name = 'filepond';
+  let name = 'filepond'
   export let files: PostProcessedOutput[] = []
+
   async function handleAddFile(err, fileItem) {
     // console.log('Relative path', fileItem.relativePath)
     // console.log('fileItem', fileItem)
@@ -27,19 +28,20 @@
     // console.log('metadata:', workerOutput.metadata)
     files = [...files, workerOutput]
   }
-  function handleRemoveFile(err, fileItem){
-    files = files.filter(v=>v.metadata.filename !== fileItem.filename)
+
+  function handleRemoveFile(err, fileItem) {
+    files = files.filter(v => v.metadata.filename !== fileItem.filename)
   }
 
 </script>
 
-<div class="file-uploader">
-  <FilePond bind:this={pond} {name}
-            allowMultiple={true}
-            onaddfile={handleAddFile}
-            onremovefile={handleRemoveFile}
+<div class='file-uploader'>
+  <FilePond allowMultiple={true} bind:this={pond}
             credits={false}
             labelIdle='Drag & Drop your files or <span class="filepond--label-action"> Browse </span>'
+            {name}
+            onaddfile={handleAddFile}
+            onremovefile={handleRemoveFile}
   />
 
 </div>
@@ -49,9 +51,10 @@
     @import 'filepond/dist/filepond.css';
     @import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 
-    .file-uploader{
+    .file-uploader {
         background: var(--lumo-contrast-10pct);
     }
+
     /* styling overrides for the file upload component */
 
     .filepond--root {
@@ -63,19 +66,24 @@
         background-color: transparent;
         border-radius: 0;
     }
+
     .filepond--drop-label {
         color: var(--lumo-primary-text-color);
     }
+
     .filepond--label-action {
         text-decoration-color: var(--lumo-primary-text-color);
     }
+
     .filepond--item-panel {
         background-color: transparent;
         border: 2px solid var(--lumo-contrast-50pct)
     }
+
     .filepond--item {
         width: calc(50% - 0.5em);
     }
+
     /* the background color of the drop circle */
     .filepond--drip-blob {
         background-color: var(--lumo-contrast-90pct);
