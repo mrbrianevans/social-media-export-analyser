@@ -34,7 +34,7 @@ export const InstagramProfilePostProcess: PostProcess = {
 
 export const InstagramLikesPostProcess: PostProcess = {
   classifier: {
-    filenameRegex: /^profile\.json$/,
+    filenameRegex: /^likes\.json$/,
     topLevelIsArray: false,
     itemCriteria: {
       keys: ['media_likes', 'comment_likes'],
@@ -96,7 +96,7 @@ export const InstagramCommentsPostProcess: PostProcess = {
 
 export const InstagramAccountHistoryPostProcess: PostProcess = {
   classifier: {
-    filenameRegex: /account_history\.json/,
+    filenameRegex: /^account_history\.json$/,
     topLevelIsArray: false,
     itemCriteria: { keys: ['login_history'] }
   },
@@ -105,7 +105,14 @@ export const InstagramAccountHistoryPostProcess: PostProcess = {
   component: 'JsonEditor',
   postProcessingFunction: instagramAccountHistoryPostProcessor
 }
-/*TODO:
-    devices
-    information about you
-*/
+
+export const InstagramInformationAboutYouPostProcess: PostProcess = {
+  classifier: {
+    filenameRegex: /^information_about_you\.json$/,
+    topLevelIsArray: false,
+    itemCriteria: { keys: ['primary_location', 'inferred_emails'] }
+  },
+  name: 'Instagram Information About You',
+  code: 'instagram-information-about-you',
+  component: 'JsonEditor'
+}

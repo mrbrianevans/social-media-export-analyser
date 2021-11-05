@@ -6,6 +6,7 @@ import {
   InstagramAccountHistoryPostProcess,
   InstagramCommentsPostProcess,
   InstagramConnectionsPostProcess,
+  InstagramInformationAboutYouPostProcess,
   InstagramLikesPostProcess,
   InstagramPostsPostProcess,
   InstagramProfilePostProcess
@@ -39,6 +40,7 @@ const postProcessors = {
   InstagramCommentsPostProcess,
   InstagramConnectionsPostProcess,
   InstagramAccountHistoryPostProcess,
+  InstagramInformationAboutYouPostProcess,
   InstagramLikesPostProcess,
   TwitterProfilePostProcess,
   TwitterTweetsPostProcess,

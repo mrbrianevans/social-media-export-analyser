@@ -9,6 +9,7 @@ import { generateInstagramConnections } from '../lib/vendors/instagram/Connectio
 import { generateInstagramComments } from '../lib/vendors/instagram/Comments'
 import { generateInstagramLikes } from '../lib/vendors/instagram/Likes'
 import { generateInstagramAccountHistory } from '../lib/vendors/instagram/AccountHistory'
+import { generateInstagramInformationAboutYou } from '../lib/vendors/instagram/InformationAboutYou'
 
 const demoFilePath = (filename) => path.resolve('..', 'demo-files', filename)
 export const generateDemoFiles = async () => {
@@ -50,6 +51,13 @@ export const generateDemoFiles = async () => {
   fs.writeFileSync(
     demoFilePath('instagram/account_history.json'),
     JSON.stringify(instagramAccountHistory, null, 2)
+  )
+
+  //instagram information_about_you.json
+  const instagramInformationAboutYou = generateInstagramInformationAboutYou()
+  fs.writeFileSync(
+    demoFilePath('instagram/information_about_you.json'),
+    JSON.stringify(instagramInformationAboutYou, null, 2)
   )
 
   //whatsapp WhatsApp Chat with Demo.txt
