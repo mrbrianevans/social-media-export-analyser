@@ -4,7 +4,11 @@ import * as Assert from 'assert-js'
 
 const data = {
   dob: {
-    date: '1993-07-20T09:44:18.674Z',
+    date: {
+      year: 1993,
+      month: 7,
+      day: 20
+    },
     age: 26
   },
   registered: {

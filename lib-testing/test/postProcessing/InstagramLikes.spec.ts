@@ -25,8 +25,13 @@ describe('post process instagram likes', function () {
     Assert.equal(output.data.length, 10)
     Assert.equal(output.data.filter((l) => l.postType === 'media').length, 5)
     Assert.equal(output.data.filter((l) => l.postType === 'comment').length, 5)
-    Assert.true(output.data[0].date.includes('Feb'))
-    Assert.equal(output.data[0].username, 'stephenwal')
+    const i = output.data.findIndex((p) => p.username === 'clark')
+    Assert.equal(i, 0, `clark should be first if the list is sorted by date`)
+    Assert.true(
+      output.data[0].date.includes('Apr'),
+      `${output.data[0].date} should be in april`
+    )
+    Assert.equal(output.data[0].username, 'clark')
   })
 })
 
