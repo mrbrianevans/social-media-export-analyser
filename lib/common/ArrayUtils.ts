@@ -88,3 +88,16 @@ export const repeat = <T = any>(
 ): T[] => {
   return range(qty).map((v, i) => mapFn(i))
 }
+
+/**
+ * Returns the number of primitives in an object
+ */
+export const objectSize = (object: any) => {
+  if (typeof object !== 'object' || object === null) {
+    return 1
+  } else
+    return Object.values(object).reduce(
+      (total, current) => objectSize(current) + total,
+      0
+    )
+}
