@@ -17,7 +17,7 @@
     {/each}
   </vaadin-tabs>
   <div class='component-container'>
-    <svelte:component this={childComponent} data={data[selectedTab]} />
+    <svelte:component data={data[selectedTab]} this={childComponent} />
   </div>
 </div>
 

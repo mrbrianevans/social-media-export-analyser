@@ -3,7 +3,10 @@ import { keysInclude, objectOrArrayDepth } from '../common/ArrayUtils'
 import { WhatsAppPostProcess } from './postProcessors/whatsappMessages'
 import { TelegramPostProcess } from './postProcessors/telegramMessages'
 import {
+  InstagramAccountHistoryPostProcess,
+  InstagramCommentsPostProcess,
   InstagramConnectionsPostProcess,
+  InstagramInformationAboutYouPostProcess,
   InstagramLikesPostProcess,
   InstagramPostsPostProcess,
   InstagramProfilePostProcess
@@ -23,7 +26,10 @@ import {
 } from './postProcessors/genericFallbacks/keyValue'
 import { FileType } from '../typedefs/FileTypes'
 import { DefaultPostProcess } from './postProcessors/genericFallbacks/default'
-import { TabularDataPostProcess } from './postProcessors/genericFallbacks/tabularData'
+import {
+  ArrayDataPostProcess,
+  TabularDataPostProcess
+} from './postProcessors/genericFallbacks/tabularData'
 
 type PostProcessorCategory =
   | keyof typeof postProcessors
@@ -34,7 +40,10 @@ const postProcessors = {
   TelegramPostProcess,
   InstagramPostsPostProcess,
   InstagramProfilePostProcess,
+  InstagramCommentsPostProcess,
   InstagramConnectionsPostProcess,
+  InstagramAccountHistoryPostProcess,
+  InstagramInformationAboutYouPostProcess,
   InstagramLikesPostProcess,
   TwitterProfilePostProcess,
   TwitterTweetsPostProcess,
@@ -44,6 +53,7 @@ const postProcessors = {
   TextPostProcess
 }
 const genericPostProcessors = {
+  ArrayDataPostProcess,
   TabularDataPostProcess,
   KeyValuePostProcess,
   NestedKeyValuePostProcess,

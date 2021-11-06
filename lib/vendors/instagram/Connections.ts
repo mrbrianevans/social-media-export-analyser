@@ -54,9 +54,11 @@ export const instagramConnectionsPostProcessingFunction: PostProcessor<
   for (const [key, valueObject] of Object.entries(
     input.preProcessedOutput.data
   )) {
-    const newValueObject: Record<string, string> = valueObject
-    for (const [username, dateString] of Object.entries(newValueObject)) {
-      newValueObject[username] = Intl.DateTimeFormat('en', {
+    const newValueObject: Record<string, string> = {}
+    for (const [username, dateString] of Object.entries(
+      <Record<string, string>>valueObject
+    )) {
+      newValueObject['@' + username] = Intl.DateTimeFormat('en', {
         dateStyle: 'long',
         timeStyle: 'medium'
       }).format(new Date(dateString))

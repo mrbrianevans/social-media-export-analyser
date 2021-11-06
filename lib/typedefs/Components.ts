@@ -11,7 +11,10 @@ const ComponentList = {
   InstagramPostsList: 'A feed of posts similar to Instagrams interface',
   StringBox: 'A simple element showing a string of text',
   VaadinGrid: 'A scalable data grid with sortable columns',
-  InstagramConnections: 'A tab layout of lists of instagram connections'
+  InstagramConnections: 'A tab layout of lists of instagram connections',
+  InstagramLikes: 'A list of posts and comments like by an instagram user',
+  InstagramComments: 'A list of instagram comments',
+  KeyValueCard: 'A card that can display arbitrary string key-value pairs'
 }
 
 export type ComponentName = keyof typeof ComponentList

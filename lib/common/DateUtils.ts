@@ -24,3 +24,16 @@ export const formatDateEur: DateFormatter = (
     .toString()
     .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
 }
+
+export const longDateTime: DateFormatter = (date) => {
+  return Intl.DateTimeFormat('en', {
+    dateStyle: 'long',
+    timeStyle: 'medium'
+  }).format(date)
+}
+
+export const longDate: DateFormatter = (date) => {
+  return Intl.DateTimeFormat('en', {
+    dateStyle: 'long'
+  }).format(date)
+}

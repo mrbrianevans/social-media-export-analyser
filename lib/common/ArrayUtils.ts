@@ -48,7 +48,7 @@ export const keysInclude = (obj, keys) => {
  * @param maxDepthReached - a starting value, used for recursion. not recommended
  */
 export const objectDepth = (obj: any, maxDepthReached = 0) => {
-  if (typeof obj === 'object') {
+  if (typeof obj === 'object' && obj !== null) {
     let highest = maxDepthReached++
     if (obj instanceof Array) obj = obj.slice(0, 5)
     for (const [key, value] of Object.entries(obj)) {
@@ -66,4 +66,25 @@ export const objectDepth = (obj: any, maxDepthReached = 0) => {
  */
 export const objectOrArrayDepth = (obj) => {
   return objectDepth(obj) - (obj instanceof Array ? 1 : 0)
+}
+
+/**
+ * If start === finish, it starts at zero up to finish.
+ *
+ * @example
+ range(10) // 0 - 10
+ range(1,5) // 1 - 5
+ range(0,10,2) // 0,2,4,6,8,10
+*/
+export const range = (start: number, finish = start, increment = 1) => {
+  if (start === finish) start = 0
+  const length = Math.floor((finish - start) / increment)
+  return Array.from({ length }, (v, i) => i * increment + start)
+}
+
+export const repeat = <T = any>(
+  qty: number,
+  mapFn: (index: number) => T
+): T[] => {
+  return range(qty).map((v, i) => mapFn(i))
 }

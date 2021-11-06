@@ -1,5 +1,8 @@
 import { PostProcess } from '../../typedefs/PostProcess'
 import { instagramConnectionsPostProcessingFunction } from '../../vendors/instagram/Connections'
+import { instagramCommentsPostProcessingFunction } from '../../vendors/instagram/Comments'
+import { instagramLikesPostProcessFunction } from '../../vendors/instagram/Likes'
+import { instagramAccountHistoryPostProcessor } from '../../vendors/instagram/AccountHistory'
 
 export const InstagramPostsPostProcess: PostProcess = {
   classifier: {
@@ -22,7 +25,7 @@ export const InstagramProfilePostProcess: PostProcess = {
     itemCriteria: { keys: ['username', 'biography', 'name'] }, // there are more
     preProcessingCategory: 'json'
   },
-  component: 'JsonEditor',
+  component: 'KeyValueCard',
   name: 'Instagram Profile',
   nameFormat: 'Instagram Profile for {}',
   code: 'instagram-profile',
@@ -31,15 +34,20 @@ export const InstagramProfilePostProcess: PostProcess = {
 
 export const InstagramLikesPostProcess: PostProcess = {
   classifier: {
-    filenameRegex: /^profile\.json$/,
+    filenameRegex: /^likes\.json$/,
     topLevelIsArray: false,
-    itemCriteria: { keys: ['media_likes', 'comment_likes'] },
+    itemCriteria: {
+      keys: ['media_likes', 'comment_likes'],
+      minDepth: 3,
+      maxDepth: 3
+    },
     preProcessingCategory: 'json'
   },
-  component: 'JsonEditor',
+  component: 'InstagramLikes',
   name: 'Instagram Likes',
   code: 'instagram-likes',
-  vendor: 'Instagram'
+  vendor: 'Instagram',
+  postProcessingFunction: instagramLikesPostProcessFunction
 }
 
 export const InstagramConnectionsPostProcess: PostProcess = {
@@ -67,4 +75,44 @@ export const InstagramConnectionsPostProcess: PostProcess = {
   code: 'instagram-connections',
   vendor: 'Instagram',
   postProcessingFunction: instagramConnectionsPostProcessingFunction
+}
+
+export const InstagramCommentsPostProcess: PostProcess = {
+  classifier: {
+    filenameRegex: /^comments\.json$/,
+    topLevelIsArray: false,
+    itemCriteria: {
+      keys: ['media_comments'],
+      minDepth: 3,
+      maxDepth: 3
+    }
+  },
+  code: 'instagram-comments',
+  name: 'Instagram Comments',
+  vendor: 'Instagram',
+  component: 'InstagramComments',
+  postProcessingFunction: instagramCommentsPostProcessingFunction
+}
+
+export const InstagramAccountHistoryPostProcess: PostProcess = {
+  classifier: {
+    filenameRegex: /^account_history\.json$/,
+    topLevelIsArray: false,
+    itemCriteria: { keys: ['login_history'] }
+  },
+  name: 'Instagram Account History',
+  code: 'instagram-account-history',
+  component: 'JsonEditor',
+  postProcessingFunction: instagramAccountHistoryPostProcessor
+}
+
+export const InstagramInformationAboutYouPostProcess: PostProcess = {
+  classifier: {
+    filenameRegex: /^information_about_you\.json$/,
+    topLevelIsArray: false,
+    itemCriteria: { keys: ['primary_location', 'inferred_emails'] }
+  },
+  name: 'Instagram Information About You',
+  code: 'instagram-information-about-you',
+  component: 'KeyValueCard'
 }
