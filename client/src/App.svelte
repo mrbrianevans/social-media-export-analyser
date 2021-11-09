@@ -7,6 +7,7 @@
   import '@vaadin/button'
   import '@vaadin/horizontal-layout/theme/material/vaadin-horizontal-layout'
   import ThemeToggle from './components/ThemeToggle.svelte'
+  import GitHubLink from './components/GitHubLink.svelte'
 
   let files: PostProcessedOutput[] = []
   let activeIndex = 0
@@ -19,7 +20,10 @@
     <vaadin-horizontal-layout slot='navbar' style='justify-content: space-between; width: 100%; align-items: center'
                               theme=''>
       <h1 class='navbar-title'>Social media data viewer</h1>
-      <ThemeToggle bind:theme />
+      <vaadin-horizontal-layout>
+        <GitHubLink/>
+        <ThemeToggle bind:theme />
+      </vaadin-horizontal-layout>
     </vaadin-horizontal-layout>
     <FileUploader bind:files />
     <!--  tab selectors -->
@@ -47,7 +51,7 @@
     h1.navbar-title {
         display: inline-block;
         font-size: var(--lumo-font-size-xl);
-        margin: 0 var(--lumo-space-l);
+        margin: 0.25rem var(--lumo-space-l);
     }
 
     :global(body) {
