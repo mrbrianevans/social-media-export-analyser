@@ -17,7 +17,8 @@ const ComponentList = {
   InstagramLikes: 'A list of posts and comments like by an instagram user',
   InstagramComments: 'A list of instagram comments',
   KeyValueCard: 'A card that can display arbitrary string key-value pairs',
-  InstagramProfile: 'A specially designed profile for instagram users'
+  InstagramProfile: 'A specially designed profile for instagram users',
+  TwitterTweets: 'Timeline of twitter tweets'
 }
 
 export type ComponentName = keyof typeof ComponentList

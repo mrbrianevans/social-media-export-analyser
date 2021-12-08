@@ -20,6 +20,7 @@
     "vite": "^2.6.4"
   },
   "dependencies": {
+    "@sveltejs/svelte-virtual-list": "^3.0.1",
     "@vaadin/grid": "^22.0.0-beta1",
     "@vaadin/horizontal-layout": "^22.0.0-beta1",
     "@vaadin/icons": "^22.0.0-beta1",

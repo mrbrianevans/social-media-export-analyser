@@ -40,7 +40,7 @@ export const TwitterTweetsPostProcess: PostProcess = {
       ]
     }
   },
-  component: 'VaadinGrid'
+  component: 'TwitterTweets'
 }
 
 export const TwitterFallbackPostProcess: PostProcess = {

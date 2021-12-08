@@ -82,7 +82,7 @@ interface Url {
   display_url: string
   indices: CharRange
 }
-
+export type TweetEntity = Media | Hashtag | TickerSymbol | UserMention | Url
 export interface Tweet {
   retweeted: boolean
   source: string
