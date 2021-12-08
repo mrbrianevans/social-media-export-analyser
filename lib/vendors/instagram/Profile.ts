@@ -8,8 +8,9 @@ import {
 import { generateUsername } from '../../common/RandomUtils/RandomContent/RandomUsername'
 import { formatDateEur, formatDateEurTime } from '../../common/DateUtils'
 import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
+import { getRandomProfilePhoto } from '../../common/RandomUtils/RandomProfilePhoto'
 
-interface InstagramProfile {
+export interface InstagramProfile {
   biography: string
   // yyyy-mm-ddThh:mm:ss
   date_joined: string
@@ -42,7 +43,7 @@ export const generateInstagramProfile = (): InstagramProfile => {
     gender: isMale ? 'male' : 'female',
     name: `${firstName} ${lastName}`,
     private_account: RandBoolean(),
-    profile_pic_url: 'https://scontent.cdninstagram.com',
+    profile_pic_url: getRandomProfilePhoto(isMale),
     username: generateUsername(firstName, lastName)
   }
 }

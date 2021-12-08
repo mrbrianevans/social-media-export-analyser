@@ -25,7 +25,7 @@ export const InstagramProfilePostProcess: PostProcess = {
     itemCriteria: { keys: ['username', 'biography', 'name'] }, // there are more
     preProcessingCategory: 'json'
   },
-  component: 'KeyValueCard',
+  component: 'InstagramProfile',
   name: 'Instagram Profile',
   nameFormat: 'Instagram Profile for {}',
   code: 'instagram-profile',
