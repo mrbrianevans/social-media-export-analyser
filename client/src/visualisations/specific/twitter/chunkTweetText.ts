@@ -5,7 +5,7 @@ import type {
 interface ChunkedText {
   text: string
   type: 'text' | 'user mention' | 'url' | 'symbol' | 'hashtag'
-  data?: {}
+  data?: any
 }
 interface IntermediateShape {
   type: 'text' | 'user mention' | 'url' | 'symbol' | 'hashtag'
@@ -15,28 +15,28 @@ interface IntermediateShape {
 }
 export function chunkTweetText(tweet: Tweet): ChunkedText[] {
   const { user_mentions, urls, hashtags, symbols } = tweet.entities
-  // @ts-ignore
+
   const allEntities: IntermediateShape[] = [
     ...user_mentions.map((data) => ({
-      type: 'user mention',
+      type: 'user mention' as IntermediateShape['type'],
       data,
       start: Number(data.indices[0]),
       end: Number(data.indices[1])
     })),
     ...urls.map((data) => ({
-      type: 'url',
+      type: 'url' as IntermediateShape['type'],
       data,
       start: Number(data.indices[0]),
       end: Number(data.indices[1])
     })),
     ...hashtags.map((data) => ({
-      type: 'hashtag',
+      type: 'hashtag' as IntermediateShape['type'],
       data,
       start: Number(data.indices[0]),
       end: Number(data.indices[1])
     })),
     ...symbols.map((data) => ({
-      type: 'symbol',
+      type: 'symbol' as IntermediateShape['type'],
       data,
       start: Number(data.indices[0]),
       end: Number(data.indices[1])
@@ -54,7 +54,7 @@ export function chunkTweetText(tweet: Tweet): ChunkedText[] {
 const insertNextEntity = (
   outputArray: ChunkedText[],
   entities: IntermediateShape[],
-  priorLength: number = 0
+  priorLength = 0
 ): ChunkedText[] => {
   if (entities.length > 1) console.log(entities.length, 'entities to insert')
   if (entities.length === 0) return outputArray
