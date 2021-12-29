@@ -30,7 +30,12 @@
     }
 
     .container > div {
-        background: var(--lumo-contrast-10pct);
-        padding: var(--lumo-space-s);
+      background-color: var(--lumo-contrast-10pct);
+      border-color: var(--lumo-primary-color-50pct);
+      border-width: medium;
+      border-style: solid;
+      border-radius: var(--lumo-border-radius-l);
+      padding: var(--lumo-space-m);
+      margin: 0.5rem 1rem;
     }
 </style>

@@ -33,7 +33,7 @@
         display: grid;
         grid-template-columns: 1fr 2.5fr;
         width: 600px;
-        background: #e7ebef;
+        background: var(--lumo-contrast-10pct);
         margin: 1rem;
         padding: 1rem;
         gap: 0.25rem;

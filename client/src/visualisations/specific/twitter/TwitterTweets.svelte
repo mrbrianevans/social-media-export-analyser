@@ -45,7 +45,7 @@
       border-width: medium;
       border-style: solid;
       border-radius: var(--lumo-border-radius-l);
-      padding: 1rem; /*need to update this to a lumo constant */
+      padding: var(--lumo-space-m);
       margin: 0.5rem 1rem;
       width: 600px;
       display: inline-grid;
