@@ -79,7 +79,7 @@ export const generateDemoFiles = async () => {
   )
 
   //twitter
-  const twitterTweets = generateTwitterTweetFile({})
+  const twitterTweets = generateTwitterTweetFile({ qty: 15 })
   fs.writeFileSync(demoFilePath('twitter/tweet.js'), twitterTweets)
 }
 

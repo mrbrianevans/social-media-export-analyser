@@ -8,6 +8,7 @@
   import '@vaadin/horizontal-layout/theme/material/vaadin-horizontal-layout'
   import ThemeToggle from './components/ThemeToggle.svelte'
   import GitHubLink from './components/GitHubLink.svelte'
+  import OnlineIndicator from './components/OnlineIndicator.svelte'
 
   let files: PostProcessedOutput[] = []
   let activeIndex = 0
@@ -21,6 +22,7 @@
                               theme=''>
       <h1 class='navbar-title'>Social media data viewer</h1>
       <vaadin-horizontal-layout>
+        <OnlineIndicator/>
         <GitHubLink/>
         <ThemeToggle bind:theme />
       </vaadin-horizontal-layout>

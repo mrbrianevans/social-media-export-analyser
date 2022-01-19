@@ -1,5 +1,5 @@
 
-<a href='https://github.com/mrbrianevans/social-media-export-analyser' id='gitLink' target='_blank' aria-label='Link to GitHub repository'>
+<a href='https://github.com/mrbrianevans/social-media-export-analyser' id='gitLink' target='_blank' aria-label='GitHub repository'>
 <!--  from https://primer.style/octicons/mark-github-16 -->
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
     <path fill-rule="evenodd"

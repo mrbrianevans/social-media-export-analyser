@@ -1,6 +1,6 @@
 import { PreProcessor } from '../../typedefs/PreProcess'
 import { snakeCase } from 'snake-case'
-import * as camelcase from 'camelcase'
+import camelcase from 'camelcase'
 import { arrayEquals } from '../../common/ArrayUtils'
 
 export const twitterJsPreProcessor: PreProcessor = ({
