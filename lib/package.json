@@ -2,7 +2,8 @@
   "name": "social-media-export-analyser-lib",
   "version": "1.0.0",
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
   },
   "dependencies": {
     "camelcase": "^6.2.0",

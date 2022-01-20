@@ -93,7 +93,6 @@ export const repeat = <T = any>(
  * Returns the number of primitives in an object
  */
 export const objectSize = (object: any) => {
-  console.log('object size', object)
   if (typeof object !== 'object' || object === null) {
     return 1
   } else

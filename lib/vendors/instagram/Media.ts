@@ -10,7 +10,7 @@ type PathString<
   topLevelDirectory extends string,
   fileExtension extends string = 'mp4' | 'jpg',
   year extends number = number,
-  month extends number = number
+  month extends number | string = string
 > = `${topLevelDirectory}/${year}${month}/${string}.${fileExtension}`
 interface MediaItem {
   caption: string
@@ -92,9 +92,9 @@ const generatePath = <
   date?: Date
 ): PathString<TopLevelDirectory, FileExtension> => {
   date ??= RandDate()
-  return `${topLevelDirectory}/${date.getFullYear()}${
-    date.getMonth() + 1
-  }/${RandHex(32)}.${fileExtension}`
+  return `${topLevelDirectory}/${date.getFullYear()}${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, '0')}/${RandHex(32)}.${fileExtension}`
 }
 
 export const generateSampleMediaData = ({

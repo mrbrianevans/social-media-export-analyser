@@ -12,7 +12,7 @@
 <div class='container'>
   <VirtualList items={data} let:item={tweet} bind:start bind:end height="1000px">
     <div class='tweet'>
-      <span class='posted small'>📆 Posted on {longDate(new Date(Date.parse(tweet.created_at)))}</span>
+      <span class='posted small'>📆 Posted on {Date.parse(tweet.created_at)? longDate(new Date(Date.parse(tweet.created_at))) : tweet.created_at}</span>
       <span class='favourite small'> {tweet.favorite_count} {tweet.favorited ? '🌟' : '⭐'} favourites</span>
       <span class='retweet small'> {tweet.retweet_count} {tweet.retweeted ? '🔂' : '🔁'} retweets</span>
       <p class='text'>

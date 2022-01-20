@@ -11,5 +11,15 @@ export const preProcessorMap: { [key in PreProcessingCategory]: PreProcessor } =
     json: jsonPreProcessor,
     text: textPreProcessor,
     whatsapp: whatsappPreProcessor,
-    twitterJs: twitterJsPreProcessor
+    twitterJs: twitterJsPreProcessor,
+    image: (input) => ({
+      data: { url: input.fileContent },
+      title: 'Image',
+      metadata: {}
+    }),
+    video: (input) => ({
+      data: { url: input.fileContent },
+      title: 'Video',
+      metadata: {}
+    })
   }

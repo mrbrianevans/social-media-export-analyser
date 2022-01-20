@@ -4,6 +4,8 @@ export type PreProcessingCategory =
   | 'whatsapp'
   | 'text'
   | 'twitterJs'
+  | 'image'
+  | 'video'
 export type PreProcessingTester = {
   // tests
   filenameRegex?: RegExp

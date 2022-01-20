@@ -4,6 +4,7 @@ import {
   PreProcessingCategory,
   PreProcessingTester
 } from '../typedefs/PreProcess'
+import { CommonImageTypes, CommonVideoTypes } from '../common/isMedia'
 
 const preProcessingTesters: PreProcessingTester[] = [
   {
@@ -30,6 +31,16 @@ const preProcessingTesters: PreProcessingTester[] = [
     filenameRegex: /\.js$/,
     fileTypes: ['text/javascript', 'application/x-javascript'],
     preProcessingCategory: 'twitterJs'
+  },
+  {
+    filenameRegex: /\.(jpe?g|png|svg|webp|apng|avif|gif|jfif|pjpeg|pjp)$/i,
+    fileTypes: CommonImageTypes.map((t) => `image/${t}`),
+    preProcessingCategory: 'image'
+  },
+  {
+    filenameRegex: /\.(3pg|mpe?g|mp4|m4v|m4p|ogg|ogv|mov|webm)$/i,
+    fileTypes: CommonVideoTypes.map((t) => `video/${t}`),
+    preProcessingCategory: 'video'
   }
 ]
 
