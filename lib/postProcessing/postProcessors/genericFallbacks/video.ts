@@ -5,12 +5,12 @@ import {
 } from '../../../typedefs/PostProcess'
 import { ImageDataObject } from '../../../preProcessing/preProcessors/image'
 
-export const ImagePostProcess: PostProcess = {
-  code: 'image',
+export const VideoPostProcess: PostProcess = {
+  code: 'video',
   classifier: {
     topLevelIsArray: false,
-    filenameRegex: /\.(jpe?g|png|svg|webp|apng|avif|gif|jfif|pjpeg|pjp)$/i,
-    preProcessingCategory: 'image'
+    filenameRegex: /\.(3pg|mpe?g|mp4|m4v|m4p|ogg|ogv|mov|webm)$/i,
+    preProcessingCategory: 'video'
   },
-  component: 'Image'
+  component: 'Video'
 }

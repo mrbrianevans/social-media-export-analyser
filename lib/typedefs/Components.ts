@@ -17,7 +17,8 @@ const ComponentList = {
   KeyValueCard: 'A card that can display arbitrary string key-value pairs',
   InstagramProfile: 'A specially designed profile for instagram users',
   TwitterTweets: 'Timeline of twitter tweets',
-  Image: 'An image'
+  Image: 'An image',
+  Video: 'A video player'
 }
 
 export type ComponentName = keyof typeof ComponentList

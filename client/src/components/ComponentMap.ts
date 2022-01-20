@@ -13,6 +13,7 @@ import KeyValueCard from '../visualisations/cards/KeyValueCard.svelte'
 import InstagramProfile from '../visualisations/specific/instagram/InstagramProfile.svelte'
 import TwitterTweets from '../visualisations/specific/twitter/TwitterTweets.svelte'
 import Image from '../visualisations/media/Image.svelte'
+import Video from '../visualisations/media/Video.svelte'
 
 // by using mapped types, this ensures a component exists for every ComponentName
 export const ComponentForShape: {
@@ -30,5 +31,6 @@ export const ComponentForShape: {
   KeyValueCard,
   InstagramProfile,
   TwitterTweets,
-  Image
+  Image,
+  Video
 }
