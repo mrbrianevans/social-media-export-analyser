@@ -16,5 +16,6 @@ addEventListener('message', async (e: MessageEvent<File>) => {
     fileType
   })
   postProcessedOutput.metadata.filename = filename
+  if (isMedia(fileType)) postProcessedOutput.metadata.isMedia = true
   postMessage(postProcessedOutput)
 })

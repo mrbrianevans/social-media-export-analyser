@@ -3,8 +3,9 @@
   import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
   import ProcessingWorker from '../workers/processingWorker?worker'
   import type { PostProcessedOutput } from '../../../lib/typedefs/PostProcess'
+  import { onlyFilename } from '../../../lib/common/PathProcessing'
   // Register the plugins
-  registerPlugin(FilePondPluginImagePreview)
+  // registerPlugin(FilePondPluginImagePreview)
 
   // a reference to the component, used to call FilePond methods
   let pond
@@ -20,13 +21,16 @@
     const worker = new ProcessingWorker()
 
     worker.postMessage(fileItem.file)
+    console.dir(fileItem)
     const workerOutput: PostProcessedOutput = await new Promise(resolve => {
       worker.onmessage = message => {
         resolve(message.data)
       }
     })
-    // console.log('metadata:', workerOutput.metadata)
-    files = [...files, workerOutput]
+    console.log('metadata', workerOutput.metadata)
+    if(workerOutput.metadata.isMedia)
+      sessionStorage.setItem(onlyFilename(fileItem.relativePath || fileItem.filename), workerOutput.data.url)
+    else files = [...files, workerOutput]
   }
 
   function handleRemoveFile(err, fileItem) {
