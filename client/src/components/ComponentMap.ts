@@ -12,6 +12,7 @@ import InstagramComments from '../visualisations/specific/instagram/InstagramCom
 import KeyValueCard from '../visualisations/cards/KeyValueCard.svelte'
 import InstagramProfile from '../visualisations/specific/instagram/InstagramProfile.svelte'
 import TwitterTweets from '../visualisations/specific/twitter/TwitterTweets.svelte'
+import Image from '../visualisations/media/Image.svelte'
 
 // by using mapped types, this ensures a component exists for every ComponentName
 export const ComponentForShape: {
@@ -28,5 +29,6 @@ export const ComponentForShape: {
   InstagramComments,
   KeyValueCard,
   InstagramProfile,
-  TwitterTweets
+  TwitterTweets,
+  Image
 }

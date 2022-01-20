@@ -1,5 +1,3 @@
-import { InstagramProfile } from '../vendors/instagram/Profile'
-
 export type VaadinMessageHistoryFormat = {
   time: string
   text: string
@@ -18,7 +16,8 @@ const ComponentList = {
   InstagramComments: 'A list of instagram comments',
   KeyValueCard: 'A card that can display arbitrary string key-value pairs',
   InstagramProfile: 'A specially designed profile for instagram users',
-  TwitterTweets: 'Timeline of twitter tweets'
+  TwitterTweets: 'Timeline of twitter tweets',
+  Image: 'An image'
 }
 
 export type ComponentName = keyof typeof ComponentList

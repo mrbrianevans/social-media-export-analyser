@@ -30,6 +30,7 @@ import {
   ArrayDataPostProcess,
   TabularDataPostProcess
 } from './postProcessors/genericFallbacks/tabularData'
+import { ImagePostProcess } from './postProcessors/genericFallbacks/image'
 
 type PostProcessorCategory =
   | keyof typeof postProcessors
@@ -50,7 +51,8 @@ const postProcessors = {
   TwitterFallbackPostProcess,
   TwitterManifestPostProcess,
   ContactsCsvPostProcess,
-  TextPostProcess
+  TextPostProcess,
+  ImagePostProcess
 }
 const genericPostProcessors = {
   ArrayDataPostProcess,

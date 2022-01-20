@@ -4,6 +4,8 @@ import { whatsappPreProcessor } from './preProcessors/whatsapp'
 import { csvPreProcessor } from './preProcessors/csv'
 import { textPreProcessor } from './preProcessors/text'
 import { twitterJsPreProcessor } from './preProcessors/twitterJs'
+import { videoPreProcessor } from './preProcessors/video'
+import { imagePreProcessor } from './preProcessors/image'
 
 export const preProcessorMap: { [key in PreProcessingCategory]: PreProcessor } =
   {
@@ -12,14 +14,6 @@ export const preProcessorMap: { [key in PreProcessingCategory]: PreProcessor } =
     text: textPreProcessor,
     whatsapp: whatsappPreProcessor,
     twitterJs: twitterJsPreProcessor,
-    image: (input) => ({
-      data: { url: input.fileContent },
-      title: 'Image',
-      metadata: {}
-    }),
-    video: (input) => ({
-      data: { url: input.fileContent },
-      title: 'Video',
-      metadata: {}
-    })
+    image: imagePreProcessor,
+    video: videoPreProcessor
   }
