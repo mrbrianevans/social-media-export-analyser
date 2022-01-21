@@ -1,8 +1,12 @@
-import { PostProcess } from '../../typedefs/PostProcess'
+import { PostProcess, PostProcessedFileInput } from '../../typedefs/PostProcess'
 import { instagramConnectionsPostProcessingFunction } from '../../vendors/instagram/Connections'
 import { instagramCommentsPostProcessingFunction } from '../../vendors/instagram/Comments'
 import { instagramLikesPostProcessFunction } from '../../vendors/instagram/Likes'
 import { instagramAccountHistoryPostProcessor } from '../../vendors/instagram/AccountHistory'
+import {
+  instagramMediaPostProcessFunction,
+  Media
+} from '../../vendors/instagram/Media'
 
 export const InstagramPostsPostProcess: PostProcess = {
   classifier: {
@@ -15,7 +19,8 @@ export const InstagramPostsPostProcess: PostProcess = {
   component: 'InstagramPostsList',
   name: 'Instagram Posts',
   code: 'instagram-posts',
-  vendor: 'Instagram'
+  vendor: 'Instagram',
+  postProcessingFunction: instagramMediaPostProcessFunction
 }
 
 export const InstagramProfilePostProcess: PostProcess = {

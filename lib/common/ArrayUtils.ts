@@ -72,9 +72,11 @@ export const objectOrArrayDepth = (obj) => {
  * If start === finish, it starts at zero up to finish.
  *
  * @example
+ * ```ts
  range(10) // 0 - 10
  range(1,5) // 1 - 5
  range(0,10,2) // 0,2,4,6,8,10
+```
 */
 export const range = (start: number, finish = start, increment = 1) => {
   if (start === finish) start = 0

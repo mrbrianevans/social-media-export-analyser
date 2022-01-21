@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "build": "tsc --build",
-    "clean": "tsc --build --clean"
+    "clean": "tsc --build --clean",
+    "docs": "npx typedoc --entryPointStrategy expand ./ --out ../docs"
   },
   "dependencies": {
     "camelcase": "^6.2.0",

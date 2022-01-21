@@ -21,13 +21,13 @@
     const worker = new ProcessingWorker()
 
     worker.postMessage(fileItem.file)
-    console.dir(fileItem)
+    // console.dir(fileItem)
     const workerOutput: PostProcessedOutput = await new Promise(resolve => {
       worker.onmessage = message => {
         resolve(message.data)
       }
     })
-    console.log('metadata', workerOutput.metadata)
+    // console.log('metadata', workerOutput.metadata)
     if(workerOutput.metadata.isMedia)
       sessionStorage.setItem(onlyFilename(fileItem.relativePath || fileItem.filename), workerOutput.data.url)
     else files = [...files, workerOutput]

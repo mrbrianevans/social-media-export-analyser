@@ -1,7 +1,10 @@
 import { RandHex } from '../../common/RandomUtils/RandomNumberUtils'
 import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
 import { generateCaption } from '../../common/RandomUtils/RandomContent/RandomSentence'
-import { formatDateEurTimeWithTz } from '../../common/DateUtils'
+import { formatDateEurTimeWithTz, longDateTime } from '../../common/DateUtils'
+import { repeat } from '../../common/ArrayUtils'
+import { PostProcessor } from '../../typedefs/PostProcess'
+import { InstagramLikes, InstagramLikesPostProcess } from './Likes'
 
 type DateString =
   `${number}-${number}-${number}T${number}:${number}:${number}+${number}:${number}`
@@ -44,6 +47,70 @@ export interface Media {
   profile: Profile[]
   stories: Story[]
   videos: Video[]
+}
+interface MediaTimestamp {
+  timestamp: number
+}
+interface StoryProcessed extends Story {
+  type: 'story'
+}
+interface ProfileProcessed extends Profile {
+  type: 'profile'
+}
+interface VideoProcessed extends Video {
+  type: 'video'
+}
+interface PhotoProcessed extends Photo {
+  type: 'photo'
+}
+
+export type InstagramMediaAfterProcessing = ((
+  | VideoProcessed
+  | StoryProcessed
+  | ProfileProcessed
+  | PhotoProcessed
+) &
+  MediaTimestamp)[]
+
+export const instagramMediaPostProcessFunction: PostProcessor<
+  Media,
+  InstagramMediaAfterProcessing
+> = (input) => {
+  const d = input.preProcessedOutput.data
+  const data: InstagramMediaAfterProcessing = []
+  data.push(
+    ...d['profile'].map((p) => ({
+      ...p,
+      type: 'profile' as const,
+      timestamp: new Date(p.taken_at).getTime()
+    }))
+  )
+  data.push(
+    ...d['stories'].map((p) => ({
+      ...p,
+      type: 'story' as const,
+      timestamp: new Date(p.taken_at).getTime()
+    }))
+  )
+  data.push(
+    ...d['photos'].map((p) => ({
+      ...p,
+      type: 'photo' as const,
+      timestamp: new Date(p.taken_at).getTime()
+    }))
+  )
+  data.push(
+    ...d['videos'].map((p) => ({
+      ...p,
+      type: 'video' as const,
+      timestamp: new Date(p.taken_at).getTime()
+    }))
+  )
+  data.sort((a, b) => a.timestamp - b.timestamp)
+  return {
+    ...input.preProcessedOutput,
+    data
+  }
 }
 
 const staticSampleData: Media = {
@@ -104,18 +171,38 @@ export const generateSampleMediaData = ({
   profiles = 2
 }): Media => {
   return {
-    profile: [],
-    stories: [],
-    videos: [],
-    photos: Array(photos)
-      .fill(null)
-      .map(() => {
-        const date = RandDate()
-        return {
-          taken_at: generateRandomDateString(date),
-          caption: generateCaption(),
-          path: generatePath('photos', 'jpg', date)
-        }
-      })
+    profile: repeat(profiles, (i) => {
+      const date = RandDate()
+      return {
+        is_active_profile: i === 0,
+        taken_at: generateRandomDateString(date),
+        caption: '',
+        path: generatePath('profile', 'jpg', date)
+      }
+    }),
+    stories: repeat(stories, (i) => {
+      const date = RandDate()
+      return {
+        taken_at: generateRandomDateString(date),
+        caption: i % 2 == 0 ? generateCaption() : '',
+        path: generatePath('stories', 'jpg', date)
+      }
+    }),
+    videos: repeat(videos, () => {
+      const date = RandDate()
+      return {
+        taken_at: generateRandomDateString(date),
+        caption: generateCaption(),
+        path: generatePath('videos', 'mp4', date)
+      }
+    }),
+    photos: repeat(photos, () => {
+      const date = RandDate()
+      return {
+        taken_at: generateRandomDateString(date),
+        caption: generateCaption(),
+        path: generatePath('photos', 'jpg', date)
+      }
+    })
   }
 }
