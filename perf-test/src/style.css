@@ -1,0 +1,31 @@
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+
+
+#gallery{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 100%;
+  align-items: center;
+}
+
+#gallery img{
+  width: 200px;
+  transition: transform 500ms ease;
+}
+
+#gallery img:hover{
+  transform: scale(2);
+
+}
+#gallery img:focus{
+  transform: scale(3);
+
+}
