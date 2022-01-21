@@ -3,6 +3,8 @@ Analyse GDPR data portability exports of your data from big social media compani
 
 Website URL: https://social-media-export-analyser-mrybc.ondigitalocean.app/
 
+Documentation URL: https://mrbrianevans.github.io/social-media-export-analyser
+
 # Directories
 ## `lib`
 The `lib` directory contains javascript that can be run in the browser or on a server. 
