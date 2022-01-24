@@ -42,6 +42,18 @@ export const keysInclude = (obj, keys) => {
 }
 
 /**
+ * Returns the top level keys of an object or an array of objects
+ */
+export const objectKeys = (
+  obj: Record<string, any> | Record<string, any>[]
+) => {
+  if (typeof obj !== 'object' || obj === null)
+    throw new Error('objectKeys called on non-object: ' + obj)
+  if (obj instanceof Array) return objectKeys(obj[0])
+  return Object.keys(obj)
+}
+
+/**
  * Calculates the maximum depth of an object by traversing every path.
  * Can be expensive on large objects, so use sparingly.
  * @param obj - the object to calculate depth of

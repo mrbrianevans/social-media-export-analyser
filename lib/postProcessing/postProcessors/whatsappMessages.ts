@@ -12,7 +12,7 @@ export const whatsappMessagesPostProcessor: PostProcessor<
   return {
     data: convertWhatsappHistoryToVaadinMessages(
       input.preProcessedOutput.data
-    ).slice(0, 100),
+    ).slice(0, 1_000_000),
     metadata: {
       source: 'whatsapp',
       ...input.preProcessedOutput.metadata

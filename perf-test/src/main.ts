@@ -28,6 +28,7 @@ filesUpload.addEventListener('input', () => {
   console.log(filesUpload.files)
   if (filesUpload.files) {
     console.time(`Create ${filesUpload.files.length} URLs`)
+    // @ts-ignore
     for (const file of filesUpload.files) {
       if (!file.name.endsWith('jpg')) continue
       const url = URL.createObjectURL(file)
