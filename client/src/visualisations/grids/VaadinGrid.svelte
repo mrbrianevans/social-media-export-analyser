@@ -24,7 +24,7 @@
   $: items = getGridData(data)
   let columns = []
   const getColumns = i => {
-    return i ? Object.keys(i[0]) : []
+    return i && i.length ? Object.keys(i[0]) : []
   }
   $: columns = getColumns(items)
 </script>

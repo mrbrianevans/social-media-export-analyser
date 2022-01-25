@@ -56,7 +56,7 @@ const insertNextEntity = (
   entities: IntermediateShape[],
   priorLength = 0
 ): ChunkedText[] => {
-  if (entities.length > 1) console.log(entities.length, 'entities to insert')
+  // if (entities.length > 1) console.log(entities.length, 'entities to insert')
   if (entities.length === 0) return outputArray
   const text = outputArray.splice(-1)[0]
   if (text.type !== 'text') throw new Error('Cannot chunk tweet text entities')

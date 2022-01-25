@@ -1,11 +1,18 @@
+import { range, shuffle } from 'ts-closure-library/lib/array/array'
+
 import './style.css'
+import '@vaadin/text-field'
+import '@vaadin/icons'
 
 const app = document.querySelector<HTMLDivElement>('#app')!
 app.innerHTML = `
-  <h1>Perf test!</h1>
+  <h1>Perf test!<vaadin-icon icon="lumo:photo"></vaadin-icon><vaadin-icon icon="vaadin:search"></vaadin-icon></h1>
+  <vaadin-text-field placeholder="Search"><vaadin-icon icon="vaadin:phone" slot='prefix'></vaadin-icon></vaadin-text-field>
   <p>Testing uploading a few hundred images and creating URLs for them using the built in file upload input</p>
 `
-
+const arr = range(10)
+shuffle(arr)
+console.log('Google Array:', arr)
 const filesUpload = document.createElement('input')
 filesUpload.type = 'file'
 filesUpload.multiple = true
