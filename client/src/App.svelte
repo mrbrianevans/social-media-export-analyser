@@ -10,9 +10,10 @@
   import ThemeToggle from './components/ThemeToggle.svelte'
   import GitHubLink from './components/GitHubLink.svelte'
   import OnlineIndicator from './components/OnlineIndicator.svelte'
-  import { Document } from 'flexsearch'
+  import { Document,  } from 'flexsearch'
   import { objectKeys } from '../../lib/common/ArrayUtils'
   import JsonEditor from './components/JsonEditor.svelte'
+  import { registerWorker } from './workers/registerWorker'
   // limit to first 5000 results
   const searchResultsLimit = 5000
   let files: PostProcessedOutput[] = []
@@ -32,7 +33,7 @@
     if(!data) return
     console.time('Load index')
     const fields = objectKeys(data)
-    idx = new Document({document: {id: 'id', index: fields}, worker: false, preset: 'performance', tokenize: 'strict'})
+    idx = new Document({document: {id: 'id', index: fields}, preset: 'performance', tokenize: 'full'})
     if(data instanceof Array){
       for (const id in data) {
         const dataItem = {...data[id]}
@@ -49,7 +50,7 @@
   $: {
     loadIndex(files[activeIndex]?.data)
   }
-  let marginTheme = "margin"
+  registerWorker()
 </script>
 
 
@@ -57,7 +58,7 @@
   <vaadin-app-layout>
     <vaadin-horizontal-layout slot='navbar' style='justify-content: space-between; width: 100%; align-items: center'
                               theme=''>
-      <h1 class='navbar-title'>Social media data viewer</h1>
+      <h1 class='navbar-title'>Data file explorer</h1>
       <vaadin-horizontal-layout>
         <OnlineIndicator/>
         <GitHubLink/>

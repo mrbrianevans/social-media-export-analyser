@@ -4,6 +4,7 @@
   import ProcessingWorker from '../workers/processingWorker?worker'
   import type { PostProcessedOutput } from '../../../lib/typedefs/PostProcess'
   import { onlyFilename } from '../../../lib/common/PathProcessing'
+  import { isMedia } from '../../../lib/common/isMedia'
   // Register the plugins
   // registerPlugin(FilePondPluginImagePreview)
 
@@ -18,19 +19,24 @@
   async function handleAddFile(err, fileItem) {
     // console.log('Relative path', fileItem.relativePath)
     // console.log('fileItem', fileItem)
-    const worker = new ProcessingWorker()
-
-    worker.postMessage(fileItem.file)
-    // console.dir(fileItem)
-    const workerOutput: PostProcessedOutput = await new Promise(resolve => {
-      worker.onmessage = message => {
-        resolve(message.data)
-      }
-    })
-    // console.log('metadata', workerOutput.metadata)
-    if(workerOutput.metadata.isMedia)
-      sessionStorage.setItem(onlyFilename(fileItem.relativePath || fileItem.filename), workerOutput.data.url)
-    else files = [...files, workerOutput]
+    if(isMedia(fileItem.fileType)){
+      // this is here rather than the worker to save performance of starting a new worker
+      const url = URL.createObjectURL(fileItem.file)
+      sessionStorage.setItem(onlyFilename(fileItem.relativePath || fileItem.filename), url)
+    }else{
+      // perform as much processing in a worker as possible
+      const worker: Worker = new ProcessingWorker()
+      worker.postMessage(fileItem.file)
+      // console.dir(fileItem)
+      const workerOutput: PostProcessedOutput = await new Promise(resolve => {
+        worker.onmessage = message => {
+          resolve(message.data)
+        }
+      })
+      // console.log('metadata', workerOutput.metadata)
+      files = [...files, workerOutput]
+      worker.terminate() // free up the worker when finished
+    }
   }
 
   function handleRemoveFile(err, fileItem) {

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Data File Explorer",
+  "short_name": "Data File Explorer",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Analyse and explore data files exported from social media or other websites",
+  "orientation": "landscape-primary",
+  "categories": [
+    "data visualisation",
+    "data analysis",
+    "social media data",
+    "data export",
+    "gdpr"
+  ],
+  "icons": [
+    {
+      "src": "icon/icon500.svg",
+      "type": "image/xml+svg",
+      "sizes": "500x500"
+    },
+    {
+      "src": "icon/icon500.png",
+      "type": "image/png",
+      "sizes": "500x500"
+    },
+    {
+      "src": "icon/icon500.jpg",
+      "type": "image/jpg",
+      "sizes": "500x500"
+    },
+    {
+      "src": "icon/icon500.webp",
+      "type": "image/webp",
+      "sizes": "500x500"
+    }
+  ]
+}
