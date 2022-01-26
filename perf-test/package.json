@@ -14,6 +14,7 @@
     "@vaadin/icons": "^22.0.3",
     "@vaadin/text-field": "^22.0.3",
     "google-closure-library": "^20220104.0.0",
+    "levenshtein-wasm": "file:../../levenshtein-wasm",
     "ts-closure-library": "^2020.6.2-8.1"
   }
 }

@@ -58,7 +58,7 @@
   <vaadin-app-layout>
     <vaadin-horizontal-layout slot='navbar' style='justify-content: space-between; width: 100%; align-items: center'
                               theme=''>
-      <h1 class='navbar-title'>Data file explorer</h1>
+      <h1 class='navbar-title'><img src='icon/icon500.webp' style='height: 2em; width: 2em' alt='logo'/>Data File Explorer</h1>
       <vaadin-horizontal-layout>
         <OnlineIndicator/>
         <GitHubLink/>
@@ -103,9 +103,10 @@
     }
 
     h1.navbar-title {
-        display: inline-block;
+        display: inline-flex;
         font-size: var(--lumo-font-size-xl);
-        margin: 0.25rem var(--lumo-space-l);
+        margin: 0.25rem var(--lumo-space-s);
+        align-items: center;
     }
 
     :global(body) {

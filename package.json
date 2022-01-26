@@ -5,7 +5,7 @@
   "scripts": {
     "start": "cd client && npm run build && npm run serve",
     "test": "cd lib && npm run build && cd ../lib-testing && npm run test",
-    "lint:check": "eslint . --ext .ts --ignore-pattern perf-test/*",
+    "lint:check": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix --ignore-pattern perf-test/*",
     "format:check": "prettier --check **/*.ts --ignore-path .gitignore",
     "format:write": "prettier --write **/*.ts --ignore-path .gitignore"

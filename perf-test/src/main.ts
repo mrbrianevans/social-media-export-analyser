@@ -1,5 +1,8 @@
 import { range, shuffle } from 'ts-closure-library/lib/array/array'
-
+// import { levenshtein } from 'levenshtein-wasm'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-ignore
+import ProcessingWorker from './worker?worker=true'
 import './style.css'
 import '@vaadin/text-field'
 import '@vaadin/icons'
@@ -13,6 +16,11 @@ app.innerHTML = `
 const arr = range(10)
 shuffle(arr)
 console.log('Google Array:', arr)
+
+console.log(
+  'levenshtein distances:'
+  // levenshtein(['google', 'array', 'element', 'input'])
+)
 const filesUpload = document.createElement('input')
 filesUpload.type = 'file'
 filesUpload.multiple = true
@@ -38,10 +46,24 @@ filesUpload.addEventListener('input', () => {
 
     for (const file of filesUpload.files as unknown as File[]) {
       if (!file.name.endsWith('jpg')) continue
-      const url = URL.createObjectURL(file)
-      sessionStorage.setItem(file.name, url)
-      addImage(url)
+      getUrlFromWorker(file).then((url) => {
+        sessionStorage.setItem(file.name, url)
+        addImage(url)
+      })
     }
     console.timeEnd(`Create ${filesUpload.files.length} URLs`)
   }
 })
+
+async function getUrlFromWorker(file: File) {
+  const worker: Worker = new ProcessingWorker()
+
+  worker.postMessage(file)
+  // console.dir(file)
+  const workerOutput: string = await new Promise((resolve) => {
+    worker.onmessage = (message) => {
+      resolve(message.data)
+    }
+  })
+  return workerOutput
+}
