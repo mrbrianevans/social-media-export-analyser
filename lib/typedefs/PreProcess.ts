@@ -6,6 +6,7 @@ export type PreProcessingCategory =
   | 'twitterJs'
   | 'image'
   | 'video'
+  | 'html'
 export type PreProcessingTester = {
   // tests
   filenameRegex?: RegExp

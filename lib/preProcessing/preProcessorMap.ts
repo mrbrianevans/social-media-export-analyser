@@ -6,6 +6,7 @@ import { textPreProcessor } from './preProcessors/text'
 import { twitterJsPreProcessor } from './preProcessors/twitterJs'
 import { videoPreProcessor } from './preProcessors/video'
 import { imagePreProcessor } from './preProcessors/image'
+import { htmlPreProcessor } from './preProcessors/html'
 
 export const preProcessorMap: { [key in PreProcessingCategory]: PreProcessor } =
   {
@@ -15,5 +16,6 @@ export const preProcessorMap: { [key in PreProcessingCategory]: PreProcessor } =
     whatsapp: whatsappPreProcessor,
     twitterJs: twitterJsPreProcessor,
     image: imagePreProcessor,
-    video: videoPreProcessor
+    video: videoPreProcessor,
+    html: htmlPreProcessor
   }

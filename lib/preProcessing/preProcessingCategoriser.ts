@@ -41,6 +41,11 @@ const preProcessingTesters: PreProcessingTester[] = [
     filenameRegex: /\.(3pg|mpe?g|mp4|m4v|m4p|ogg|ogv|mov|webm)$/i,
     fileTypes: CommonVideoTypes.map((t) => `video/${t}`),
     preProcessingCategory: 'video'
+  },
+  {
+    filenameRegex: /\.html$/,
+    fileTypes: ['text/html'],
+    preProcessingCategory: 'html'
   }
 ]
 

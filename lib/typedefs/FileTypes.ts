@@ -3,3 +3,4 @@ export type FileType =
   | 'application/json'
   | 'text/csv'
   | 'application/javascript'
+  | 'text/html'

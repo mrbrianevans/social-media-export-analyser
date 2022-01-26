@@ -60,10 +60,11 @@ export const objectKeys = (
  * @param maxDepthReached - a starting value, used for recursion. not recommended
  */
 export const objectDepth = (obj: any, maxDepthReached = 0) => {
+  if (maxDepthReached > 7) return maxDepthReached // to prevent a call stack overflow
   if (typeof obj === 'object' && obj !== null) {
     let highest = maxDepthReached++
     if (obj instanceof Array) obj = obj.slice(0, 5)
-    for (const [key, value] of Object.entries(obj)) {
+    for (const value of Object.values(obj)) {
       highest = Math.max(objectDepth(value, maxDepthReached), highest)
     }
     return highest
