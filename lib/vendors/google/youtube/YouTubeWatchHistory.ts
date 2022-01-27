@@ -46,7 +46,7 @@ export const processYouTubeWatchHistory: PostProcessor<
   return {
     data,
     metadata: {},
-    title: 'HTML Doc'
+    title: 'YouTube Watch History'
   }
 }
 

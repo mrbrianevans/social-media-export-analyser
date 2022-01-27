@@ -32,7 +32,10 @@ import {
 } from './postProcessors/genericFallbacks/tabularData'
 import { ImagePostProcess } from './postProcessors/genericFallbacks/image'
 import { VideoPostProcess } from './postProcessors/genericFallbacks/video'
-import { YouTubeWatchHistoryPostProcess } from './postProcessors/youtube'
+import {
+  YouTubeSearchHistoryPostProcess,
+  YouTubeWatchHistoryPostProcess
+} from './postProcessors/youtube'
 import { DefaultHtmlPostProcess } from './postProcessors/genericFallbacks/html'
 
 type PostProcessorCategory =
@@ -55,6 +58,7 @@ const postProcessors = {
   TwitterManifestPostProcess,
   ContactsCsvPostProcess,
   YouTubeWatchHistoryPostProcess,
+  YouTubeSearchHistoryPostProcess,
   DefaultHtmlPostProcess,
   TextPostProcess,
   ImagePostProcess,
