@@ -35,6 +35,7 @@
     const fields = objectKeys(data)
     idx = new Document({document: {id: 'id', index: fields}, preset: 'performance', tokenize: 'full'})
     if(data instanceof Array){
+      console.time('Add items to index')
       for (const id in data) {
         const dataItem = {...data[id]}
         dataItem.id ??= id
@@ -42,8 +43,11 @@
         // await idx.addAsync(dataItem.id, dataItem)
         idx.add(id, dataItem)
       }
+      console.timeEnd('Add items to index')
     }else{
+      console.time('Add item to index')
       await idx.addAsync(0, data)
+      console.timeEnd('Add item to index')
     }
     console.timeEnd('Load index')
   }

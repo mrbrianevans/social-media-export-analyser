@@ -1,16 +1,28 @@
 import { PostProcessor } from '../../../typedefs/PostProcess'
-import * as cheerio from 'cheerio'
-import { Node, NodeWithChildren } from 'cheerio'
+import type { CheerioAPI } from 'cheerio'
 
-export const processYouTubeWatchHistory: PostProcessor = ({
+type YouTubeWatchHistory = {
+  video: string
+  videoUrl?: string
+  channel: string
+  channelUrl?: string
+  date: string
+}[]
+
+export const processYouTubeWatchHistory: PostProcessor<
+  { doc: CheerioAPI },
+  YouTubeWatchHistory
+> = ({
   preProcessedOutput: {
-    data: { text: htmlString }
+    data: { doc }
   }
 }) => {
-  console.time('Parse HTML')
-  const doc = cheerio.load(htmlString, {})
-  console.timeEnd('Parse HTML')
+  // console.time('Parse HTML')
+  // const doc = cheerio.load(htmlString, {})
+  // console.timeEnd('Parse HTML')
   console.time('Get data from HTML')
+
+  /* eslint-disable @typescript-eslint/ban-ts-comment */
   const data = doc
     .root()
     .children()

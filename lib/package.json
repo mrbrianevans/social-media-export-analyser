@@ -9,11 +9,13 @@
   "dependencies": {
     "camelcase": "^6.2.0",
     "cheerio": "^1.0.0-rc.10",
+    "pretty": "^2.0.0",
     "snake-case": "^3.0.4",
     "ua-parser-js": "^1.0.2"
   },
   "devDependencies": {
     "@types/node": "^17.0.12",
+    "@types/pretty": "^2.0.1",
     "@types/ua-parser-js": "^0.7.36"
   }
 }

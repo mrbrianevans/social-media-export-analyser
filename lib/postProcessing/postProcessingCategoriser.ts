@@ -33,6 +33,7 @@ import {
 import { ImagePostProcess } from './postProcessors/genericFallbacks/image'
 import { VideoPostProcess } from './postProcessors/genericFallbacks/video'
 import { YouTubeWatchHistoryPostProcess } from './postProcessors/youtube'
+import { DefaultHtmlPostProcess } from './postProcessors/genericFallbacks/html'
 
 type PostProcessorCategory =
   | keyof typeof postProcessors
@@ -54,6 +55,7 @@ const postProcessors = {
   TwitterManifestPostProcess,
   ContactsCsvPostProcess,
   YouTubeWatchHistoryPostProcess,
+  DefaultHtmlPostProcess,
   TextPostProcess,
   ImagePostProcess,
   VideoPostProcess

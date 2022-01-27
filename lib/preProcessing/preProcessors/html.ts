@@ -1,15 +1,14 @@
 import { PreProcessor } from '../../typedefs/PreProcess'
 import * as cheerio from 'cheerio'
 
-export interface HtmlDataObject {}
-
-export const htmlPreProcessor: PreProcessor = ({
-  fileContent,
-  filename,
-  fileType
+export const htmlPreProcessor: PreProcessor<{ doc: cheerio.CheerioAPI }> = ({
+  fileContent
 }) => {
+  console.time('Parse HTML in preprocessor')
+  const doc = cheerio.load(fileContent)
+  console.timeEnd('Parse HTML in preprocessor')
   return {
-    data: { text: fileContent },
+    data: { doc },
     title: 'HTML Document',
     metadata: {}
   }
