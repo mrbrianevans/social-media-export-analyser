@@ -17,9 +17,6 @@ export const processYouTubeWatchHistory: PostProcessor<
     data: { doc }
   }
 }) => {
-  // console.time('Parse HTML')
-  // const doc = cheerio.load(htmlString, {})
-  // console.timeEnd('Parse HTML')
   console.time('Get data from HTML')
 
   /* eslint-disable @typescript-eslint/ban-ts-comment */
