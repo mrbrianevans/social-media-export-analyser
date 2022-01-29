@@ -1,0 +1,13 @@
+{
+  "name": "topics-testing",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "snowpack dev"
+  },
+  "devDependencies": {
+    "snowpack": "^3.8.8"
+  },
+  "dependencies": {
+    "fast-topics": "^1.1.0"
+  }
+}
