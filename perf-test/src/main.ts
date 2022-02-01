@@ -126,7 +126,7 @@ filesUpload.addEventListener('input', () => {
                 // )
                 const uniqueVideoTitles = Array.from(new Set(els))
                 console.log(uniqueVideoTitles)
-                let { docs, topics } = getTopics(
+                const { docs, topics } = getTopics(
                   uniqueVideoTitles.slice(0, 100),
                   {
                     numberOfTopics: 10
@@ -134,10 +134,11 @@ filesUpload.addEventListener('input', () => {
                 )
                 console.log(docs, topics)
                 // @ts-ignore
-                docs = Object.fromEntries(
+                const docs1 = Object.fromEntries(
                   Object.entries(docs).map(([k, v]) => [Number(k), v])
                 )
-                console.log(docs.map((d) => d[0]))
+                console.log(docs1)
+                // console.log(docs1.map((d) => d[0]))
                 // console.log(topics.map((t) => t.slice(0, 3)))
               })
               .catch((e) => console.error('TLJS parse failed:', e))

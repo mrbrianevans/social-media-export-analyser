@@ -13,7 +13,9 @@
   import { Document,  } from 'flexsearch'
   import { objectKeys } from '../../lib/common/ArrayUtils'
   import JsonEditor from './components/JsonEditor.svelte'
-  import { registerWorker } from './workers/registerWorker'
+  import { getTopics, initialiseWasm } from 'fast-topics'
+  import topicsWasm from 'fast-topics/dist/topics.wasm?url'
+
   // limit to first 5000 results
   const searchResultsLimit = 5000
   let files: PostProcessedOutput[] = []
@@ -29,6 +31,8 @@
   }
   let currData
   $: currData = (query ? results?.flatMap((field)=>field.result).map(i=>files[activeIndex]?.data[i]).filter(d=>d):null) ?? files[activeIndex]?.data
+  initialiseWasm(topicsWasm).then(()=>console.log('WASM ready'))
+  $: if(files?.length) console.log(files.map(f=>f.title), getTopics(files.map(file=>file.title)))
   async function loadIndex(data){
     if(!data) return
     console.time('Load index')
@@ -54,7 +58,6 @@
   $: {
     loadIndex(files[activeIndex]?.data)
   }
-  registerWorker()
 </script>
 
 
@@ -95,7 +98,6 @@
 <!--        <JsonEditor data={(query ? results?.flatMap((field)=>field.result).map(i=>file.data[i]):null) ?? file.data} />-->
         <svelte:component this={ComponentForShape[file.component]}
                           data={currData} />
-<!--                          data={file.data instanceof Array ? file.data.filter((d, i)=>!results?.length || (results?.some(r=>r.result.includes(d.id))??true)):file.data} maxItems={100} />-->
       {/if}
     {/each}
   </vaadin-app-layout>
