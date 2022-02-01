@@ -8,7 +8,8 @@
     "lint:check": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix --ignore-pattern perf-test/*",
     "format:check": "prettier --check **/*.ts --ignore-path .gitignore",
-    "format:write": "prettier --write **/*.ts --ignore-path .gitignore"
+    "format:write": "prettier --write **/*.ts --ignore-path .gitignore",
+    "precommit": "npm run format:check && npm run lint:check && cd client && npm run build && cd .. && cd lib && npm run build && npm run clean && cd .. && npm test"
   },
   "keywords": [
     "gdpr",

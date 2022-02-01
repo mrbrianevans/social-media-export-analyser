@@ -21,32 +21,32 @@ const manifest: Partial<ManifestOptions> = {
   ],
   icons: [
     {
-      src: 'icon/icon500.svg',
+      src: '/icon/icon500.svg',
       type: 'image/xml+svg',
       sizes: '500x500'
     },
     {
-      src: 'icon/icon500.png',
+      src: '/icon/icon500.png',
       type: 'image/png',
       sizes: '500x500'
     },
     {
-      src: 'icon/icon500.webp',
+      src: '/icon/icon500.webp',
       type: 'image/webp',
       sizes: '500x500'
     },
     {
-      src: 'icon/pwa-192x192.png',
+      src: '/icon/pwa-192x192.png',
       sizes: '192x192',
       type: 'image/png'
     },
     {
-      src: 'icon/pwa-512x512.png',
+      src: '/icon/pwa-512x512.png',
       sizes: '512x512',
       type: 'image/png'
     },
     {
-      src: 'icon/pwa-512x512.png',
+      src: '/icon/pwa-512x512.png',
       sizes: '512x512',
       type: 'image/png',
       purpose: 'any maskable'
@@ -60,14 +60,17 @@ export default defineConfig({
     svelte(),
     VitePWA({
       includeAssets: [
-        'icon/favicon.svg',
-        'favicon.ico',
-        'robots.txt',
-        'icon/apple-touch-icon.png'
+        '/icon/favicon.svg',
+        '/favicon.ico',
+        '/robots.txt',
+        '/icon/apple-touch-icon.png'
       ],
       includeManifestIcons: false,
       devOptions: { enabled: true },
       strategies: 'generateSW',
+      workbox: {
+        maximumFileSizeToCacheInBytes: 5_000_000 // for wasm
+      },
       manifest
     })
   ],
