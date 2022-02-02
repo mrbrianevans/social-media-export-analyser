@@ -10,8 +10,14 @@ import { generateInstagramComments } from '../lib/vendors/instagram/Comments'
 import { generateInstagramLikes } from '../lib/vendors/instagram/Likes'
 import { generateInstagramAccountHistory } from '../lib/vendors/instagram/AccountHistory'
 import { generateInstagramInformationAboutYou } from '../lib/vendors/instagram/InformationAboutYou'
+import { generateContactsFile } from 'social-media-export-analyser-lib/vendors/google/Contacts'
 
-const demoFilePath = (filename) => path.resolve('..', 'demo-files', filename)
+const demoFilePath = (filename) => {
+  const filePath = path.resolve('..', 'demo-files', filename)
+  fs.mkdirSync(path.dirname(filePath), { recursive: true })
+  return filePath
+}
+
 export const generateDemoFiles = async () => {
   // instagram media.json (list of posts)
   const instagramMedia = generateSampleMediaData({ photos: 5 })
@@ -81,6 +87,10 @@ export const generateDemoFiles = async () => {
   //twitter
   const twitterTweets = generateTwitterTweetFile({ qty: 15 })
   fs.writeFileSync(demoFilePath('twitter/tweet.js'), twitterTweets)
+
+  //contacts
+  const contactsCsv = generateContactsFile()
+  fs.writeFileSync(demoFilePath('contacts/contacts.csv'), contactsCsv)
 }
 
 generateDemoFiles()

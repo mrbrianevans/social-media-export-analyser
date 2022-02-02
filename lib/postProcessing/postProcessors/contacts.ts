@@ -1,4 +1,5 @@
 import { PostProcess } from '../../typedefs/PostProcess'
+import { processContacts } from '../../vendors/google/Contacts'
 
 export const ContactsCsvPostProcess: PostProcess = {
   name: 'Contacts',
@@ -11,5 +12,6 @@ export const ContactsCsvPostProcess: PostProcess = {
       maxDepth: 1
     }
   },
-  component: 'VaadinGrid'
+  component: 'VaadinGrid',
+  postProcessingFunction: processContacts
 }

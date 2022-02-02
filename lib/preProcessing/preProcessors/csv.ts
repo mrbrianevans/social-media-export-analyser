@@ -1,21 +1,21 @@
 import { PreProcessor } from '../../typedefs/PreProcess'
 import * as Papa from 'papaparse'
-export const csvPreProcessor: PreProcessor<
-  { [key: string]: string | number | boolean }[]
-> = ({ filename, fileType, fileContent }) => {
-  const data = readCsvStringToObject(fileContent)
+
+export type CsvObject = { [key: string]: string | number | boolean }[]
+export const csvPreProcessor: PreProcessor<CsvObject> = ({
+  filename,
+  fileType,
+  fileContent
+}) => {
+  const { data, meta } = Papa.parse(fileContent, {
+    header: true,
+    skipEmptyLines: true,
+    dynamicTyping: true
+  })
   const { length } = data
   return {
     data,
     title: filename,
-    metadata: { length }
+    metadata: { length, ...meta }
   }
-}
-
-const readCsvStringToObject = (csvString) => {
-  return Papa.parse(csvString, {
-    header: true,
-    skipEmptyLines: true,
-    dynamicTyping: true
-  }).data
 }
