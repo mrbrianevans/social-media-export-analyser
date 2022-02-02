@@ -32,7 +32,7 @@
   let currData
   $: currData = (query ? results?.flatMap((field)=>field.result).map(i=>files[activeIndex]?.data[i]).filter(d=>d):null) ?? files[activeIndex]?.data
   initialiseWasm(topicsWasm).then(()=>console.log('WASM ready'))
-  $: if(files?.length) console.log(files.map(f=>f.title), getTopics(files.map(file=>file.title)))
+  // $: if(files?.length) console.log(files.map(f=>f.title), getTopics(files.map(file=>file.title)))
   async function loadIndex(data){
     if(!data) return
     console.time('Load index')

@@ -1,10 +1,8 @@
 import { PreProcessor } from '../../typedefs/PreProcess'
-
-export const csvPreProcessor: PreProcessor<{ [key: string]: string }[]> = ({
-  filename,
-  fileType,
-  fileContent
-}) => {
+import * as Papa from 'papaparse'
+export const csvPreProcessor: PreProcessor<
+  { [key: string]: string | number | boolean }[]
+> = ({ filename, fileType, fileContent }) => {
   const data = readCsvStringToObject(fileContent)
   const { length } = data
   return {
@@ -15,15 +13,9 @@ export const csvPreProcessor: PreProcessor<{ [key: string]: string }[]> = ({
 }
 
 const readCsvStringToObject = (csvString) => {
-  const rawData = csvString
-    .split(/\r\n|\r|\n/)
-    .map((line) => line.split(',').filter((v) => v.length))
-    .filter((line: string[]) => line.length)
-  const headers = rawData[0]
-  const data = rawData
-    .slice(1)
-    .map((values) =>
-      Object.fromEntries(values.map((value, index) => [headers[index], value]))
-    )
-  return data
+  return Papa.parse(csvString, {
+    header: true,
+    skipEmptyLines: true,
+    dynamicTyping: true
+  }).data
 }
