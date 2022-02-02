@@ -30,7 +30,18 @@
     }else results = null
   }
   let currData
-  $: currData = (query ? results?.flatMap((field)=>field.result).map(i=>files[activeIndex]?.data[i]).filter(d=>d):null) ?? files[activeIndex]?.data
+  $: {
+    if(query && results){
+      // optimised for performance. Using Set() for unique results. 5ms for 10,000 results
+      const resultIds = new Set()
+      const duplicateIds = results?.flatMap((field) => field.result), numDupIds = duplicateIds.length
+      for (let i = 0; i < numDupIds; i++) resultIds.add(duplicateIds[i])
+      currData = Array.from(resultIds.values()).map(i => files[activeIndex]?.data[i]).filter(d => d)
+    }else{
+      currData = null
+    }
+    if(!currData) currData = files[activeIndex]?.data
+  }
   initialiseWasm(topicsWasm).then(()=>console.log('WASM ready'))
   // $: if(files?.length) console.log(files.map(f=>f.title), getTopics(files.map(file=>file.title)))
   async function loadIndex(data){
