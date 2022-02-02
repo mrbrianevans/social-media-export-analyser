@@ -46,6 +46,11 @@ const preProcessingTesters: PreProcessingTester[] = [
     filenameRegex: /\.html$/,
     fileTypes: ['text/html'],
     preProcessingCategory: 'html'
+  },
+  {
+    filenameRegex: /\.vcf$/,
+    fileTypes: ['text/x-vcard'],
+    preProcessingCategory: 'vcard'
   }
 ]
 

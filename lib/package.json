@@ -13,7 +13,8 @@
     "papaparse": "^5.3.1",
     "pretty": "^2.0.0",
     "snake-case": "^3.0.4",
-    "ua-parser-js": "^1.0.2"
+    "ua-parser-js": "^1.0.2",
+    "vcard4-ts": "^0.4.1"
   },
   "devDependencies": {
     "@types/node": "^17.0.12",

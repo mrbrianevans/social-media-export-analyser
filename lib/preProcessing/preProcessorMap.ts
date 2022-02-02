@@ -7,6 +7,7 @@ import { twitterJsPreProcessor } from './preProcessors/twitterJs'
 import { videoPreProcessor } from './preProcessors/video'
 import { imagePreProcessor } from './preProcessors/image'
 import { htmlPreProcessor } from './preProcessors/html'
+import { vcardPreProcessor } from './preProcessors/vcard'
 
 export const preProcessorMap: { [key in PreProcessingCategory]: PreProcessor } =
   {
@@ -17,5 +18,6 @@ export const preProcessorMap: { [key in PreProcessingCategory]: PreProcessor } =
     twitterJs: twitterJsPreProcessor,
     image: imagePreProcessor,
     video: videoPreProcessor,
-    html: htmlPreProcessor
+    html: htmlPreProcessor,
+    vcard: vcardPreProcessor
   }

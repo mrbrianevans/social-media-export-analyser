@@ -18,7 +18,10 @@ import {
   TwitterTweetsPostProcess
 } from './postProcessors/twitter'
 import { TextPostProcess } from './postProcessors/genericFallbacks/text'
-import { ContactsCsvPostProcess } from './postProcessors/contacts'
+import {
+  ContactsCsvPostProcess,
+  ContactsVcfPostProcess
+} from './postProcessors/contacts'
 import {
   KeyValuePostProcess,
   NestedArrayPostProcess,
@@ -57,6 +60,7 @@ const postProcessors = {
   TwitterFallbackPostProcess,
   TwitterManifestPostProcess,
   ContactsCsvPostProcess,
+  ContactsVcfPostProcess,
   YouTubeWatchHistoryPostProcess,
   YouTubeSearchHistoryPostProcess,
   DefaultHtmlPostProcess,

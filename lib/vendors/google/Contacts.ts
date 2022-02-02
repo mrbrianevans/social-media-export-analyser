@@ -87,7 +87,6 @@ export const processContacts: PostProcessor<CsvContacts, Contact[]> = ({
   preProcessedOutput: { data, metadata }
 }) => {
   const { fields } = metadata
-  console.log(data)
   const contacts: Contact[] = []
   for (const contact of data) {
     contacts.push({
@@ -122,7 +121,7 @@ export const processContacts: PostProcessor<CsvContacts, Contact[]> = ({
   }
 }
 
-function generateContacts(qty = 10): CsvContacts {
+function generateCsvContacts(qty = 10): CsvContacts {
   const contacts = new Set<CsvContacts[number]>()
   for (let i = 0; i < qty; i++) {
     const Name = getRandomFullName()
@@ -141,6 +140,6 @@ function generateContacts(qty = 10): CsvContacts {
 }
 
 export function generateContactsFile(qty = 10): string {
-  const contacts = generateContacts(qty)
+  const contacts = generateCsvContacts(qty)
   return Papa.unparse(contacts)
 }

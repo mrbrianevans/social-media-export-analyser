@@ -7,6 +7,7 @@ export type PreProcessingCategory =
   | 'image'
   | 'video'
   | 'html'
+  | 'vcard'
 export type PreProcessingTester = {
   // tests
   filenameRegex?: RegExp
