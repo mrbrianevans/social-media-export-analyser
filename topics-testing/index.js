@@ -1,3 +1,6 @@
-import { runTest } from './testing'
+import { runTest } from './testingFastTopics'
+import { testWinkJs } from './winkjs'
 
-setTimeout(runTest, 3000)
+// setTimeout(runTest, 3000)
+
+// testWinkJs()
