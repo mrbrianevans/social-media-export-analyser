@@ -27,7 +27,12 @@ async function processFile() {
 
   for (let i = 0; i < 19; i++) {
     const token = doc.tokens().itemAt(i)
-    console.log(token.out(), token.out(its.stem), token.out(its.pos))
+    console.log(
+      token.out(),
+      token.out(its.stem),
+      token.out(its.pos),
+      token.out(its.lemma)
+    )
   }
   for (let i = 0; i < 19; i++) {
     const sentence = doc.sentences().itemAt(i)
@@ -36,7 +41,24 @@ async function processFile() {
       sentence.out(),
       sentence.out(its.sentiment),
       sentence.out(its.span),
-      stemmedSentence
+      stemmedSentence,
+      sentence.tokens().out(its.stem, as.freqTable)
     )
+  }
+  const whiteList = new Set(['NOUN', 'SYM'])
+  const blackList = new Set(['PUNCT', 'SPACE', 'PART'])
+  const categories = new Set(['word', 'emoji', 'symbol', 'url'])
+  for (const category in categories) {
+    console.time(category + ' frequency')
+    console.log(
+      category,
+      doc
+        .tokens()
+        .filter((t) => t.out(its.type) === category)
+        .out(its.normal, as.freqTable)
+        .slice(0, 10)
+        .map(([word]) => word)
+    )
+    console.timeEnd(category + ' frequency')
   }
 }

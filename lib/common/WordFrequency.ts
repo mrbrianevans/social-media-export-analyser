@@ -1,3 +1,4 @@
+// this has been replaced by ../FrequencyAnalysis
 export const calculateWordFrequency = (content: string[]) => {
   console.time('Calculate word frequency')
   const words = content

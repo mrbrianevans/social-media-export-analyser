@@ -134,7 +134,8 @@ export const processCsvContacts: PostProcessor<CsvContacts, Contact[]> = ({
 function generateCsvContacts(qty = 10): CsvContacts {
   const contacts = new Set<CsvContacts[number]>()
   for (let i = 0; i < qty; i++) {
-    const Name = getRandomFullName()
+    const isMale = RandBoolean()
+    const Name = getRandomFullName(isMale)
     const contact: CsvContactsChild = {
       'Family Name': Name.split(' ').slice(1).join(' '),
       'Given Name': Name.split(' ').slice(0, 1).join(' '),
@@ -153,7 +154,7 @@ function generateCsvContacts(qty = 10): CsvContacts {
       )
     }
     if (OneIn(5)) {
-      contact['Photo'] = getRandomProfilePhoto()
+      contact['Photo'] = getRandomProfilePhoto(isMale)
     }
     if (OneIn(5)) {
       contact['Phone 2 - Type'] = 'Home'
