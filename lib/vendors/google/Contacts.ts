@@ -2,6 +2,11 @@ import { PostProcessor } from '../../typedefs/PostProcess'
 import * as Papa from 'papaparse'
 import { getRandomFullName } from '../../common/RandomUtils/RandomContent/RandomNames'
 import { generateRandomPhoneNumber } from '../../common/RandomUtils/RandomPhoneNumber'
+import { OneIn, RandBoolean } from '../../common/RandomUtils/RandomBooleanUtils'
+import { generateEmail } from '../../common/RandomUtils/RandomContent/RandomEmail'
+import { arrayObjectKeys, objectKeys } from '../../common/ArrayUtils'
+import { getRandomProfilePhoto } from '../../common/RandomUtils/RandomProfilePhoto'
+import { RandInt } from '../../common/RandomUtils/RandomNumberUtils'
 export type CsvContacts = CsvContactsChild[]
 export interface CsvContactsChild {
   Name: string
@@ -83,17 +88,20 @@ export interface Contact {
   otherDetails: Record<string, any>
 }
 
-export const processContacts: PostProcessor<CsvContacts, Contact[]> = ({
+export const processCsvContacts: PostProcessor<CsvContacts, Contact[]> = ({
   preProcessedOutput: { data, metadata }
 }) => {
   const { fields } = metadata
   const contacts: Contact[] = []
   for (const contact of data) {
     contacts.push({
-      address: {
-        postCode: contact['Address 1 - Postal Code'],
-        streetAddress: contact['Address 1 - Street']
-      },
+      address:
+        contact['Address 1 - Postal Code'] && contact['Address 1 - Street']
+          ? {
+              postCode: contact['Address 1 - Postal Code'],
+              streetAddress: contact['Address 1 - Street']
+            }
+          : null,
       emailAddresses: [
         {
           emailAddress: contact['E-mail 1 - Value'],
@@ -104,7 +112,9 @@ export const processContacts: PostProcessor<CsvContacts, Contact[]> = ({
       fullName: contact.Name,
       lastName: contact['Family Name'],
       organisation: contact['Organization 1 - Name'],
-      otherDetails: contact,
+      otherDetails: Object.fromEntries(
+        Object.entries(contact).filter(([, v]) => v)
+      ),
       phoneNumbers: [
         {
           phoneNumber: contact['Phone 1 - Value'],
@@ -125,7 +135,7 @@ function generateCsvContacts(qty = 10): CsvContacts {
   const contacts = new Set<CsvContacts[number]>()
   for (let i = 0; i < qty; i++) {
     const Name = getRandomFullName()
-    contacts.add({
+    const contact: CsvContactsChild = {
       'Family Name': Name.split(' ').slice(1).join(' '),
       'Given Name': Name.split(' ').slice(0, 1).join(' '),
       'Group Membership': '* myContacts',
@@ -134,12 +144,27 @@ function generateCsvContacts(qty = 10): CsvContacts {
       'Phone 1 - Type': 'Mobile',
       'Phone 1 - Value': generateRandomPhoneNumber(),
       Name
-    })
+    }
+    if (OneIn(3)) {
+      contact['E-mail 1 - Type'] = '* '
+      contact['E-mail 1 - Value'] = generateEmail(
+        Name.split(' ').at(0),
+        Name.split(' ').at(-1)
+      )
+    }
+    if (OneIn(5)) {
+      contact['Photo'] = getRandomProfilePhoto()
+    }
+    if (OneIn(5)) {
+      contact['Phone 2 - Type'] = 'Home'
+      contact['Phone 2 - Value'] = generateRandomPhoneNumber()
+    }
+    contacts.add(contact)
   }
   return Array.from(contacts)
 }
 
 export function generateContactsFile(qty = 10): string {
   const contacts = generateCsvContacts(qty)
-  return Papa.unparse(contacts)
+  return Papa.unparse(contacts, { columns: arrayObjectKeys(contacts, null) })
 }

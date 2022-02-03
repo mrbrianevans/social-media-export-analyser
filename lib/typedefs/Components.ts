@@ -18,7 +18,8 @@ const ComponentList = {
   InstagramProfile: 'A specially designed profile for instagram users',
   TwitterTweets: 'Timeline of twitter tweets',
   Image: 'An image',
-  Video: 'A video player'
+  Video: 'A video player',
+  ContactList: 'A list of contacts with their contact details'
 }
 
 export type ComponentName = keyof typeof ComponentList

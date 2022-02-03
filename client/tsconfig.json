@@ -1,9 +1,9 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ES2021",
     "useDefineForClassFields": true,
-    "module": "esnext",
+    "module": "ES2020",
     "resolveJsonModule": true,
     "baseUrl": ".",
     "composite": true,

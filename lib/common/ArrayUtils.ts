@@ -54,6 +54,23 @@ export const objectKeys = (
 }
 
 /**
+ * Returns the top level keys of the first `limit` objects in an array.
+ * @param arr - the array of objects
+ * @param limit - only check the first limit objects in the array to save time.
+ *
+ * Set limit to null to check every object in the array, regardless of length.
+ */
+export const arrayObjectKeys = (arr: Record<string, any>[], limit = 100) => {
+  const keys = new Set<string>()
+  for (const obj of arr.slice(0, limit ?? undefined)) {
+    for (const objKey in obj) {
+      keys.add(objKey)
+    }
+  }
+  return Array.from(keys)
+}
+
+/**
  * Calculates the maximum depth of an object by traversing every path.
  * Can be expensive on large objects, so use sparingly.
  * @param obj - the object to calculate depth of

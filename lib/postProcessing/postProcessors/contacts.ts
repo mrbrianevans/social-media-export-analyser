@@ -1,5 +1,5 @@
 import { PostProcess } from '../../typedefs/PostProcess'
-import { processContacts } from '../../vendors/google/Contacts'
+import { processCsvContacts } from '../../vendors/google/Contacts'
 import { processVCardContacts } from '../../vendors/google/VCardContacts'
 
 export const ContactsCsvPostProcess: PostProcess = {
@@ -13,8 +13,8 @@ export const ContactsCsvPostProcess: PostProcess = {
       maxDepth: 1
     }
   },
-  component: 'VaadinGrid',
-  postProcessingFunction: processContacts
+  component: 'ContactList',
+  postProcessingFunction: processCsvContacts
 }
 
 export const ContactsVcfPostProcess: PostProcess = {
@@ -26,6 +26,6 @@ export const ContactsVcfPostProcess: PostProcess = {
     preProcessingCategory: 'vcard',
     itemCriteria: {}
   },
-  component: 'VaadinGrid',
+  component: 'ContactList',
   postProcessingFunction: processVCardContacts
 }

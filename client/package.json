@@ -23,6 +23,8 @@
   },
   "dependencies": {
     "@sveltejs/svelte-virtual-list": "^3.0.1",
+    "@vaadin/avatar": "^22.0.3",
+    "@vaadin/details": "^22.0.3",
     "@vaadin/grid": "^22.0.3",
     "@vaadin/horizontal-layout": "^22.0.3",
     "@vaadin/icons": "^22.0.3",
@@ -32,6 +34,7 @@
     "@vaadin/vaadin-app-layout": "^22.0.3",
     "@vaadin/vaadin-button": "^22.0.3",
     "@vaadin/vaadin-lumo-styles": "^22.0.3",
+    "@vaadin/vertical-layout": "^22.0.3",
     "fast-topics": "^1.1.0",
     "filepond": "^4.30.3",
     "filepond-plugin-image-preview": "^4.6.10",
