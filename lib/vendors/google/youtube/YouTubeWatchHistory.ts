@@ -1,5 +1,6 @@
 import { PostProcessor } from '../../../typedefs/PostProcess'
 import type { CheerioAPI } from 'cheerio'
+import { getFrequencyTables } from '../../../common/FrequencyAnalysis'
 
 type YouTubeWatchHistory = {
   video: string
@@ -43,9 +44,16 @@ export const processYouTubeWatchHistory: PostProcessor<
     }))
     .filter((e) => e.channel && e.date && e.video)
   console.timeEnd('Get data from HTML')
+
+  const freq = getFrequencyTables(
+    data.map((d) => d.video),
+    20,
+    ['word', 'ordinal', 'hashtag', 'emoji']
+  )
+
   return {
     data,
-    metadata: {},
+    metadata: { freq },
     title: 'YouTube Watch History'
   }
 }

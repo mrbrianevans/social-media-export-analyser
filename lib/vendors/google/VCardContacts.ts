@@ -1,6 +1,7 @@
 import { ParsedVCards } from 'vcard4-ts'
 import { PostProcessor } from '../../typedefs/PostProcess'
 import { Contact, CsvContacts } from './Contacts'
+import { getFrequencyTables } from '../../common/FrequencyAnalysis'
 
 export const processVCardContacts: PostProcessor<
   ParsedVCards['vCards'],
@@ -31,5 +32,11 @@ export const processVCardContacts: PostProcessor<
       profilePictureUrl: contact.PHOTO?.[0]?.value
     })
   }
-  return { data: contacts, metadata, title }
+  const freq = getFrequencyTables(
+    contacts.map((c) => c.fullName),
+    5,
+    ['word'],
+    ['PROPN']
+  )
+  return { data: contacts, metadata: { ...metadata, freq }, title }
 }

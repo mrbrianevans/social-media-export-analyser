@@ -1,9 +1,11 @@
+import winkNLP from 'wink-nlp'
+import model from './wink-eng-lite-web-model.js'
 async function processFile() {
   console.log('File uploaded!')
   const { default: winkNLP } = await import('https://cdn.skypack.dev/wink-nlp')
-  const { default: model } = await import(
-    'https://cdn.skypack.dev/wink-eng-lite-web-model'
-  )
+  // const { default: model } = await import(
+  //   'https://cdn.skypack.dev/wink-eng-lite-web-model'
+  // )
   const nlp = winkNLP(model)
   const { its, as } = nlp
 
@@ -62,3 +64,4 @@ async function processFile() {
     console.timeEnd(category + ' frequency')
   }
 }
+document.getElementById('fileupload').oninput = processFile

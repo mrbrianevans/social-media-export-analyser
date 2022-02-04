@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "fast-topics": "^1.1.0",
-    "wink-eng-lite-web-model": "^1.3.2",
+    "skyfetch": "^1.1.0",
     "wink-nlp": "^1.11.0"
   }
 }

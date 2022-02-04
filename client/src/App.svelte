@@ -15,6 +15,7 @@
   import JsonEditor from './components/JsonEditor.svelte'
   import { getTopics, initialiseWasm } from 'fast-topics'
   import topicsWasm from 'fast-topics/dist/topics.wasm?url'
+  import FrequencyTableTabs from './visualisations/specific/metadata/FrequencyTableTabs.svelte'
 
   // limit to first 5000 results
   const searchResultsLimit = 5000
@@ -105,6 +106,9 @@
             </span>
           </vaadin-horizontal-layout>
 
+        {/if}
+        {#if file.metadata.freq }
+          <FrequencyTableTabs data={file.metadata.freq} />
         {/if}
 <!--        <JsonEditor data={(query ? results?.flatMap((field)=>field.result).map(i=>file.data[i]):null) ?? file.data} />-->
         <svelte:component this={ComponentForShape[file.component]}

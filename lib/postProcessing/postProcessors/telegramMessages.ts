@@ -4,20 +4,28 @@ import {
   TelegramChatHistory
 } from '../../vendors/telegram/JsonChatHistory'
 import { VaadinMessageHistoryFormat } from '../../typedefs/Components'
+import { getFrequencyTables } from '../../common/FrequencyAnalysis'
 
 export const telegramMessagesPostProcessor: PostProcessor<
   TelegramChatHistory,
   VaadinMessageHistoryFormat
 > = (input) => {
+  const data = convertTelegramJsonChatHistoryToVaadinMessages(
+    <TelegramChatHistory>input.preProcessedOutput.data
+  ).slice(0, 1_000_000)
+  const freq = getFrequencyTables(
+    data.map((d) => d.text),
+    50,
+    ['word', 'emoji', 'emoticon']
+  )
   return {
-    data: convertTelegramJsonChatHistoryToVaadinMessages(
-      <TelegramChatHistory>input.preProcessedOutput.data
-    ).slice(0, 100),
+    data,
     metadata: {
       source: 'telegram',
       recipient: input.preProcessedOutput.data.name,
       chat_type: input.preProcessedOutput.data.type,
-      ...input.preProcessedOutput.metadata
+      ...input.preProcessedOutput.metadata,
+      freq
     },
     title: 'Telegram messages with ' + input.preProcessedOutput.data.name
   }

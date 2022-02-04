@@ -7,6 +7,7 @@ import { generateEmail } from '../../common/RandomUtils/RandomContent/RandomEmai
 import { arrayObjectKeys, objectKeys } from '../../common/ArrayUtils'
 import { getRandomProfilePhoto } from '../../common/RandomUtils/RandomProfilePhoto'
 import { RandInt } from '../../common/RandomUtils/RandomNumberUtils'
+import { getFrequencyTables } from '../../common/FrequencyAnalysis'
 export type CsvContacts = CsvContactsChild[]
 export interface CsvContactsChild {
   Name: string
@@ -124,10 +125,16 @@ export const processCsvContacts: PostProcessor<CsvContacts, Contact[]> = ({
       profilePictureUrl: contact.Photo
     })
   }
+  const freq = getFrequencyTables(
+    contacts.map((c) => c.fullName),
+    5,
+    ['word'],
+    ['PROPN']
+  )
   return {
     data: contacts,
     title: 'Contacts',
-    metadata
+    metadata: { ...metadata, freq }
   }
 }
 

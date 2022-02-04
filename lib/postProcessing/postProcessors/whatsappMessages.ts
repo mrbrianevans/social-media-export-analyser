@@ -4,18 +4,26 @@ import {
   WhatsAppChatHistoryArray
 } from '../../vendors/whatsapp/ChatHistory'
 import { VaadinMessageHistoryFormat } from '../../typedefs/Components'
+import { getFrequencyTables } from '../../common/FrequencyAnalysis'
 
 export const whatsappMessagesPostProcessor: PostProcessor<
   WhatsAppChatHistoryArray,
   VaadinMessageHistoryFormat
 > = (input) => {
+  const data = convertWhatsappHistoryToVaadinMessages(
+    input.preProcessedOutput.data
+  ).slice(0, 1_000_000)
+  const freq = getFrequencyTables(
+    data.map((d) => d.text),
+    50,
+    ['word', 'emoji', 'emoticon']
+  )
   return {
-    data: convertWhatsappHistoryToVaadinMessages(
-      input.preProcessedOutput.data
-    ).slice(0, 1_000_000),
+    data,
     metadata: {
       source: 'whatsapp',
-      ...input.preProcessedOutput.metadata
+      ...input.preProcessedOutput.metadata,
+      freq
     },
     title:
       'WhatsApp messages with ' + input.preProcessedOutput.metadata.recipient

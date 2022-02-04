@@ -34,12 +34,6 @@ export const processYouTubeSearchHistory: PostProcessor<
     20,
     ['word']
   )
-  console.log('Frequencies: ')
-  for (const [category, frequencyTable] of Object.entries(freq)) {
-    console.log(category)
-    console.log(frequencyTable)
-    console.log()
-  }
   return {
     data,
     metadata: { freq },
