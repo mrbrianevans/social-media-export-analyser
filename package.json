@@ -5,7 +5,7 @@
   "scripts": {
     "start": "cd client && npm run build && npm run serve",
     "test": "cd lib-testing && npm run test",
-    "lint:check": "eslint . --ext .ts --ignore-pattern perf-test/*",
+    "lint:check": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "format:check": "prettier --check **/*.ts --ignore-path .gitignore",
     "format:write": "prettier --write **/*.ts --ignore-path .gitignore",
@@ -25,7 +25,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-tsdoc": "^0.2.14",
     "prettier": "^2.4.1",
-    "typescript": "^4.5.5"
+    "typescript": "^4.4.4"
   },
   "eslintIgnore": [
     "**/node_modules",

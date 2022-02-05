@@ -7,7 +7,7 @@
     "watch": "tsc --build --watch",
     "clean": "tsc --build --clean",
     "docs": "typedoc --entryPointStrategy expand ./ --out ../docs",
-    "preinstall": "skyfetch wink-eng-lite-web-model && skyfetch wink-nlp"
+    "postinstall": "skyfetch wink-eng-lite-web-model && skyfetch wink-nlp"
   },
   "dependencies": {
     "camelcase": "^6.2.0",
@@ -23,7 +23,6 @@
     "@types/pretty": "^2.0.1",
     "@types/ua-parser-js": "^0.7.36",
     "skyfetch": "^1.1.0",
-    "typedoc": "^0.22.11",
-    "typescript": "^4.5.5"
+    "typedoc": "^0.22.11"
   }
 }
