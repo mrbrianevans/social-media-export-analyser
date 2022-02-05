@@ -1,9 +1,10 @@
 {
   "name": "lib-testing",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "test": "mocha --require ts-node/register test/**/*.spec.ts",
-    "generate": "ts-node generateDemoFiles.ts"
+    "test": "node --experimental-specifier-resolution=node --loader ts-node/esm node_modules/mocha/lib/cli/cli.js test/**/*.spec.ts",
+    "generate": "node --loader ts-node/esm --experimental-specifier-resolution=node generateDemoFiles.ts"
   },
   "dependencies": {
     "assert-js": "^1.0.0",
@@ -14,6 +15,6 @@
   "devDependencies": {
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.11.3",
-    "ts-node": "^10.3.1"
+    "ts-node": "^10.4.0"
   }
 }

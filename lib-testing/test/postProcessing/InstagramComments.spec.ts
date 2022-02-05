@@ -1,6 +1,6 @@
 import { PostProcessedFileInput } from '../../../lib/typedefs/PostProcess'
 import { postProcessingCategoriser } from '../../../lib/postProcessing/postProcessingCategoriser'
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 
 describe('post process instagram comments', function () {
   it('should categorise instagram comments based on filename', function () {

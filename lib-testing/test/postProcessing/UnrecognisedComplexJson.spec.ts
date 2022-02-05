@@ -1,6 +1,6 @@
 import { PreProcessedOutput } from '../../../lib/typedefs/PreProcess'
 import { postProcessingCategoriser } from '../../../lib/postProcessing/postProcessingCategoriser'
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 
 const data = {
   dob: {

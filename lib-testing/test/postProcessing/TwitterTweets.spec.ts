@@ -1,5 +1,5 @@
 import { postProcessingCategoriser } from '../../../lib/postProcessing/postProcessingCategoriser'
-import * as Assert from 'assert'
+import Assert from 'assert-js'
 
 describe('post process twitter tweets', function () {
   it('should categorise tweet data based on object keys if file renamed', function () {

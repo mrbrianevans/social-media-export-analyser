@@ -2,9 +2,9 @@ import {
   getPostProcessByCode,
   postProcessingCategoriser
 } from '../../../lib/postProcessing/postProcessingCategoriser'
-import * as assert from 'better-assert'
+import assert from 'better-assert'
 import { arrayEquals } from '../../../lib/common/ArrayUtils'
-import * as Assert from 'assert'
+import Assert from 'assert-js'
 const messages = [
   {
     content: 'hello this is message',

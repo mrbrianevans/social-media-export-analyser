@@ -1,5 +1,5 @@
 import { PreProcessor } from '../../typedefs/PreProcess'
-import * as Papa from 'papaparse'
+import Papa from 'papaparse'
 
 export type CsvObject = { [key: string]: string | number | boolean }[]
 export const csvPreProcessor: PreProcessor<CsvObject> = ({

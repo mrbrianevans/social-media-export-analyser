@@ -2,7 +2,7 @@ import {
   objectDepth,
   objectOrArrayDepth
 } from '../../../../lib/common/ArrayUtils'
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 
 describe('Calculate the depth of an object', function () {
   it('should find the object depth correctly for a singly deeply nested object', function () {

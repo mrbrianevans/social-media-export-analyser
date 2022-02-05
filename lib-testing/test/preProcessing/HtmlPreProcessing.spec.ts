@@ -1,5 +1,5 @@
 import { preProcessingCategoriser } from '../../../lib/preProcessing/preProcessingCategoriser'
-import Assert = require('assert-js')
+import Assert from 'assert-js'
 import { preProcessorMap } from '../../../lib/preProcessing/preProcessorMap'
 
 describe('test the preprocessing and parsing of HTML documents', function () {

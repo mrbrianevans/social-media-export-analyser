@@ -4,7 +4,7 @@ import {
   instagramAccountHistoryPostProcessor
 } from '../../../lib/vendors/instagram/AccountHistory'
 import { postProcessingCategoriser } from '../../../lib/postProcessing/postProcessingCategoriser'
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 
 describe('post process instagram account history', function () {
   it('should classify file as instagram account history based on filename', function () {

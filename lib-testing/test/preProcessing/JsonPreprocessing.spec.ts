@@ -1,7 +1,7 @@
 import { preProcessorMap } from '../../../lib/preProcessing/preProcessorMap'
 import { arrayEquals } from '../../../lib/common/ArrayUtils'
 import { preProcessingCategoriser } from '../../../lib/preProcessing/preProcessingCategoriser'
-import assert = require('better-assert')
+import assert from 'better-assert'
 
 describe('Pre process JSON text into a javascript object', function () {
   it('should categorise JSON text from file type and extension', function () {

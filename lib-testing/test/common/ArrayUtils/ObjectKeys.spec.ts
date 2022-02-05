@@ -3,7 +3,7 @@ import {
   objectKeysEqual,
   objectKeysInclude
 } from '../../../../lib/common/ArrayUtils'
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 
 describe('check the keys of an object equals an array', function () {
   it('should return true when an objects keys equal an array', function () {

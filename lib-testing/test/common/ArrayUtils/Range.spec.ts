@@ -1,5 +1,5 @@
 import { arrayEquals, range } from '../../../../lib/common/ArrayUtils'
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 
 describe('generate an array containing numbers in a range', function () {
   it('should generate an array from 1 to 10', function () {

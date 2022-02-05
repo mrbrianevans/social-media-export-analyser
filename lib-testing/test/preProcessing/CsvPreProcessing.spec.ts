@@ -1,8 +1,6 @@
 import { csvPreProcessor } from '../../../lib/preProcessing/preProcessors/csv'
-import { arrayItemsKeysEqual } from '../../utils/keysEqual'
 import { preProcessingCategoriser } from '../../../lib/preProcessing/preProcessingCategoriser'
-import assert = require('better-assert')
-import Assert = require('assert-js')
+import Assert from 'assert-js'
 
 describe('pre process CSV file contents into javascript objects', function () {
   it('should categorise a csv file based on filename and type', function () {
@@ -10,13 +8,13 @@ describe('pre process CSV file contents into javascript objects', function () {
       filename: 'data.csv',
       fileType: 'text/csv'
     })
-    assert(category === 'csv')
+    Assert.equal(category, 'csv')
 
     category = preProcessingCategoriser({
       filename: 'data.csv',
       fileType: 'application/vnd.ms-excel'
     })
-    assert(category === 'csv')
+    Assert.equal(category, 'csv')
   })
 
   it('should correctly read a simple csv string into an array', function () {

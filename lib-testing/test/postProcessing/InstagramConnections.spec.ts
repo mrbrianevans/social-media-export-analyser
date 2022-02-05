@@ -3,7 +3,7 @@ import {
   getPostProcessByCode,
   postProcessingCategoriser
 } from '../../../lib/postProcessing/postProcessingCategoriser'
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 import { PostProcessedFileInput } from '../../../lib/typedefs/PostProcess'
 import { InstagramConnections } from '../../../lib/vendors/instagram/Connections'
 

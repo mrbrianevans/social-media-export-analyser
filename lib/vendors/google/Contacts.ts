@@ -1,5 +1,5 @@
 import { PostProcessor } from '../../typedefs/PostProcess'
-import * as Papa from 'papaparse'
+import Papa from 'papaparse'
 import { getRandomFullName } from '../../common/RandomUtils/RandomContent/RandomNames'
 import { generateRandomPhoneNumber } from '../../common/RandomUtils/RandomPhoneNumber'
 import { OneIn, RandBoolean } from '../../common/RandomUtils/RandomBooleanUtils'

@@ -1,6 +1,7 @@
 {
   "name": "social-media-export-analyser-lib",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "build": "npm run preinstall && tsc --build",
     "watch": "tsc --build --watch",

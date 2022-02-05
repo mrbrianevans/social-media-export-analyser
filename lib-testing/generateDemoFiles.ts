@@ -10,7 +10,7 @@ import { generateInstagramComments } from '../lib/vendors/instagram/Comments'
 import { generateInstagramLikes } from '../lib/vendors/instagram/Likes'
 import { generateInstagramAccountHistory } from '../lib/vendors/instagram/AccountHistory'
 import { generateInstagramInformationAboutYou } from '../lib/vendors/instagram/InformationAboutYou'
-import { generateContactsFile } from 'social-media-export-analyser-lib/vendors/google/Contacts'
+import { generateContactsFile } from '../lib/vendors/google/Contacts'
 
 const demoFilePath = (filename) => {
   const filePath = path.resolve('..', 'demo-files', filename)

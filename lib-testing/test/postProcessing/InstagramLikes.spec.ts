@@ -7,7 +7,7 @@ import {
   getPostProcessByCode,
   postProcessingCategoriser
 } from '../../../lib/postProcessing/postProcessingCategoriser'
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 
 describe('post process instagram likes', function () {
   it('should cateogrise instagram likes based on filename', function () {

@@ -1,5 +1,5 @@
 import { postProcessingCategoriser } from '../../../lib/postProcessing/postProcessingCategoriser'
-import Assert = require('assert-js')
+import Assert from 'assert-js'
 import { load } from 'cheerio'
 import { processYouTubeSearchHistory } from '../../../lib/vendors/google/youtube/YouTubeSearchHistory'
 

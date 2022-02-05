@@ -9,6 +9,6 @@ install:
 script:
   - npm run format:check
   - npm run lint:check
-  - cd client && npm run build && cd ..
-  - cd lib && npm run build && npm run clean && cd ..
+  - cd client && npm run check && npm run build && cd ..
+  - cd lib && npm run build && cd ..
   - npm test

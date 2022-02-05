@@ -4,7 +4,7 @@ alerts:
 name: social-media-export-analyser
 region: lon
 static_sites:
-- build_command: cd ../lib && npm i && cd ../client && npm run build
+- build_command: cd ../lib && npm i && npm run build && cd ../client && npm run build
   environment_slug: node-js
   github:
     branch: master

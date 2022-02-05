@@ -1,5 +1,5 @@
 import { preProcessingCategoriser } from '../../../lib/preProcessing/preProcessingCategoriser'
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 import { preProcessorMap } from '../../../lib/preProcessing/preProcessorMap'
 
 describe('twitter js files preprocessing', function () {

@@ -1,7 +1,7 @@
 import { InformationAboutYou } from '../../../lib/vendors/instagram/InformationAboutYou'
 import { PostProcessedFileInput } from '../../../lib/typedefs/PostProcess'
 import { postProcessingCategoriser } from '../../../lib/postProcessing/postProcessingCategoriser'
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 
 describe('post process instagram information about you', function () {
   it('should categorise data based on filename', function () {

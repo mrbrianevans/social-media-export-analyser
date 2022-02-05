@@ -1,5 +1,5 @@
 import { normalisePath, onlyFilename } from '../../../lib/common/PathProcessing'
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 
 describe('test path processing utils functions', function () {
   it('should normalise a windows style file path', function () {

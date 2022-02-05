@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
+    "module": "esnext",
+    "target": "ES2021",
     "composite": true,
     "rootDir": "./",
     "sourceMap": true,
-    "allowJs": false
+    "allowJs": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
   },
   "exclude": ["node_modules"],
   "references": [

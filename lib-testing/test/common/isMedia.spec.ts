@@ -4,7 +4,7 @@ import {
   CommonVideoTypes,
   isMedia
 } from '../../../lib/common/isMedia'
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 
 describe('test the function which determines if a file is media', function () {
   it('should return true for common image formats', function () {

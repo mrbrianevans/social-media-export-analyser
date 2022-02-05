@@ -1,5 +1,5 @@
 import { objectSize } from '../../../../lib/common/ArrayUtils'
-import * as Assert from 'assert'
+import Assert from 'assert-js'
 
 describe('calculate the size of an object in number of primitives', function () {
   it('should get the size of a simple object', function () {

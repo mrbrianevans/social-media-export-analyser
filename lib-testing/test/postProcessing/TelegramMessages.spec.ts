@@ -5,8 +5,7 @@ import {
 import { TelegramChatHistory } from '../../../lib/vendors/telegram/JsonChatHistory'
 import { PostProcessedFileInput } from '../../../lib/typedefs/PostProcess'
 import { arrayEquals } from '../../../lib/common/ArrayUtils'
-import assert = require('better-assert')
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 
 const fileData: TelegramChatHistory = {
   name: 'My Group',
@@ -37,15 +36,15 @@ describe('post process telegram messages', function () {
   it('should categorise telegram messages with original filename', function () {
     testData.filename = 'result.json'
     const category = postProcessingCategoriser(testData)
-    assert(category === 'TelegramPostProcess')
+    Assert.equal(category, 'TelegramPostProcess')
     const postProcess = getPostProcessByCode(category)
-    assert(postProcess.code === 'telegram-chat')
+    Assert.equal(postProcess.code, 'telegram-chat')
   })
 
   it('should categorise telegram messages based on object keys if filename not recognised', function () {
     testData.filename = 'renamed'
     const category = postProcessingCategoriser(testData)
-    assert(category === 'TelegramPostProcess')
+    Assert.equal(category, 'TelegramPostProcess')
     const postProcess = getPostProcessByCode(category)
     Assert.equal(postProcess.code, 'telegram-chat')
   })
@@ -54,20 +53,17 @@ describe('post process telegram messages', function () {
     const output = getPostProcessByCode(
       'TelegramPostProcess'
     )?.postProcessingFunction(testData)
-
-    assert(
-      output.data.length === testData.preProcessedOutput.data.messages.length
-    )
+    Assert.count(testData.preProcessedOutput.data.messages.length, output.data)
 
     const message = output.data[0]
 
-    assert(arrayEquals(Object.keys(message), ['time', 'text', 'userName']))
-
-    assert(message.userName === 'Joe Blogs')
-    assert(message.text === 'Hello world')
-    assert(
-      new Date(message.time).toString() ===
-        new Date('2020-10-01T21:44:07').toString()
+    // Assert.true(arrayEquals(Object.keys(message), ['time', 'text', 'userName']))
+    Assert.hasProperties(['time', 'text', 'userName'], message)
+    Assert.equal(message.userName, 'Joe Blogs')
+    Assert.equal(message.text, 'Hello world')
+    Assert.equal(
+      new Date(message.time).toString(),
+      new Date('2020-10-01T21:44:07').toString()
     )
   })
 })

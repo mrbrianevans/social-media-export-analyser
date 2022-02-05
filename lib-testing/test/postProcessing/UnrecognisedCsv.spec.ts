@@ -3,7 +3,7 @@ import {
   getPostProcessByCode,
   postProcessingCategoriser
 } from '../../../lib/postProcessing/postProcessingCategoriser'
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 
 const data = [
   { qty: 5, id: 1 },

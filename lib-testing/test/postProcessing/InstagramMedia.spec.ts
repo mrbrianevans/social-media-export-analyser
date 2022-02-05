@@ -4,7 +4,7 @@ import {
 } from '../../../lib/postProcessing/postProcessingCategoriser'
 import { Media } from '../../../lib/vendors/instagram/Media'
 import { PostProcessedFileInput } from '../../../lib/typedefs/PostProcess'
-import * as Assert from 'assert-js'
+import Assert from 'assert-js'
 
 const testData: PostProcessedFileInput<Media> = {
   filename: 'media.json',

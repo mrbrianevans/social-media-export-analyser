@@ -1,5 +1,5 @@
 import { preProcessingCategoriser } from '../../../lib/preProcessing/preProcessingCategoriser'
-import * as assert from 'better-assert'
+import assert from 'better-assert'
 import { preProcessorMap } from '../../../lib/preProcessing/preProcessorMap'
 import { arrayEquals } from '../../../lib/common/ArrayUtils'
 

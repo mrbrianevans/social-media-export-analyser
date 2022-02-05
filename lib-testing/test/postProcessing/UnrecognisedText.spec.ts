@@ -1,5 +1,5 @@
 import { postProcessingCategoriser } from '../../../lib/postProcessing/postProcessingCategoriser'
-import * as Assert from 'assert'
+import Assert from 'assert-js'
 
 describe('post process unrecognised text from any filetype', function () {
   it('should classify arbitrary filename as text due to key from preprocessing', function () {

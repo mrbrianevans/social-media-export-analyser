@@ -1,0 +1,4 @@
+tsconfig.tsbuildinfo
+.idea
+/demo-files/
+/lib/**/*.d.ts
