@@ -3,9 +3,9 @@ import model from '../wink-eng-lite-web-model.js'
 const nlp = winkNLP(model)
 const { its, as } = nlp
 
-export interface FrequencyTables {
-  [tokenName: string]: {
-    // tokenName can be something like "words", "hashtags" or "emojis"
+export type FrequencyTables<Tokens extends string = string> = {
+  // tokenName can be something like "words", "hashtags" or "emojis"
+  [tokenName in Tokens]?: {
     [tokenValue: string]: number // where number is the count of occurrances of tokenValue
   }
 }
@@ -24,18 +24,37 @@ type TagCategory =
   | 'mention'
   | 'url'
   | 'word'
+
+/**
+ * Generate frequency tables for an array of strings.
+ *
+ * It counts the number of each token in the strings. This can be the number of
+ * occurrences of a particular word, or emoji, or email address etc.
+ * See {@link TagCategory} for full list of tokens.
+ *
+ * @param documents - string array of documents to count tokens in. Can have a single item.
+ * @param limit - limit to the top X occurring tokens. Set to null for unlimited.
+ * @param _categories - a list of categories to count tokens for. Eg words, emojis.
+ * @param wordPosWhiteList - parts of speech to allow in word count. Default NOUN.
+ * @returns an object where the top level keys are the names of the token
+ * categories, and the values are objects mapping token =\> count.
+ * @example
+ * ```ts
+ * getFrequencyTables(['Hello', 'world!'])
+ * returns { word: { world: 1 } }
+ * ```
+ */
 export function getFrequencyTables(
   documents: string[],
   limit = 50,
   _categories: TagCategory[] = ['word', 'url', 'emoji', 'hashtag', 'mention'],
   wordPosWhiteList = ['NOUN']
-): FrequencyTables {
+): FrequencyTables<typeof _categories[number]> {
   const categories = new Set(_categories)
-  console.log({ categories })
+  // console.log({ categories })
   const frequencyTables: FrequencyTables = Object.fromEntries(
     Array.from(categories).map((c) => [c, {}])
   )
-  console.log(frequencyTables)
   const doc = nlp.readDoc(documents.join('. ')) // join documents with periods
 
   for (const category of categories) {
@@ -45,7 +64,7 @@ export function getFrequencyTables(
         .tokens()
         .filter((t) => t.out(its.type) === category)
         .out(its.normal, as.freqTable)
-        .slice(0, limit)
+        .slice(0, limit ?? undefined)
         .map((e) => e as [token: string, freq: number][]) // fix typing
     )
 
@@ -65,7 +84,7 @@ export function getFrequencyTables(
         .filter((t) => !t.out(its.stopWordFlag)) // get rid of stop words
         .filter((t) => !t.out(its.contractionFlag)) // get rid of contractions
         .out(its.normal, as.freqTable)
-        .slice(0, limit)
+        .slice(0, limit ?? undefined)
         .map((e) => e as [token: string, freq: number][]) // fix typing
     )
 

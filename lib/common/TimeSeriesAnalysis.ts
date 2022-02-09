@@ -26,7 +26,7 @@ export class TimeSeries {
   private formatDay: DateFormatter = defaultFormatDay
   private readonly defaultValue: number
 
-  constructor(data: TimeSeriesData, defaultValue: number = 1) {
+  constructor(data: TimeSeriesData, defaultValue = 1) {
     if (typeof defaultValue == 'number') this.defaultValue = defaultValue
     for (const dataPoint of data) {
       let timestamp, value
