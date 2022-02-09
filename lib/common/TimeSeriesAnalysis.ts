@@ -4,41 +4,45 @@ interface TimeSeriesValue {
   timestamp: Date
   value: number
 }
-
+// cannot read dates like 31/01/2022
 type TimeSeriesData = (
   | {
-      timestamp: number | Date
+      timestamp: number | Date | string
       value?: number
     }
   | Date
   | number
+  | string
 )[]
 
 type GroupResult<Key extends string | number = string> = Record<Key, number>
 
 export class TimeSeries {
-  data: TimeSeriesValue[]
-  start: Date
-  end: Date
-  formatMonth: DateFormatter = defaultFormatMonth
-  formatWeek: DateFormatter = defaultFormatWeek
-  formatDay: DateFormatter = defaultFormatDay
-  defaultValue = 1
+  readonly data: TimeSeriesValue[] = []
+  readonly start: Date
+  readonly end: Date
+  private formatMonth: DateFormatter = defaultFormatMonth
+  private formatWeek: DateFormatter = defaultFormatWeek
+  private formatDay: DateFormatter = defaultFormatDay
+  private readonly defaultValue: number
 
-  constructor(data: TimeSeriesData, defaultValue: number) {
+  constructor(data: TimeSeriesData, defaultValue: number = 1) {
     if (typeof defaultValue == 'number') this.defaultValue = defaultValue
-    if (data.length === 0) this.data = []
-    else {
-      // get input dates into uniform structure
-      for (const dataPoint of data) {
-        if (dataPoint instanceof Date || typeof dataPoint === 'number')
-          this.data.push({ timestamp: new Date(dataPoint), value: 1 })
-        else if (typeof dataPoint === 'object')
-          this.data.push({
-            timestamp: new Date(dataPoint.timestamp),
-            value: dataPoint.value ?? this.defaultValue
-          })
+    for (const dataPoint of data) {
+      let timestamp, value
+      if (
+        dataPoint instanceof Date ||
+        typeof dataPoint === 'number' ||
+        typeof dataPoint === 'string'
+      ) {
+        timestamp = new Date(dataPoint)
+        value = defaultValue
+      } else if (typeof dataPoint === 'object') {
+        timestamp = new Date(dataPoint.timestamp)
+        value = dataPoint.value ?? this.defaultValue
       }
+      // only push real dates into the dataset
+      if (!isNaN(timestamp.getTime())) this.data.push({ timestamp, value })
     }
     // this could be replaced by a util function "arrayMin"
     let earliestTimestamp = Infinity
@@ -81,6 +85,20 @@ export class TimeSeries {
     }
     return bins
   }
+
+  get [Symbol.toStringTag](): string {
+    return 'TimeSeries'
+  }
+
+  toString(): string {
+    return (
+      'TimeSeries {' +
+      this.data
+        .map((d) => `${d.timestamp.toISOString()}=${d.value}`)
+        .join(', ') +
+      '}'
+    )
+  }
 }
 
 /**
@@ -96,8 +114,11 @@ const defaultFormatDay: DateFormatter = (date: Date) => {
   return formatDateEur(date)
 }
 const defaultFormatMonth: DateFormatter = (date: Date) => {
-  return formatDateEur(getNearestDay(date, 30))
+  date.setDate(1)
+  return formatDateEur(date)
 }
+// returns the Monday of the week date is in
 const defaultFormatWeek: DateFormatter = (date: Date) => {
-  return formatDateEur(getNearestDay(date, 7))
+  date.setDate(date.getDate() - date.getDay() + 1)
+  return formatDateEur(date)
 }
