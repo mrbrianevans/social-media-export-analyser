@@ -23,6 +23,6 @@
 
 <style>
     .component-container {
-        padding: 0 var(--lumo-space-l);
+        padding: 0;
     }
 </style>

@@ -2,14 +2,18 @@
   "name": "topics-testing",
   "version": "1.0.0",
   "scripts": {
-    "start": "snowpack dev"
+    "start": "http-server build",
+    "build": "snowpack build --clean",
+    "dev": "snowpack dev --reload"
   },
   "devDependencies": {
+    "http-server": "^14.1.0",
     "snowpack": "^3.8.8"
   },
   "dependencies": {
     "fast-topics": "^1.1.0",
     "skyfetch": "^1.1.0",
+    "wink-eng-lite-web-model": "^1.3.3",
     "wink-nlp": "^1.11.0"
   }
 }

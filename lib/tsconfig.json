@@ -8,10 +8,6 @@
     "lib": ["ES2020", "ESNext.Array"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "paths": {
-      "wink-eng-lite-web-model": ["./wink-eng-lite-web-model.js"],
-      "wink-nlp": ["./wink-nlp.js"]
-    },
     "downlevelIteration": true,
     "moduleResolution": "node"
   },

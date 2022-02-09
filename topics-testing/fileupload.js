@@ -1,5 +1,5 @@
 import winkNLP from 'wink-nlp'
-import model from './wink-eng-lite-web-model.js'
+import model from 'wink-eng-lite-web-model'
 async function processFile() {
   console.log('File uploaded!')
   const { default: winkNLP } = await import('https://cdn.skypack.dev/wink-nlp')
@@ -26,6 +26,8 @@ async function processFile() {
     doc.tokens().length().toLocaleString(),
     doc.entities().length().toLocaleString()
   )
+
+  nlp.readDoc(doc.sentences().itemAt(200).out()).printTokens()
 
   for (let i = 0; i < 19; i++) {
     const token = doc.tokens().itemAt(i)

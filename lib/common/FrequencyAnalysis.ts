@@ -1,5 +1,6 @@
-import winkNLP from '../wink-nlp.js'
-import model from '../wink-eng-lite-web-model.js'
+import winkNLP from 'wink-nlp'
+import model from 'wink-eng-lite-web-model'
+
 const nlp = winkNLP(model)
 const { its, as } = nlp
 
