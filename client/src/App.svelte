@@ -1,120 +1,45 @@
 <script lang='ts'>
   import FileUploader from './components/FileUploader.svelte'
-  import { ComponentForShape } from './components/ComponentMap'
   import { PostProcessedOutput } from '../../lib/typedefs/PostProcess'
   import '@vaadin/tabs'
   import '@vaadin/vaadin-app-layout/vaadin-app-layout.js'
-  import '@vaadin/text-field';
-  import '@vaadin/icons';
+  import '@vaadin/text-field'
+  import '@vaadin/icons'
   import '@vaadin/horizontal-layout/theme/material/vaadin-horizontal-layout'
-  import ThemeToggle from './components/ThemeToggle.svelte'
-  import GitHubLink from './components/GitHubLink.svelte'
-  import OnlineIndicator from './components/OnlineIndicator.svelte'
-  import { Document,  } from 'flexsearch'
-  import { objectKeys } from '../../lib/common/ArrayUtils'
-  import JsonEditor from './components/JsonEditor.svelte'
-  import { getTopics, initialiseWasm } from 'fast-topics'
-  import topicsWasm from 'fast-topics/dist/topics.wasm?url'
-  import FrequencyTableTabs from './visualisations/specific/metadata/FrequencyTableTabs.svelte'
-  import {
-    theme
-  } from './stores/themeStore'
+  import { theme } from './stores/themeStore'
+  import FileViewer from './components/FileViewer.svelte'
+  import Navbar from './components/Navbar.svelte'
 
-  // limit to first 5000 results
-  const searchResultsLimit = 5000
   let files: PostProcessedOutput[] = []
   let activeIndex = 0
-  let query: string = '', results: any[], idx: Document<any, false>
-  $: {
-    if (query) {
-      // console.time('Query '+query)
-      results = idx.search({limit: searchResultsLimit, query, enrich: true, suggest: true})
-      // console.timeEnd('Query '+query)
-    }else results = null
-  }
-  let currData
-  $: {
-    if(query && results){
-      // optimised for performance. Using Set() for unique results. 5ms for 10,000 results
-      const resultIds = new Set()
-      const duplicateIds = results?.flatMap((field) => field.result), numDupIds = duplicateIds.length
-      for (let i = 0; i < numDupIds; i++) resultIds.add(duplicateIds[i])
-      currData = Array.from(resultIds.values()).map(i => files[activeIndex]?.data[i]).filter(d => d)
-    }else{
-      currData = null
-    }
-    if(!currData) currData = files[activeIndex]?.data
-  }
-  initialiseWasm(topicsWasm).then(()=>console.log('WASM ready'))
-  // $: if(files?.length) console.log(files.map(f=>f.title), getTopics(files.map(file=>file.title)))
-  async function loadIndex(data){
-    if(!data) return
-    console.time('Load index')
-    const fields = objectKeys(data)
-    idx = new Document({document: {id: 'id', index: fields}, preset: 'performance', tokenize: 'full'})
-    if(data instanceof Array){
-      console.time('Add items to index')
-      for (const id in data) {
-        const dataItem = {...data[id]}
-        dataItem.id ??= id
-        delete dataItem.id
-        // await idx.addAsync(dataItem.id, dataItem)
-        idx.add(id, dataItem)
-      }
-      console.timeEnd('Add items to index')
-    }else{
-      console.time('Add item to index')
-      await idx.addAsync(0, data)
-      console.timeEnd('Add item to index')
-    }
-    console.timeEnd('Load index')
-  }
-  $: {
-    loadIndex(files[activeIndex]?.data)
-  }
+
 </script>
 
 
 <main theme={$theme}>
   <vaadin-app-layout>
-    <vaadin-horizontal-layout slot='navbar' style='justify-content: space-between; width: 100%; align-items: center'
-                              theme=''>
-      <h1 class='navbar-title'><img src='icon/icon500.webp' style='height: 2em; width: 2em' alt='logo'/>Data File Explorer</h1>
-      <vaadin-horizontal-layout>
-        <OnlineIndicator />
-        <GitHubLink />
-        <ThemeToggle />
-      </vaadin-horizontal-layout>
-    </vaadin-horizontal-layout>
-    <FileUploader bind:files />
-    <!--  tab selectors -->
-    <vaadin-tabs orientation='vertical' slot='drawer'>
-      {#each files as file, index}
-        <vaadin-tab>
-          <span tabindex='-1' on:click={()=>activeIndex=index}>{file.title}</span>
-        </vaadin-tab>
-      {/each}
-    </vaadin-tabs>
+
+    <div slot='navbar' style='width: 100%'>
+      <Navbar />
+    </div>
+    <!-- file upload area -->
+    <div slot='drawer'>
+      <FileUploader bind:files />
+    </div>
+    <!-- file tab selectors -->
+    <div slot='drawer'>
+      <vaadin-tabs class='file-explorer-tabs' orientation='vertical'>
+        {#each files as file, index}
+          <vaadin-tab>
+            <span tabindex='-1' on:click={()=>activeIndex=index}>{file.title}</span>
+          </vaadin-tab>
+        {/each}
+      </vaadin-tabs>
+    </div>
+
     {#each files as file, index}
       {#if index === activeIndex}
-        {#if file.data instanceof Array}
-          <!-- theme="margin" doesn't get rendered, so margin is added with inline styles -->
-          <vaadin-horizontal-layout theme="margin spacing" style='margin: 0 var(--lumo-space-m); align-items: center'>
-            <vaadin-text-field value={query} aria-label="search" placeholder="Search" clear-button-visible on:input={v=>query = v.target.value}>
-              <vaadin-icon icon="vaadin:search" slot="prefix"></vaadin-icon>
-            </vaadin-text-field>
-            <span theme={currData.length ? 'badge' : 'badge error'} style='margin: 0 var(--lumo-space-s)'>
-              {currData.length}{currData.length === searchResultsLimit ? `+`:''} items
-            </span>
-          </vaadin-horizontal-layout>
-
-        {/if}
-        {#if file.metadata.freq }
-          <FrequencyTableTabs data={file.metadata.freq} />
-        {/if}
-<!--        <JsonEditor data={(query ? results?.flatMap((field)=>field.result).map(i=>file.data[i]):null) ?? file.data} />-->
-        <svelte:component this={ComponentForShape[file.component]}
-                          data={currData} />
+        <FileViewer file={file} />
       {/if}
     {/each}
   </vaadin-app-layout>
@@ -122,14 +47,14 @@
 
 <style>
     main {
-        min-height: 100vh;
+        height: 100vh;
     }
 
-    h1.navbar-title {
-        display: inline-flex;
-        font-size: var(--lumo-font-size-xl);
-        margin: 0.25rem var(--lumo-space-s);
-        align-items: center;
+    .file-explorer-tabs {
+        /* this makes the height half of the side bar */
+        height: CALC((100vh - 2 * var(--lumo-font-size-xl)) / 2 - 0.5rem);
+        margin: 0;
+        padding: 0;
     }
 
     :global(body) {

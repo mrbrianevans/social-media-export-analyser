@@ -68,8 +68,11 @@
     /* styling overrides for the file upload component */
 
     .filepond--root {
-        max-height: 10em;
+        /* this makes the height half of the side bar */
+        height: CALC((100vh - 2 * var(--lumo-font-size-xl)) / 2);
         font-family: var(--lumo-font-family);
+        margin-bottom: 0;
+        margin-top: 0;
     }
 
     .filepond--panel-root {
@@ -91,7 +94,8 @@
     }
 
     .filepond--item {
-        width: calc(50% - 0.5em);
+        /* uncomment for two items per line */
+        /*width: calc(50% - 0.5em);*/
     }
 
     /* the background color of the drop circle */

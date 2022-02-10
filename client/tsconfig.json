@@ -17,7 +17,8 @@
      */
     "allowJs": false,
     "checkJs": false,
-    "types": ["vite-plugin-pwa/client"]
+    "types": ["vite-plugin-pwa/client"],
+    "lib": ["DOM", "ES2021"]
   },
   "include": [
     "client/src/**/*.d.ts",
