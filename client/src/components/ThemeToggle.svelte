@@ -1,32 +1,18 @@
 <!-- From Kevin Powell -->
 <script lang='ts'>
-  // saves setting in localStorage
+  // uses svelte store to hold state
+  // saves and restores theme setting in localStorage
   // gets preference from css media query
   // fancy animation for switching between modes
   // aria label depending on which direction its switching
-  export let theme: 'dark' | 'light'
-  const getFromStorage = () => {
-    const value = localStorage.getItem('darkTheme')
-    console.log('Got', value, 'from localStorage for theme')
-    if (value === 'true') return true
-    else if (value === 'false') return false
-    else return null
-  }
-  const getMediaQuery = () => {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    if (prefersDark) console.log('Media query prefers dark mode')
-    return prefersDark
-  }
-  let darkTheme = getFromStorage() ?? getMediaQuery()
-  const toggleTheme = () => {
-    darkTheme = !darkTheme
-    localStorage.setItem('darkTheme', darkTheme.toString())
-  }
-  $: theme = darkTheme ? 'dark' : 'light'
+  import {
+    theme
+  } from '../stores/themeStore'
+
 </script>
 
-<button aria-label={`Switch to ${darkTheme ? 'light' : 'dark'} mode`} class={darkTheme?'dark':'light'} id='theme-toggle'
-        on:click={toggleTheme}>
+<button aria-label={`Switch to ${$theme === 'dark' ? 'light' : 'dark'} mode`} class={$theme} id='theme-toggle'
+        on:click={()=>theme.toggle()}>
   <svg viewBox='0 0 472.39 472.39' xmlns='http://www.w3.org/2000/svg'>
     <g class='toggle-sun'>
       <path

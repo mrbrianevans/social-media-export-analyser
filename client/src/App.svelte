@@ -16,12 +16,14 @@
   import { getTopics, initialiseWasm } from 'fast-topics'
   import topicsWasm from 'fast-topics/dist/topics.wasm?url'
   import FrequencyTableTabs from './visualisations/specific/metadata/FrequencyTableTabs.svelte'
+  import {
+    theme
+  } from './stores/themeStore'
 
   // limit to first 5000 results
   const searchResultsLimit = 5000
   let files: PostProcessedOutput[] = []
   let activeIndex = 0
-  let theme
   let query: string = '', results: any[], idx: Document<any, false>
   $: {
     if (query) {
@@ -73,15 +75,15 @@
 </script>
 
 
-<main theme={theme}>
+<main theme={$theme}>
   <vaadin-app-layout>
     <vaadin-horizontal-layout slot='navbar' style='justify-content: space-between; width: 100%; align-items: center'
                               theme=''>
       <h1 class='navbar-title'><img src='icon/icon500.webp' style='height: 2em; width: 2em' alt='logo'/>Data File Explorer</h1>
       <vaadin-horizontal-layout>
-        <OnlineIndicator/>
-        <GitHubLink/>
-        <ThemeToggle bind:theme />
+        <OnlineIndicator />
+        <GitHubLink />
+        <ThemeToggle />
       </vaadin-horizontal-layout>
     </vaadin-horizontal-layout>
     <FileUploader bind:files />
