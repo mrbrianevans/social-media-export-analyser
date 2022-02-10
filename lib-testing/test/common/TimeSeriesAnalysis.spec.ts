@@ -35,7 +35,7 @@ describe('time series analysis of data', function () {
 
   it('should group data by day', function () {
     const data = ['2022-02-07', '2022-02-07', '2022-02-08', '2022-02-09']
-    const ts = new TimeSeries(data, 1)
+    const ts = new TimeSeries(data, undefined, 1)
     const grouped = ts.groupByDay()
     Assert.hasProperties(['2022-02-07', '2022-02-08', '2022-02-09'], grouped)
     Assert.equal(grouped['2022-02-07'], 2)
@@ -47,7 +47,7 @@ describe('time series analysis of data', function () {
       { timestamp: '2022-02-07' },
       { timestamp: '2022-02-10', value: 10 }
     ]
-    const ts = new TimeSeries(data, 1)
+    const ts = new TimeSeries(data, undefined, 1)
     const grouped = ts.groupByDay()
     Assert.hasProperties(['2022-02-07', '2022-02-10'], grouped)
     Assert.equal(grouped['2022-02-07'], 1)
@@ -55,7 +55,7 @@ describe('time series analysis of data', function () {
   })
   it('should group data by month', function () {
     const data = ['2022-01-07', '2022-01-07', '2022-02-10', '2022-03-19']
-    const ts = new TimeSeries(data, 1)
+    const ts = new TimeSeries(data, undefined, 1)
     const grouped = ts.groupByMonth()
     // first day of each month containing values
     Assert.hasProperties(['2022-01-01', '2022-02-01', '2022-03-01'], grouped)
@@ -65,7 +65,7 @@ describe('time series analysis of data', function () {
   })
   it('should group data by week', function () {
     const data = ['2022-01-07', '2022-01-08', '2022-01-10', '2022-01-19']
-    const ts = new TimeSeries(data, 1)
+    const ts = new TimeSeries(data, undefined, 1)
     const grouped = ts.groupByWeek()
     // first day of each month containing values
     Assert.hasProperties(['2022-01-03', '2022-01-10', '2022-01-17'], grouped)

@@ -39,10 +39,12 @@
     "filepond": "^4.30.3",
     "filepond-plugin-image-preview": "^4.6.10",
     "flexsearch": "^0.7.21",
+    "fusioncharts": "^3.18.0",
     "lumo-css-framework": "^4.0.10",
     "papaparse": "^5.3.1",
     "sass": "^1.43.2",
     "sentence-case": "^3.0.4",
-    "svelte-filepond": "^0.2.0"
+    "svelte-filepond": "^0.2.0",
+    "svelte-fusioncharts": "^1.0.0"
   }
 }

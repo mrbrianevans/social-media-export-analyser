@@ -17,6 +17,15 @@ type TimeSeriesData = (
 
 type GroupResult<Key extends string | number = string> = Record<Key, number>
 
+export interface TimeSeriesMetadata {
+  date: GroupResult
+  week: GroupResult
+  month: GroupResult
+  year: GroupResult
+  weekday: GroupResult
+  metadata: Record<string, string>
+}
+
 export class TimeSeries {
   readonly data: TimeSeriesValue[] = []
   readonly start: Date
@@ -25,17 +34,18 @@ export class TimeSeries {
   private formatWeek: DateFormatter = defaultFormatWeek
   private formatDay: DateFormatter = defaultFormatDay
   private readonly defaultValue: number
+  private readonly label: string
 
-  constructor(data: TimeSeriesData, defaultValue = 1) {
+  constructor(data: TimeSeriesData, label = 'Usage', defaultValue = 1) {
+    this.label = label
     if (typeof defaultValue == 'number') this.defaultValue = defaultValue
     for (const dataPoint of data) {
       let timestamp, value
-      if (
-        dataPoint instanceof Date ||
-        typeof dataPoint === 'number' ||
-        typeof dataPoint === 'string'
-      ) {
+      if (dataPoint instanceof Date || typeof dataPoint === 'number') {
         timestamp = new Date(dataPoint)
+        value = defaultValue
+      } else if (typeof dataPoint === 'string') {
+        timestamp = new Date(dataPoint.replace('BST', '(British Summer Time)'))
         value = defaultValue
       } else if (typeof dataPoint === 'object') {
         timestamp = new Date(dataPoint.timestamp)
@@ -43,6 +53,7 @@ export class TimeSeries {
       }
       // only push real dates into the dataset
       if (!isNaN(timestamp.getTime())) this.data.push({ timestamp, value })
+      else console.log('Invalid date:', dataPoint)
     }
     // this could be replaced by a util function "arrayMin"
     let earliestTimestamp = Infinity
@@ -77,27 +88,47 @@ export class TimeSeries {
 
   groupByFormatter(formatter: DateFormatter): GroupResult {
     if (!this.data.length) return {}
-    const bins = {}
+    const _bins = {}
+    const getter: ProxyHandler<any> = {
+      get(target, prop) {
+        return target[prop] ?? 0 // return zero if key doesn't exist
+      },
+      ownKeys: function (oTarget) {
+        return Object.keys(oTarget)
+      }
+    }
+    const bins = new Proxy(_bins, getter)
     for (const datum of this.data) {
       const day = formatter(datum.timestamp)
-      if (day in bins) bins[day] += datum.value
-      else bins[day] = datum.value
+      bins[day] += datum.value
     }
-    return bins
+    // convert it to a clonable object
+    return Object.fromEntries(Object.entries(bins))
+  }
+
+  groupByYear() {
+    return this.groupByFormatter((d) => d.getFullYear().toString())
+  }
+
+  groupByDayOfWeek() {
+    return this.groupByFormatter(formatDayOfWeek)
   }
 
   get [Symbol.toStringTag](): string {
     return 'TimeSeries'
   }
 
-  toString(): string {
-    return (
-      'TimeSeries {' +
-      this.data
-        .map((d) => `${d.timestamp.toISOString()}=${d.value}`)
-        .join(', ') +
-      '}'
-    )
+  get metadata(): TimeSeriesMetadata {
+    return {
+      date: this.groupByDay(),
+      weekday: this.groupByDayOfWeek(),
+      week: this.groupByWeek(),
+      month: this.groupByMonth(),
+      year: this.groupByYear(),
+      metadata: {
+        label: this.label
+      }
+    }
   }
 }
 
@@ -114,11 +145,17 @@ const defaultFormatDay: DateFormatter = (date: Date) => {
   return formatDateEur(date)
 }
 const defaultFormatMonth: DateFormatter = (date: Date) => {
-  date.setDate(1)
-  return formatDateEur(date)
+  return Intl.DateTimeFormat('default', {
+    month: 'long',
+    year: 'numeric'
+  }).format(date)
 }
 // returns the Monday of the week date is in
 const defaultFormatWeek: DateFormatter = (date: Date) => {
   date.setDate(date.getDate() - date.getDay() + 1)
   return formatDateEur(date)
+}
+
+const formatDayOfWeek: DateFormatter = (date) => {
+  return Intl.DateTimeFormat('default', { weekday: 'long' }).format(date)
 }

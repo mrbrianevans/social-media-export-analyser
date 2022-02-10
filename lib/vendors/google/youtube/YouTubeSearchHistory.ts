@@ -1,6 +1,7 @@
 import { PostProcessor } from '../../../typedefs/PostProcess'
 import type { CheerioAPI } from 'cheerio'
 import { getFrequencyTables } from '../../../common/FrequencyAnalysis'
+import { TimeSeries } from '../../../common/TimeSeriesAnalysis'
 
 type YouTubeSearchHistory = {
   searchTerm: string
@@ -16,7 +17,7 @@ export const processYouTubeSearchHistory: PostProcessor<
   }
 }) => {
   /* eslint-disable @typescript-eslint/ban-ts-comment */
-  const data = doc(
+  const data: YouTubeSearchHistory = doc(
     'div.content-cell.mdl-cell.mdl-cell--6-col.mdl-typography--body-1:nth-child(2)'
   )
     .toArray()
@@ -34,9 +35,13 @@ export const processYouTubeSearchHistory: PostProcessor<
     20,
     ['word']
   )
+  const ts = new TimeSeries(
+    data.map((d) => d.date),
+    'YouTube Searches'
+  )
   return {
     data,
-    metadata: { freq },
+    metadata: { freq, ts: ts.metadata },
     title: 'YouTube Search History'
   }
 }
