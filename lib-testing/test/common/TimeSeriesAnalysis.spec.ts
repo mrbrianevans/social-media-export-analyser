@@ -58,10 +58,13 @@ describe('time series analysis of data', function () {
     const ts = new TimeSeries(data, undefined, 1)
     const grouped = ts.groupByMonth()
     // first day of each month containing values
-    Assert.hasProperties(['2022-01-01', '2022-02-01', '2022-03-01'], grouped)
-    Assert.equal(grouped['2022-01-01'], 2)
-    Assert.equal(grouped['2022-02-01'], 1)
-    Assert.equal(grouped['2022-03-01'], 1)
+    Assert.hasProperties(
+      ['January 2022', 'February 2022', 'March 2022'],
+      grouped
+    )
+    Assert.equal(grouped['January 2022'], 2)
+    Assert.equal(grouped['February 2022'], 1)
+    Assert.equal(grouped['March 2022'], 1)
   })
   it('should group data by week', function () {
     const data = ['2022-01-07', '2022-01-08', '2022-01-10', '2022-01-19']
