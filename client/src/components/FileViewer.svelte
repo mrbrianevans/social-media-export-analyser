@@ -10,6 +10,7 @@
   import { initialiseWasm } from 'fast-topics'
   import { objectKeys } from '../../../lib/common/ArrayUtils'
   import topicsWasm from 'fast-topics/dist/topics.wasm?url'
+  import ContentTabs from '../visualisations/layouts/ContentTabs.svelte'
 
   export let file
   // limit to first 5000 results
@@ -66,21 +67,30 @@
   $: {
     loadIndex(file?.data)
   }
+  let tabs = [{
+    label: 'Main',
+    component: ComponentForShape[file.component],
+    props: { data: file.data }
+  },
+    file.metadata.freq && {
+      label: 'Frequency tables',
+      component: FrequencyTableTabs,
+      props: { data: file.metadata.freq }
+    },
+    file.metadata.ts && { label: 'Time series', component: DailyTimeSeries, props: { data: file.metadata.ts } },
+    { label: 'Raw JSON data', component: JsonEditor, props: { data: file.data } }
+  ].filter(d => d)
+  $: tabs[0].props.data = currData
+  let horizontalLayout
+  $: horizontalLayout?.setAttribute('theme', 'margin spacing')
+  let selectedTab = 0
 </script>
 
 <div>
-  <!--  <vaadin-tabs orientation='horizontal'>-->
-  <!--    {#each ['Main content', 'Time series', 'Frequency', 'Raw file data', 'Export'] as tab, index}-->
-  <!--      <vaadin-tab>-->
-  <!--        <span tabindex='-1' on:click={()=>console.log(index)}>{tab}</span>-->
-  <!--      </vaadin-tab>-->
-  <!--    {/each}-->
-  <!--  </vaadin-tabs>-->
-  <!-- this needs to be tabs. First tab is main visualisation, then metadata, then export options, then raw data -->
 
-  {#if file.data instanceof Array}
+  {#if selectedTab === 0 && file.data instanceof Array}
     <!-- theme="margin" doesn't get rendered, so margin is added with inline styles -->
-    <vaadin-horizontal-layout theme='margin spacing' style='margin: 0 var(--lumo-space-m); align-items: center'>
+    <vaadin-horizontal-layout style='align-items: center' bind:this={horizontalLayout}>
       <vaadin-text-field value={query} aria-label='search' placeholder='Search' clear-button-visible
                          on:input={v=>query = v.target.value}>
         <vaadin-icon icon='vaadin:search' slot='prefix'></vaadin-icon>
@@ -92,17 +102,8 @@
 
   {/if}
 
-  {#if false && file.metadata.freq }
-    <FrequencyTableTabs data={file.metadata.freq} />
-  {/if}
-  {#if false && file.metadata.ts }
-    <DailyTimeSeries data={file.metadata.ts} />
-    <DayOfWeekPie data={file.metadata.ts} />
-    <JsonEditor data={file.metadata} />
-  {/if}
-  <!--        <JsonEditor data={(query ? results?.flatMap((field)=>field.result).map(i=>file.data[i]):null) ?? file.data} />-->
-  <svelte:component this={ComponentForShape[file.component]}
-                    data={currData} />
+  <ContentTabs tabs={tabs} bind:selectedTab />
+
 </div>
 
 
