@@ -22,20 +22,22 @@ export const instagramLikesPostProcessFunction: PostProcessor<
 > = (input) => {
   const mediaLikes: (InstagramLikesPostProcess[number] & {
     timestamp: number
-  })[] = input.preProcessedOutput.data.media_likes.map((l) => ({
-    username: l[1],
-    date: longDateTime(new Date(l[0])),
+  })[] = input.preProcessedOutput.data.media_likes.map(([date, username]) => ({
+    username,
+    date,
     postType: 'media',
-    timestamp: new Date(l[0]).getTime()
+    timestamp: new Date(date).getTime()
   }))
   const commentLikes: (InstagramLikesPostProcess[number] & {
     timestamp: number
-  })[] = input.preProcessedOutput.data.comment_likes.map((l) => ({
-    username: l[1],
-    date: longDateTime(new Date(l[0])),
-    postType: 'comment',
-    timestamp: new Date(l[0]).getTime()
-  }))
+  })[] = input.preProcessedOutput.data.comment_likes.map(
+    ([date, username]) => ({
+      username,
+      date,
+      postType: 'comment',
+      timestamp: new Date(date).getTime()
+    })
+  )
   const data = mediaLikes
     .concat(...commentLikes)
     .sort((a, b) => a.timestamp - b.timestamp)

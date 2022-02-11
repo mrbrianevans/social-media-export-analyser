@@ -28,7 +28,7 @@ describe('post process instagram likes', function () {
     const i = output.data.findIndex((p) => p.username === 'clark')
     Assert.equal(i, 0, `clark should be first if the list is sorted by date`)
     Assert.true(
-      output.data[0].date.includes('Apr'),
+      output.data[0].date.includes('2019-04'),
       `${output.data[0].date} should be in april`
     )
     Assert.equal(output.data[0].username, 'clark')
