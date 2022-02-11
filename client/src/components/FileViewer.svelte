@@ -1,16 +1,17 @@
 <script lang='ts'>
 
-  import '@vaadin/tabs'
+  import '@vaadin/horizontal-layout'
+  import '@vaadin/text-field'
+  import '@vaadin/icons'
   import FrequencyTableTabs from '../visualisations/specific/metadata/FrequencyTableTabs.svelte'
-  import DayOfWeekPie from '../visualisations/charts/DayOfWeekPie.svelte'
   import JsonEditor from './JsonEditor.svelte'
-  import DailyTimeSeries from '../visualisations/charts/DailyTimeSeries.svelte'
   import { ComponentForShape } from './ComponentMap'
   import { Document } from 'flexsearch'
   import { initialiseWasm } from 'fast-topics'
   import { objectKeys } from '../../../lib/common/ArrayUtils'
   import topicsWasm from 'fast-topics/dist/topics.wasm?url'
   import ContentTabs from '../visualisations/layouts/ContentTabs.svelte'
+  import TimeSeries from '../visualisations/specific/metadata/TimeSeries.svelte'
 
   export let file
   // limit to first 5000 results
@@ -77,7 +78,7 @@
       component: FrequencyTableTabs,
       props: { data: file.metadata.freq }
     },
-    file.metadata.ts && { label: 'Time series', component: DailyTimeSeries, props: { data: file.metadata.ts } },
+    file.metadata.ts && { label: 'Time series', component: TimeSeries, props: { data: file.metadata.ts } },
     { label: 'Raw JSON data', component: JsonEditor, props: { data: file.data } }
   ].filter(d => d)
   $: tabs[0].props.data = currData

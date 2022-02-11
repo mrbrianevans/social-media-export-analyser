@@ -5,27 +5,28 @@
   import CandyTheme from 'fusioncharts/themes/fusioncharts.theme.candy'
   import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion'
   import SvelteFC, { fcRoot } from 'svelte-fusioncharts'
-  import { TimeSeriesMetadata } from '../../../../lib/common/TimeSeriesAnalysis'
+  import type { TimeSeriesMetadata } from '../../../../lib/common/TimeSeriesAnalysis'
   import { theme } from '../../stores/themeStore'
   import { onDestroy } from 'svelte'
 
   fcRoot(FusionCharts, Timeseries, FusionTheme, CandyTheme)
 
-  export let data: TimeSeriesMetadata
+  export let data: TimeSeriesMetadata['date']
+  export let label: string
   const fusionDataStore = new FusionCharts.DataStore()
-  const fusionTable = fusionDataStore.createDataTable(Object.entries(data.date), [
+  const fusionTable = fusionDataStore.createDataTable(Object.entries(data), [
     {
       'name': 'Date',
       'type': 'date',
       'format': '%Y-%m-%d'
     },
     {
-      'name': data.metadata.label,
+      'name': label,
       'type': 'number'
     }
   ])
   let dataSource = {
-      'caption': { text: data.metadata.label },
+      'caption': { text: label },
       'chart': {
         'subCaption': 'Aggregated by day',
         'theme': $theme === 'dark' ? 'candy' : 'fusion'
@@ -33,10 +34,10 @@
       yAxis: [
         {
           plot: {
-            value: data.metadata.label,
+            value: label,
             type: 'column'
           },
-          title: data.metadata.label + ' per day'
+          title: label + ' per day'
         }
       ],
       'data': fusionTable
@@ -48,11 +49,7 @@
       renderAt: 'chart-container',
       dataSource
     }
-  const exportHandler = () => {
-    FusionCharts.batchExport({
-      exportFormat: 'pdf'
-    })
-  }
+
   let chart
   const themeUnsub = theme.subscribe(value => {
     chart?.setChartAttribute('theme', value === 'dark' ? 'candy' : 'fusion')
@@ -63,6 +60,4 @@
 <div id='chart-container'>
   <SvelteFC {...chartConfig} bind:chart />
 </div>
-<div style='text-align: center; padding-top: 5px;'>
-  <vaadin-button on:click={exportHandler}>Export charts to PDF</vaadin-button>
-</div>
+

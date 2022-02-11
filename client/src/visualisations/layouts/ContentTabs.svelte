@@ -1,5 +1,6 @@
 <script lang='ts'>
 
+  import '@vaadin/tabs'
   import { SvelteComponent } from 'svelte'
   import { sentenceCase } from 'sentence-case'
 
