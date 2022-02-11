@@ -46,6 +46,6 @@
     "sentence-case": "^3.0.4",
     "svelte-filepond": "^0.2.0",
     "svelte-fusioncharts": "^1.0.0",
-    "svelte-heatmap": "github:Folyd/svelte-heatmap#add-legend"
+    "svelte-heatmap": "^1.0.2"
   }
 }

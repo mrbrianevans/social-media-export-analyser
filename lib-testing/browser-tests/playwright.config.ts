@@ -14,7 +14,7 @@ import { outputDir } from './getArtifactDirectory'
 const config = {
   testDir: './',
   /* Maximum time one test can run for. */
-  timeout: 15 * 1000,
+  timeout: 45 * 1000,
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
@@ -63,7 +63,7 @@ const config = {
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'cd ../.. && npm run start',
+    command: 'cd ../../client && npm run serve',
     port: 5000
   }
 }

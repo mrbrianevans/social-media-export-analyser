@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 import { getArtifactPath } from '../getArtifactDirectory'
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:5000')
+  await page.goto('/')
 })
 test.describe(
   'indicate to user the online/offline state of the site',

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "type": "commonjs",
   "scripts": {
-    "test": "playwright test",
+    "test": "cd ../../client && npm run build && cd ../lib-testing && npm run generate && cd browser-tests && playwright test",
+    "test:nobuild": "playwright test",
     "results": "playwright show-report",
     "postinstall": "npx playwright install chromium"
   },

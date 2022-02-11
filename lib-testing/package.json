@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "test:unit": "node --experimental-specifier-resolution=node --loader ts-node/esm node_modules/mocha/lib/cli/cli.js unit-tests/**/*.spec.ts",
-    "generate": "node --loader ts-node/esm --experimental-specifier-resolution=node generateDemoFiles.ts",
+    "generate": "cd ../lib && npm run clean && cd ../lib-testing && node --loader ts-node/esm --experimental-specifier-resolution=node generateDemoFiles.ts",
     "test:browser": "cd browser-tests && npm test",
     "test": "npm run test:unit && npm run test:browser"
   },

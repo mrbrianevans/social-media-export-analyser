@@ -12,7 +12,7 @@ import { generateInstagramAccountHistory } from '../lib/vendors/instagram/Accoun
 import { generateInstagramInformationAboutYou } from '../lib/vendors/instagram/InformationAboutYou'
 import { generateContactsFile } from '../lib/vendors/google/Contacts'
 
-const demoFilePath = (filename) => {
+export const demoFilePath = (filename) => {
   const filePath = path.resolve('..', 'demo-files', filename)
   fs.mkdirSync(path.dirname(filePath), { recursive: true })
   return filePath
