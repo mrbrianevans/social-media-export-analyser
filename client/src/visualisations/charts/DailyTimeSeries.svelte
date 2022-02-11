@@ -13,6 +13,7 @@
 
   export let data: TimeSeriesMetadata['date']
   export let label: string
+  const title = label + ' per day'
   const fusionDataStore = new FusionCharts.DataStore()
   const fusionTable = fusionDataStore.createDataTable(Object.entries(data), [
     {
@@ -21,12 +22,12 @@
       'format': '%Y-%m-%d'
     },
     {
-      'name': label,
+      'name': title,
       'type': 'number'
     }
   ])
   let dataSource = {
-      'caption': { text: label },
+      'caption': { text: title },
       'chart': {
         'subCaption': 'Aggregated by day',
         'theme': $theme === 'dark' ? 'candy' : 'fusion'
@@ -34,10 +35,10 @@
       yAxis: [
         {
           plot: {
-            value: label,
+            value: title,
             type: 'column'
           },
-          title: label + ' per day'
+          title
         }
       ],
       'data': fusionTable

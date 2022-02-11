@@ -126,7 +126,9 @@ export class TimeSeries {
       month: this.groupByMonth(),
       year: this.groupByYear(),
       metadata: {
-        label: this.label
+        label: this.label,
+        start: this.start.toISOString(),
+        end: this.end.toISOString()
       }
     }
   }

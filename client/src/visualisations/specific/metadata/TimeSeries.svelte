@@ -6,6 +6,7 @@
   import DailyTimeSeries from '../../charts/DailyTimeSeries.svelte'
   import DayOfWeekPie from '../../charts/DayOfWeekPie.svelte'
   import FusionCharts from 'fusioncharts'
+  import TimeSeriesHeatmap from '../../charts/TimeSeriesHeatmap.svelte'
 
   export let data: TimeSeriesMetadata
 
@@ -26,4 +27,10 @@
 </vaadin-horizontal-layout>
 
 <DailyTimeSeries data={data.date} label={data.metadata.label} />
+
 <DayOfWeekPie data={data.weekday} label={data.metadata.label} />
+<hr />
+<h4>{data.metadata.label} per year
+  <vaadin-button on:click={exportHandler('svg')}>Export chart as SVG</vaadin-button>
+</h4>
+<TimeSeriesHeatmap data={data} />

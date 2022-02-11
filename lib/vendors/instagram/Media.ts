@@ -1,11 +1,11 @@
 import { RandHex } from '../../common/RandomUtils/RandomNumberUtils'
 import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
 import { generateCaption } from '../../common/RandomUtils/RandomContent/RandomSentence'
-import { formatDateEurTimeWithTz, longDateTime } from '../../common/DateUtils'
+import { formatDateEurTimeWithTz } from '../../common/DateUtils'
 import { repeat } from '../../common/ArrayUtils'
 import { PostProcessor } from '../../typedefs/PostProcess'
-import { InstagramLikes, InstagramLikesPostProcess } from './Likes'
 import { getFrequencyTables } from '../../common/FrequencyAnalysis'
+import { TimeSeries } from '../../common/TimeSeriesAnalysis'
 
 type DateString =
   `${number}-${number}-${number}T${number}:${number}:${number}+${number}:${number}`
@@ -108,12 +108,15 @@ export const instagramMediaPostProcessFunction: PostProcessor<
     }))
   )
   data.sort((a, b) => a.timestamp - b.timestamp)
-  const freq = getFrequencyTables(
+  input.preProcessedOutput.metadata.freq = getFrequencyTables(
     Array.from(new Set(data.map((d) => d.caption))),
     50,
     ['word', 'hashtag', 'mention', 'emoji']
   )
-  input.preProcessedOutput.metadata.freq = freq
+  input.preProcessedOutput.metadata.ts = new TimeSeries(
+    data.map((d) => d.taken_at),
+    'Instagram posts'
+  ).metadata
   return {
     ...input.preProcessedOutput,
     data
