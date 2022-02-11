@@ -4,7 +4,8 @@
   "type": "commonjs",
   "scripts": {
     "test": "playwright test",
-    "results": "playwright show-report"
+    "results": "playwright show-report",
+    "postinstall": "npx playwright install chromium"
   },
   "devDependencies": {
     "@playwright/test": "^1.18.1"

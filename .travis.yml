@@ -1,4 +1,10 @@
 language: node_js
+dist: bionic
+addons:
+  apt:
+    packages:
+      # This is required to run chromium
+      - libgbm1
 node_js:
   - 16
 install:
