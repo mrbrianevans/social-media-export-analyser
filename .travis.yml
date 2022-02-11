@@ -4,7 +4,7 @@ node_js:
 install:
   - npm install
   - cd lib && npm ci && cd ..
-  - cd lib-testing && npm ci && cd ..
+  - cd lib-testing && npm ci && cd browser-tests && npm ci && cd ../..
   - cd client && npm ci && cd ..
 script:
   - npm run format:check

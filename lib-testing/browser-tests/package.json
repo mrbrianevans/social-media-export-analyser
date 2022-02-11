@@ -1,0 +1,12 @@
+{
+  "name": "browser-tests",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "test": "playwright test",
+    "results": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.18.1"
+  }
+}

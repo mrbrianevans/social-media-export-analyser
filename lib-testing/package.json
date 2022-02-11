@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "test": "node --experimental-specifier-resolution=node --loader ts-node/esm node_modules/mocha/lib/cli/cli.js test/**/*.spec.ts",
-    "generate": "node --loader ts-node/esm --experimental-specifier-resolution=node generateDemoFiles.ts"
+    "test:unit": "node --experimental-specifier-resolution=node --loader ts-node/esm node_modules/mocha/lib/cli/cli.js unit-tests/**/*.spec.ts",
+    "generate": "node --loader ts-node/esm --experimental-specifier-resolution=node generateDemoFiles.ts",
+    "test:browser": "cd browser-tests && npm test",
+    "test": "npm run test:unit && npm run test:browser"
   },
   "dependencies": {
     "assert-js": "^1.0.0",
