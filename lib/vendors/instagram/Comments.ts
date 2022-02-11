@@ -4,6 +4,7 @@ import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
 import { generateSentence } from '../../common/RandomUtils/RandomContent/RandomSentence'
 import { generateUsername } from '../../common/RandomUtils/RandomContent/RandomUsername'
 import { commentWords } from '../../common/RandomUtils/RandomContent/RandomWords'
+import { TimeSeries } from '../../common/TimeSeriesAnalysis'
 
 export interface InstagramComments {
   media_comments: [string, string, string][]
@@ -15,11 +16,17 @@ export const instagramCommentsPostProcessingFunction: PostProcessor<
   InstagramComments,
   InstagramCommentsProcessed
 > = (input) => {
-  const comments = input.preProcessedOutput.data.media_comments.map((c) => ({
-    date: longDateTime(new Date(c[0])),
-    content: c[1],
-    username: c[2]
-  }))
+  const comments = input.preProcessedOutput.data.media_comments.map(
+    ([date, content, username]) => ({
+      date,
+      content,
+      username
+    })
+  )
+  input.preProcessedOutput.metadata.ts = new TimeSeries(
+    comments.map((d) => d.date),
+    'Instagram comments'
+  ).metadata
   return {
     title: input.preProcessedOutput.title,
     data: comments,

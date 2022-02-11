@@ -2,6 +2,7 @@ import { PostProcessor } from '../../typedefs/PostProcess'
 import { formatDateEurTimeWithTz, longDateTime } from '../../common/DateUtils'
 import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
 import { generateUsername } from '../../common/RandomUtils/RandomContent/RandomUsername'
+import { TimeSeries } from '../../common/TimeSeriesAnalysis'
 
 type Like = [string, string]
 export interface InstagramLikes {
@@ -35,16 +36,21 @@ export const instagramLikesPostProcessFunction: PostProcessor<
     postType: 'comment',
     timestamp: new Date(l[0]).getTime()
   }))
+  const data = mediaLikes
+    .concat(...commentLikes)
+    .sort((a, b) => a.timestamp - b.timestamp)
+    .map((a) => ({
+      username: a.username,
+      date: a.date,
+      postType: a.postType
+    }))
+  input.preProcessedOutput.metadata.ts = new TimeSeries(
+    data.map((d) => d.date),
+    'Posts liked on Instagram'
+  ).metadata
   return {
     ...input.preProcessedOutput,
-    data: mediaLikes
-      .concat(...commentLikes)
-      .sort((a, b) => a.timestamp - b.timestamp)
-      .map((a) => ({
-        username: a.username,
-        date: a.date,
-        postType: a.postType
-      }))
+    data
   }
 }
 

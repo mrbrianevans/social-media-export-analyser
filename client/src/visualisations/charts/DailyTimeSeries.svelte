@@ -3,13 +3,13 @@
   import FusionCharts from 'fusioncharts'
   import Timeseries from 'fusioncharts/fusioncharts.timeseries'
   import CandyTheme from 'fusioncharts/themes/fusioncharts.theme.candy'
-  import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion'
+  import GammelTheme from 'fusioncharts/themes/fusioncharts.theme.gammel'
   import SvelteFC, { fcRoot } from 'svelte-fusioncharts'
   import type { TimeSeriesMetadata } from '../../../../lib/common/TimeSeriesAnalysis'
   import { theme } from '../../stores/themeStore'
   import { onDestroy } from 'svelte'
 
-  fcRoot(FusionCharts, Timeseries, FusionTheme, CandyTheme)
+  fcRoot(FusionCharts, Timeseries, GammelTheme, CandyTheme)
 
   export let data: TimeSeriesMetadata['date']
   export let label: string
@@ -30,7 +30,7 @@
       'caption': { text: title },
       'chart': {
         'subCaption': 'Aggregated by day',
-        'theme': $theme === 'dark' ? 'candy' : 'fusion'
+        'theme': $theme === 'dark' ? 'candy' : 'gammel'
       },
       yAxis: [
         {

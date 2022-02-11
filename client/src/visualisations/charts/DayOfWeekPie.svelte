@@ -2,7 +2,7 @@
   import FusionCharts from 'fusioncharts'
   import Charts from 'fusioncharts/fusioncharts.charts'
   import CandyTheme from 'fusioncharts/themes/fusioncharts.theme.candy'
-  import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion'
+  import GammelTheme from 'fusioncharts/themes/fusioncharts.theme.gammel'
   import SvelteFC, { fcRoot } from 'svelte-fusioncharts'
   import type { TimeSeriesMetadata } from '../../../../lib/common/TimeSeriesAnalysis'
   import {
@@ -10,7 +10,8 @@
   } from '../../stores/themeStore'
   import { onDestroy } from 'svelte'
 
-  fcRoot(FusionCharts, Charts, FusionTheme, CandyTheme)
+  console.log(CandyTheme)
+  fcRoot(FusionCharts, Charts, GammelTheme, CandyTheme)
   let chart
   // data from TimeSeries
   export let data: TimeSeriesMetadata['weekday']
@@ -22,7 +23,7 @@
         'showValues': '1',
         'showPercentInTooltip': '0',
         'enableMultiSlicing': '1',
-        'theme': $theme === 'dark' ? 'candy' : 'fusion'
+        'theme': $theme === 'dark' ? 'candy' : 'gammel'
       },
       'data': Object.entries(data).map(([label, value]) => ({ label, value }))
     },

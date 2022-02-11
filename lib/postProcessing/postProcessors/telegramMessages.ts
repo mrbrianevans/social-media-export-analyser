@@ -5,6 +5,7 @@ import {
 } from '../../vendors/telegram/JsonChatHistory'
 import { VaadinMessageHistoryFormat } from '../../typedefs/Components'
 import { getFrequencyTables } from '../../common/FrequencyAnalysis'
+import { TimeSeries } from '../../common/TimeSeriesAnalysis'
 
 export const telegramMessagesPostProcessor: PostProcessor<
   TelegramChatHistory,
@@ -18,6 +19,10 @@ export const telegramMessagesPostProcessor: PostProcessor<
     50,
     ['word', 'emoji', 'emoticon']
   )
+  const ts = new TimeSeries(
+    data.map((d) => d.time),
+    'Telegram messages'
+  ).metadata
   return {
     data,
     metadata: {
@@ -25,7 +30,8 @@ export const telegramMessagesPostProcessor: PostProcessor<
       recipient: input.preProcessedOutput.data.name,
       chat_type: input.preProcessedOutput.data.type,
       ...input.preProcessedOutput.metadata,
-      freq
+      freq,
+      ts
     },
     title: 'Telegram messages with ' + input.preProcessedOutput.data.name
   }

@@ -13,9 +13,11 @@
 <div>
   <vaadin-tabs>
     {#each tabs as tab, index}
-      <vaadin-tab on:click={()=>selectedTab=index}><span>{sentenceCase(tab.label)}</span></vaadin-tab>
+      <vaadin-tab on:click={()=>selectedTab=index} selected={index === selectedTab}>
+        <span>{sentenceCase(tab.label)}</span></vaadin-tab>
     {/each}
   </vaadin-tabs>
+  <pre>{JSON.stringify({ selectedTab })}</pre>
   <div class='component-container'>
     {#each tabs as tab, index}
       {#if index === selectedTab}

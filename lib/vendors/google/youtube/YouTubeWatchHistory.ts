@@ -1,6 +1,7 @@
 import { PostProcessor } from '../../../typedefs/PostProcess'
 import type { CheerioAPI } from 'cheerio'
 import { getFrequencyTables } from '../../../common/FrequencyAnalysis'
+import { TimeSeries } from '../../../common/TimeSeriesAnalysis'
 
 type YouTubeWatchHistory = {
   video: string
@@ -50,10 +51,13 @@ export const processYouTubeWatchHistory: PostProcessor<
     20,
     ['word', 'ordinal', 'hashtag', 'emoji']
   )
-
+  const ts = new TimeSeries(
+    data.map((d) => d.date),
+    'Videos watched'
+  ).metadata
   return {
     data,
-    metadata: { freq },
+    metadata: { freq, ts },
     title: 'YouTube Watch History'
   }
 }
