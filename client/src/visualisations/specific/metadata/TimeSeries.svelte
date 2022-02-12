@@ -7,6 +7,7 @@
   import DayOfWeekPie from '../../charts/DayOfWeekPie.svelte'
   import FusionCharts from 'fusioncharts'
   import TimeSeriesHeatmap from '../../charts/TimeSeriesHeatmap.svelte'
+  import MonthOfYearPie from '../../charts/MonthOfYearPie.svelte'
 
   export let data: TimeSeriesMetadata
 
@@ -30,12 +31,24 @@
 
 <DailyTimeSeries data={data.date} label={data.metadata.label} />
 
-<DayOfWeekPie data={data.weekday} label={data.metadata.label} />
+<div class='two-charts-across'>
+  <DayOfWeekPie data={data.weekday} label={data.metadata.label} />
+  <MonthOfYearPie data={data.monthName} label={data.metadata.label} />
+</div>
 <hr />
-<h4>{data.metadata.label} per year
+<h4>
+  Annual {data.metadata.label}
   {#if heatmapUrl?.length > 0}
     <vaadin-button><a href={heatmapUrl} download={data.metadata.label+' heatmap chart.svg'}>Export chart as SVG</a>
     </vaadin-button>
   {/if}
 </h4>
 <TimeSeriesHeatmap data={data} bind:exportUrl={heatmapUrl} />
+
+
+<style>
+    .two-charts-across {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+</style>

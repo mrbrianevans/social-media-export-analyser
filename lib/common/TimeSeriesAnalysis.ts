@@ -21,6 +21,7 @@ export interface TimeSeriesMetadata {
   date: GroupResult
   week: GroupResult
   month: GroupResult
+  monthName: GroupResult
   year: GroupResult
   weekday: GroupResult
   metadata: Record<string, string>
@@ -76,6 +77,10 @@ export class TimeSeries {
     return this.groupByFormatter(this.formatMonth)
   }
 
+  groupByMonthName(): GroupResult {
+    return this.groupByFormatter(formatMonthName)
+  }
+
   groupByDay(): GroupResult {
     return this.groupByFormatter(this.formatDay)
   }
@@ -124,6 +129,7 @@ export class TimeSeries {
       weekday: this.groupByDayOfWeek(),
       week: this.groupByWeek(),
       month: this.groupByMonth(),
+      monthName: this.groupByMonthName(),
       year: this.groupByYear(),
       metadata: {
         label: this.label,
@@ -160,4 +166,8 @@ const defaultFormatWeek: DateFormatter = (date: Date) => {
 
 const formatDayOfWeek: DateFormatter = (date) => {
   return Intl.DateTimeFormat('default', { weekday: 'long' }).format(date)
+}
+
+const formatMonthName: DateFormatter = (date) => {
+  return Intl.DateTimeFormat('default', { month: 'long' }).format(date)
 }

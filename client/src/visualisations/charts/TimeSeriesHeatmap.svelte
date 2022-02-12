@@ -31,7 +31,7 @@
     setTimeout(() => {
       console.log('New url genned')
       const svg = Array.from(heatmapContainer?.children ?? []).find(c => c.tagName.toLowerCase() === 'svg')
-      if (svg) exportUrl = createSvgDownload(svg.outerHTML)
+      if (svg) exportUrl = createSvgDownload(svg.outerHTML, true, 10)
     }, year / 100) // delay to wait for SVG to be rendered, and depend on changes to year
   }
 </script>
@@ -59,6 +59,6 @@
 
 <style>
     .heatmapContainer {
-        padding: 0 1rem 1rem 0;
+        padding: 1rem;
     }
 </style>

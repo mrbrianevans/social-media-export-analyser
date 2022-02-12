@@ -47,7 +47,7 @@
       type: 'timeseries',
       width: '100%',
       height: '500', // in pixels
-      renderAt: 'chart-container',
+      renderAt: 'ts-chart-container',
       dataSource
     }
 
@@ -58,7 +58,13 @@
   onDestroy(themeUnsub)
 </script>
 
-<div id='chart-container'>
+<div id='ts-chart-container'>
   <SvelteFC {...chartConfig} bind:chart />
 </div>
 
+
+<style>
+    #ts-chart-container {
+        height: 500px;
+    }
+</style>

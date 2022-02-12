@@ -7,7 +7,19 @@ export function createFileDownload(fileContents: string, fileType: string) {
   return URL.createObjectURL(new Blob([fileContents], { type: fileType }))
 }
 
-export function createSvgDownload(svgString: string): string {
+/**
+ * Convert a HTML SVG to an SVG that can be saved as a standalone file.
+ * @param svgString - input string of SVG. Can be the outerHtml of an SVG element.
+ * @param addMargin - how many pixels of margin to add to the SVG.
+ * @param xMargin - if addMargin is true, how much to add in the x direction.
+ * @param yMargin - if addMargin is true, how much to add in the y direction.
+ */
+export function createSvgDownload(
+  svgString: string,
+  addMargin = false,
+  xMargin = 10,
+  yMargin = xMargin
+): string {
   if (!svgString.startsWith('<?xml'))
     svgString = '<?xml version="1.0" encoding="UTF-8"?>' + svgString
   const matches = svgString.match(/<svg[^\/]*?>/)
@@ -21,7 +33,11 @@ export function createSvgDownload(svgString: string): string {
       const [x1, y1, x2, y2] = viewBox.slice(1).map((w) => parseInt(w))
       if (!attrs.match(/height/)) attrs += ` height="${y2 - y1}px"`
       if (!attrs.match(/width/)) attrs += ` width="${x2 - x1}px"`
-    } else console.log(attrs)
+      const m = [xMargin, yMargin]
+      if (addMargin && !attrs.match(/style/))
+        attrs += ` style="margin: ${m[1]}px ${m[0]}px"`
+    }
+    // else console.log(attrs)
     return `<svg ${attrs}>`
   })
   // console.log(svgString.slice(0, 500))

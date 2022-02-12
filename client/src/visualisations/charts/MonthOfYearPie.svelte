@@ -14,12 +14,12 @@
   fcRoot(FusionCharts, Charts, GammelTheme, CandyTheme)
   let chart
   // data from TimeSeries
-  export let data: TimeSeriesMetadata['weekday']
+  export let data: TimeSeriesMetadata['monthName']
   export let label: string
   let dataSource = {
       'chart': {
         'caption': label,
-        'subCaption': 'Aggregated by day of week',
+        'subCaption': 'Aggregated by month',
         'showValues': '1',
         'showPercentInTooltip': '0',
         'enableMultiSlicing': '1',
@@ -31,7 +31,7 @@
       type: 'pie2d',
       width: '100%',
       height: '500', // in pixels
-      renderAt: 'pie-chart-container',
+      renderAt: 'month-pie-chart-container',
       dataSource
     }
   const themeUnsub = theme.subscribe(value => {
@@ -40,13 +40,13 @@
   onDestroy(themeUnsub)
 </script>
 
-<div id='pie-chart-container'>
+<div id='month-pie-chart-container'>
   <SvelteFC {...chartConfig} bind:chart />
 </div>
 
 
 <style>
-    #pie-chart-container {
+    #month-pie-chart-container {
         height: 500px;
     }
 </style>
