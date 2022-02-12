@@ -17,6 +17,8 @@
   }
   let horizontalLayout
   $: horizontalLayout?.setAttribute('theme', 'margin spacing')
+  let heatmapUrl
+  let exportUrl: string = ''
 </script>
 
 
@@ -31,6 +33,9 @@
 <DayOfWeekPie data={data.weekday} label={data.metadata.label} />
 <hr />
 <h4>{data.metadata.label} per year
-  <vaadin-button on:click={exportHandler('svg')}>Export chart as SVG</vaadin-button>
+  {#if heatmapUrl?.length > 0}
+    <vaadin-button><a href={heatmapUrl} download={data.metadata.label+' heatmap chart.svg'}>Export chart as SVG</a>
+    </vaadin-button>
+  {/if}
 </h4>
-<TimeSeriesHeatmap data={data} />
+<TimeSeriesHeatmap data={data} bind:exportUrl={heatmapUrl} />
