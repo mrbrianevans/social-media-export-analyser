@@ -7,9 +7,7 @@
   import JsonEditor from './JsonEditor.svelte'
   import { ComponentForShape } from './ComponentMap'
   import { Document } from 'flexsearch'
-  import { initialiseWasm } from 'fast-topics'
   import { objectKeys } from '../../../lib/common/ArrayUtils'
-  import topicsWasm from 'fast-topics/dist/topics.wasm?url'
   import ContentTabs from '../visualisations/layouts/ContentTabs.svelte'
   import TimeSeries from '../visualisations/specific/metadata/TimeSeries.svelte'
 
@@ -39,7 +37,6 @@
     }
     if (!currData) currData = file?.data
   }
-  initialiseWasm(topicsWasm).then(() => console.log('WASM ready'))
 
   // $: if(files?.length) console.log(files.map(f=>f.title), getTopics(files.map(file=>file.title)))
   async function loadIndex(data) {

@@ -3,22 +3,54 @@
   import { PostProcessedOutput } from '../../lib/typedefs/PostProcess'
   import '@vaadin/tabs'
   import '@vaadin/vaadin-app-layout/vaadin-app-layout.js'
+  import '@vaadin/vertical-layout'
   import { theme } from './stores/themeStore'
   import FileViewer from './components/FileViewer.svelte'
   import Navbar from './components/Navbar.svelte'
+  import { ComponentForShape } from './components/ComponentMap'
+  import FrequencyTableTabs from './visualisations/specific/metadata/FrequencyTableTabs.svelte'
+  import TimeSeries from './visualisations/specific/metadata/TimeSeries.svelte'
+  import JsonEditor from './components/JsonEditor.svelte'
+  import ContentTabs from './visualisations/layouts/ContentTabs.svelte'
+  import { sentenceCase } from 'sentence-case'
 
   let files: PostProcessedOutput[] = []
   let activeIndex = 0
+
+
+  let tabs = []
+  let selectedTab = 0
+  $: {
+    let file = files[activeIndex]
+    if (file) {
+      tabs = [{
+        label: 'Main',
+        component: ComponentForShape[file.component],
+        props: { data: file.data }
+      },
+        file.metadata.freq && {
+          label: 'Frequency tables',
+          component: FrequencyTableTabs,
+          props: { data: file.metadata.freq }
+        },
+        file.metadata.ts && { label: 'Time series', component: TimeSeries, props: { data: file.metadata.ts } },
+        { label: 'Raw JSON data', component: JsonEditor, props: { data: file.data } }
+      ].filter(d => d)
+    } else tabs = []
+  }
 
 </script>
 
 
 <main theme={$theme}>
-  <vaadin-app-layout>
+  <vaadin-app-layout primary-section='drawer'>
 
-    <div slot='navbar' style='width: 100%'>
-      <Navbar />
-    </div>
+    <!--    <div slot='navbar' style='width: 100%'>-->
+    <!--      <Navbar />-->
+    <!--    </div>-->
+    <h1 class='navbar-title' slot='drawer'><img alt='logo' src='icon/icon500.webp' style='height: 2em; width: 2em' />Data
+      File
+      Explorer</h1>
     <!-- file upload area -->
     <div slot='drawer'>
       <FileUploader bind:files />
@@ -36,13 +68,43 @@
 
     {#each files as file, index}
       {#if index === activeIndex}
-        <FileViewer file={file} />
+        <div slot='navbar' style='width: 100%'>
+          <vaadin-vertical-layout>
+
+            <Navbar>
+              <h3 style='margin: 0.5rem 1rem'>{file.title} ({file.metadata.filename})</h3>
+            </Navbar>
+            <vaadin-tabs>
+              {#each tabs as tab, index}
+                <vaadin-tab on:click={()=>selectedTab=index} selected={index === selectedTab}>
+                  <span>{sentenceCase(tab.label)}</span></vaadin-tab>
+              {/each}
+            </vaadin-tabs>
+          </vaadin-vertical-layout>
+        </div>
+        <div class='component-container'>
+          {#each tabs as tab, index}
+            {#if index === selectedTab}
+              <svelte:component this={tab.component} {...tab.props} />
+            {/if}
+          {/each}
+        </div>
+        <!--        <FileViewer file={file} />-->
       {/if}
     {/each}
   </vaadin-app-layout>
 </main>
 
 <style>
+
+    h1.navbar-title {
+        display: inline-flex;
+        font-size: var(--lumo-font-size-xl);
+        margin: auto var(--lumo-space-s);
+        height: CALC(2 * var(--lumo-font-size-xl));
+        align-items: center;
+    }
+
     main {
         height: 100vh;
     }

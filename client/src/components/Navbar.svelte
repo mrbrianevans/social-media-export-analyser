@@ -7,8 +7,12 @@
 
 <vaadin-horizontal-layout class='topbar'
                           style='justify-content: space-between; width: 100%; align-items: center'>
-  <h1 class='navbar-title'><img alt='logo' src='icon/icon500.webp' style='height: 2em; width: 2em' />Data File
-    Explorer</h1>
+  <slot>
+    <h1 class='navbar-title'>
+      <img alt='logo' src='icon/icon500.webp' style='height: 2em; width: 2em' />
+      Data File Explorer
+    </h1>
+  </slot>
   <vaadin-horizontal-layout>
     <OnlineIndicator />
     <GitHubLink />
