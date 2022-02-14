@@ -133,3 +133,68 @@ export const objectSize = (object: any) => {
       0
     )
 }
+
+/**
+ * Initialise an object with an array of keys all set to an initial value.
+ * @param keys - array of keys to populate object with.
+ * @param value - value to assign to each of the keys in the object.
+ */
+export const initObject = (keys: string[], value: any = null) => {
+  return Object.fromEntries(keys.map((key) => [key, value]))
+}
+
+/**
+ * Find columns in tabular data which pass a certain test.
+ * @param arr - array of objects. Tabular data. Each object is a "row" and each key is a "column".
+ * @param test - a function which returns true or false for a given value.
+ * @param threshold - the minimum cutoff percentage threshold of rows in a column to pass, for a column to pass the test. Defaults to 99%.
+ * @param limit - the number of rows checked. Defaults to the first 100. Set to null to check all rows.
+ */
+export const findColumns = (
+  arr: Record<string, any>[],
+  test: (val: any) => boolean,
+  threshold = 90,
+  limit = 100
+) => {
+  const accLimit = Math.min(limit ?? arr.length, arr.length) // if the limit is higher than the number of items in the array, then its not the limiting factor.
+  const rows = arr.slice(0, limit ?? undefined)
+  const columns = arrayObjectKeys(arr, limit)
+  const matchCounts = initObject(columns, 0)
+  for (const row of rows) {
+    for (const column of columns) {
+      if (test(row[column])) matchCounts[column]++
+    }
+  }
+  console.log(matchCounts)
+  return Object.entries(matchCounts)
+    .filter(
+      ([column, count]) => Math.ceil((count / accLimit) * 100) >= threshold
+    )
+    .map(([column]) => column)
+}
+
+/**
+ * Find the columns in tabular data which contain valid dates.
+ * @param arr - tabular data. Each object is a row, each key is a column.
+ * @param earliestDate - the earliest date timestamp allowed. Defaults to 20 years ago.
+ * @param latestDate - latest date timestamp allowed. Defaults to current time.
+ * @param threshold - the percentage of rows which must be valid dates for the row to be returned.
+ * @param limit - the number of rows to check. Defaults to first 100.
+ */
+export const findDateColumns = (
+  arr: Record<string, any>[],
+  earliestDate: number = Date.now() - 1000 * 86400 * 365 * 20,
+  latestDate = Date.now(),
+  threshold = 90,
+  limit = 100
+) => {
+  const test = (val) => {
+    let date = Date.parse(val)
+    const canBeParsed = !isNaN(date)
+    const inRange = date < latestDate && date > earliestDate
+    return canBeParsed && inRange
+  }
+  const dateKeys = findColumns(arr, test, threshold, limit)
+
+  return dateKeys
+}

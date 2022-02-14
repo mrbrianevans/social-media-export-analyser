@@ -20,7 +20,7 @@ export const demoFilePath = (filename) => {
 
 export const generateDemoFiles = async () => {
   // instagram media.json (list of posts)
-  const instagramMedia = generateSampleMediaData({ photos: 5 })
+  const instagramMedia = generateSampleMediaData({ photos: 50 })
   fs.writeFileSync(
     demoFilePath('instagram/media.json'),
     JSON.stringify(instagramMedia, null, 2)
@@ -68,7 +68,7 @@ export const generateDemoFiles = async () => {
 
   //whatsapp WhatsApp Chat with Demo.txt
   const whatsappConversation = generateWhatsAppChatHistory({
-    numberOfMessages: 5
+    numberOfMessages: 50
   })
   fs.writeFileSync(
     demoFilePath('whatsapp/WhatsApp Chat with Demo.txt'),
@@ -77,7 +77,7 @@ export const generateDemoFiles = async () => {
 
   //telegram result.json
   const telegramConversation = generateTelegramChatHistory({
-    numberOfMessages: 5
+    numberOfMessages: 50
   })
   fs.writeFileSync(
     demoFilePath('telegram/result.json'),
@@ -85,11 +85,11 @@ export const generateDemoFiles = async () => {
   )
 
   //twitter
-  const twitterTweets = generateTwitterTweetFile({ qty: 15 })
+  const twitterTweets = generateTwitterTweetFile({ qty: 150 })
   fs.writeFileSync(demoFilePath('twitter/tweet.js'), twitterTweets)
 
   //contacts
-  const contactsCsv = generateContactsFile()
+  const contactsCsv = generateContactsFile(10)
   fs.writeFileSync(demoFilePath('contacts/contacts.csv'), contactsCsv)
 }
 
