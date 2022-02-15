@@ -14,6 +14,8 @@
   import ContentTabs from './visualisations/layouts/ContentTabs.svelte'
   import { sentenceCase } from 'sentence-case'
   import Footer from './components/Footer.svelte'
+  import Topics from './visualisations/specific/metadata/Topics.svelte'
+  import { getTopics, GetTopicsReturnType, isGetTopicsReady } from 'fast-topics'
 
   let files: PostProcessedOutput[] = []
   let activeIndex = 0
@@ -21,6 +23,29 @@
 
   let tabs = []
   let selectedTab = 0
+  let topics: GetTopicsReturnType
+
+  $: { // todo: extract this to separate file
+    let file = files[activeIndex]
+    if (file) {
+      const topicsPromise = file.metadata.topics ? new Promise<GetTopicsReturnType>(resolve => {
+        new Promise(resolveGetTopics => {
+          // keep checking if topics wasm has loaded, if not, try again in 500ms.
+          const interval = setInterval(() => {
+            const ready = isGetTopicsReady()
+            if (ready) {
+              clearInterval(interval)
+              resolveGetTopics()
+            }
+          }, 500)
+        }).then(() => {
+          let result = getTopics(file.metadata.topics.documents, file.metadata.topics.options)
+          resolve(result)
+        })
+      }) : Promise.resolve(null)
+      topicsPromise.then(t => topics = t)
+    }
+  }
   $: {
     let file = files[activeIndex]
     if (file) {
@@ -35,6 +60,7 @@
           props: { data: file.metadata.freq }
         },
         { label: 'Time series', component: file.metadata.ts && TimeSeries, props: { data: file.metadata.ts } },
+        { label: 'Topics', component: topics && Topics, props: { ...file.metadata.topics, topics } },
         { label: 'Raw JSON data', component: JsonEditor, props: { data: file.data } }
       ]
     } else tabs = []

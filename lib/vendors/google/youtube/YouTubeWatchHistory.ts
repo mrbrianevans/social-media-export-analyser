@@ -55,9 +55,18 @@ export const processYouTubeWatchHistory: PostProcessor<
     data.map((d) => d.date),
     'Videos watched'
   ).metadata
+  const topics = {
+    documents: Array.from(new Set(data.map((d) => d.video))),
+    options: {
+      numberOfTopics: Math.min(
+        data.length,
+        Math.max(Math.ceil(data.length / 10), 10)
+      )
+    }
+  }
   return {
     data,
-    metadata: { freq, ts },
+    metadata: { freq, ts, topics },
     title: 'YouTube Watch History'
   }
 }
