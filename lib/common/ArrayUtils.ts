@@ -189,7 +189,7 @@ export const findDateColumns = (
   limit = 100
 ) => {
   const test = (val) => {
-    let date = Date.parse(val)
+    const date = Date.parse(val)
     const canBeParsed = !isNaN(date)
     const inRange = date < latestDate && date > earliestDate
     return canBeParsed && inRange

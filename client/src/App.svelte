@@ -98,6 +98,7 @@
               <svelte:component this={tab.component} {...tab.props} />
             {/if}
           {/each}
+          <Footer />
         </div>
         <!--        <FileViewer file={file} />-->
       {/if}

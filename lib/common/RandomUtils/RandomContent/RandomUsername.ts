@@ -5,6 +5,7 @@ import { RandInt } from '../RandomNumberUtils'
 export const generateUsername = (firstName?: string, lastName?: string) => {
   firstName ??= RandElem(FirstNames)
   lastName ??= RandElem(LastNames)
+  const id = RandInt(3)
   let username
   switch (RandInt(1, 6)) {
     case 1:
@@ -14,17 +15,17 @@ export const generateUsername = (firstName?: string, lastName?: string) => {
       username = `${firstName}${lastName}`
       break
     case 3:
-      username = `${firstName}${lastName.slice(0, 3)}`
+      username = `${firstName}${id}`
       break
     case 4:
-      username = `${firstName.slice(0, 3)}${lastName}`
+      username = `${firstName.slice(0, 3)}${lastName}${id}`
       break
     case 5:
-      username = `${firstName}`
+      username = `${firstName}${id}`
       break
     case 6:
-      username = `${lastName}`
+      username = `${lastName}${id}`
       break
   }
-  return username.toLowerCase()
+  return username.toLowerCase().replace(/[^0-9a-z]/gi, 'x')
 }

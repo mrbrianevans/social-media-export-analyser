@@ -74,5 +74,6 @@ export default defineConfig({
       manifest
     })
   ],
-  build: { assetsInlineLimit: 1 }
+  build: { assetsInlineLimit: 1 },
+  envPrefix: 'COMMIT'
 })

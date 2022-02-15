@@ -18,7 +18,7 @@ export const TabularDataPostProcess: PostProcess = {
   component: 'VaadinGrid',
   postProcessingFunction(input) {
     const data = input.preProcessedOutput.data as Record<string, any>[]
-    let metadata = input.preProcessedOutput.metadata
+    const metadata = input.preProcessedOutput.metadata
     const dateKeys = findDateColumns(data)
     console.log({ dateKeys })
     if (dateKeys.length === 1) {

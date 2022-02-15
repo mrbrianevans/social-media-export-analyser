@@ -22,9 +22,11 @@ export function getArtifactPath(src__filename, filename) {
  * Get directory to save video into.
  * @param src__filename - this must always be set to __filename
  * @example
+ * ```typescript
  * const page = await browser.newPage({
  *       recordVideo: { dir: getVideoDir(__filename) }
  * })
+ * ```
  */
 export function getVideoDir(src__filename) {
   const relPath = path.relative('.', src__filename)
