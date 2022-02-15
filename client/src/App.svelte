@@ -13,6 +13,7 @@
   import JsonEditor from './components/JsonEditor.svelte'
   import ContentTabs from './visualisations/layouts/ContentTabs.svelte'
   import { sentenceCase } from 'sentence-case'
+  import Footer from './components/Footer.svelte'
 
   let files: PostProcessedOutput[] = []
   let activeIndex = 0
@@ -28,22 +29,25 @@
         component: ComponentForShape[file.component],
         props: { data: file.data }
       },
-        file.metadata.freq && {
+        {
           label: 'Frequency tables',
-          component: FrequencyTableTabs,
+          component: file.metadata.freq && FrequencyTableTabs,
           props: { data: file.metadata.freq }
         },
-        file.metadata.ts && { label: 'Time series', component: TimeSeries, props: { data: file.metadata.ts } },
+        { label: 'Time series', component: file.metadata.ts && TimeSeries, props: { data: file.metadata.ts } },
         { label: 'Raw JSON data', component: JsonEditor, props: { data: file.data } }
-      ].filter(d => d)
+      ]
     } else tabs = []
   }
-
+  $: {
+    let unused = activeIndex // for reactivity dependence
+    selectedTab = 0
+  }
 </script>
 
 
 <main theme={$theme}>
-  <vaadin-app-layout primary-section='drawer'>
+  <vaadin-app-layout primary-section='drawer' class='main-app'>
 
     <!--    <div slot='navbar' style='width: 100%'>-->
     <!--      <Navbar />-->
@@ -51,10 +55,6 @@
     <h1 class='navbar-title' slot='drawer'><img alt='logo' src='icon/icon500.webp' style='height: 2em; width: 2em' />Data
       File
       Explorer</h1>
-    <!-- file upload area -->
-    <div slot='drawer'>
-      <FileUploader bind:files />
-    </div>
     <!-- file tab selectors -->
     <div slot='drawer'>
       <vaadin-tabs class='file-explorer-tabs' orientation='vertical'>
@@ -64,24 +64,34 @@
           </vaadin-tab>
         {/each}
       </vaadin-tabs>
+      <!-- file upload area -->
+      <div slot='drawer'>
+        <FileUploader bind:files />
+      </div>
     </div>
 
+    <div slot='navbar' style='width: 100%'>
+      <vaadin-vertical-layout>
+
+        <Navbar>
+          {#if files[activeIndex]}
+            <h3
+              style='margin: 0.5rem 1rem'>{`${files[activeIndex]?.title} (${files[activeIndex]?.metadata.filename})`}</h3>
+          {:else}
+            <p style='margin: 0.5rem 1rem'>Drag and drop files to get started</p>
+          {/if}
+        </Navbar>
+        <vaadin-tabs>
+          {#each tabs as tab, index}
+            <vaadin-tab on:click={()=>selectedTab=index} selected={index === selectedTab} disabled={!tab.component}>
+              <span>{sentenceCase(tab.label)}</span></vaadin-tab>
+          {/each}
+        </vaadin-tabs>
+      </vaadin-vertical-layout>
+    </div>
     {#each files as file, index}
       {#if index === activeIndex}
-        <div slot='navbar' style='width: 100%'>
-          <vaadin-vertical-layout>
 
-            <Navbar>
-              <h3 style='margin: 0.5rem 1rem'>{file.title} ({file.metadata.filename})</h3>
-            </Navbar>
-            <vaadin-tabs>
-              {#each tabs as tab, index}
-                <vaadin-tab on:click={()=>selectedTab=index} selected={index === selectedTab}>
-                  <span>{sentenceCase(tab.label)}</span></vaadin-tab>
-              {/each}
-            </vaadin-tabs>
-          </vaadin-vertical-layout>
-        </div>
         <div class='component-container'>
           {#each tabs as tab, index}
             {#if index === selectedTab}
@@ -96,7 +106,6 @@
 </main>
 
 <style>
-
     h1.navbar-title {
         display: inline-flex;
         font-size: var(--lumo-font-size-xl);
@@ -105,13 +114,22 @@
         align-items: center;
     }
 
-    main {
+    vaadin-app-layout.main-app {
         height: 100vh;
+    }
+
+    main::-webkit-scrollbar, .component-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .component-container {
+        height: CALC(100vh - var(--lumo-font-size-xl) - 1rem - 4rem);
+        overflow: scroll;
     }
 
     .file-explorer-tabs {
         /* this makes the height half of the side bar */
-        height: CALC((100vh - 2 * var(--lumo-font-size-xl)) / 2 - 0.5rem);
+        height: CALC((100vh - 2 * var(--lumo-font-size-xl)) / 2 - 1.5rem);
         margin: 0;
         padding: 0;
     }

@@ -1,8 +1,7 @@
 <script lang='ts'>
   import SvelteHeatmap from 'svelte-heatmap'
   import type { TimeSeries } from '../../../../lib/common/TimeSeriesAnalysis'
-  import { onMount } from 'svelte'
-  import { createFileDownload, createSvgDownload, revokeFileDownload } from '../../utils/createFileDownload'
+  import { createSvgDownload } from '../../utils/createFileDownload'
 
   export let exportUrl: string = ''
   export let data: TimeSeries['metadata']
@@ -29,7 +28,7 @@
     //   // exportUrl = ''
     // }
     setTimeout(() => {
-      console.log('New url genned')
+      // console.log('New url genned')
       const svg = Array.from(heatmapContainer?.children ?? []).find(c => c.tagName.toLowerCase() === 'svg')
       if (svg) exportUrl = createSvgDownload(svg.outerHTML, true, 10)
     }, year / 100) // delay to wait for SVG to be rendered, and depend on changes to year

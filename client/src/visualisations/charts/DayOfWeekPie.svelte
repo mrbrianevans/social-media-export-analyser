@@ -10,7 +10,6 @@
   } from '../../stores/themeStore'
   import { onDestroy } from 'svelte'
 
-  console.log(CandyTheme)
   fcRoot(FusionCharts, Charts, GammelTheme, CandyTheme)
   let chart
   // data from TimeSeries
