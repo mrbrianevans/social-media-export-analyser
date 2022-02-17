@@ -1,3 +1,7 @@
+import { TimeSeriesMetadata } from '../common/TimeSeriesAnalysis'
+import { FrequencyTables } from '../common/FrequencyAnalysis'
+import { GetTopicsOptions } from 'fast-topics'
+
 export type PreProcessingCategory =
   | 'json'
   | 'csv'
@@ -21,12 +25,21 @@ export type PreProcessedFileInfo = {
   fileType: string
 }
 
+export interface WellKnownMetadata extends KeyValueObject {
+  ts?: TimeSeriesMetadata
+  topics?: {
+    documents: string[]
+    options: Partial<GetTopicsOptions>
+  }
+  freq?: FrequencyTables
+}
+
 export type PreProcessedOutput<
   DataShape extends KeyValueObject = KeyValueObject
 > = {
   data: DataShape
   title: string
-  metadata: KeyValueObject
+  metadata: WellKnownMetadata
 }
 export type PreProcessor<DataShape extends KeyValueObject = KeyValueObject> =
   (input: {

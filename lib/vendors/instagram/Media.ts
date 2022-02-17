@@ -117,9 +117,17 @@ export const instagramMediaPostProcessFunction: PostProcessor<
     data.map((d) => d.taken_at),
     'Instagram posts'
   ).metadata
-  input.preProcessedOutput.metadata.topics = {
-    documents: Array.from(new Set(data.map((d) => d.caption))),
-    options: { numberOfTopics: Math.ceil(data.length / 10) }
+  if (data.length > 10 && data.length < 500) {
+    input.preProcessedOutput.metadata.topics = {
+      documents: Array.from(
+        new Set(data.map((d) => d.caption).filter((d) => d))
+      ),
+      options: {
+        numberOfTopics: Math.ceil(5),
+        docsMinTopicRank: 0.7,
+        topicsMinWordRank: 0.04
+      }
+    }
   }
   return {
     ...input.preProcessedOutput,

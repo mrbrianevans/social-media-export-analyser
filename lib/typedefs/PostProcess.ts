@@ -1,4 +1,8 @@
-import { PreProcessedOutput, PreProcessingCategory } from './PreProcess'
+import {
+  PreProcessedOutput,
+  PreProcessingCategory,
+  WellKnownMetadata
+} from './PreProcess'
 import { ComponentName } from './Components'
 import { FileType } from './FileTypes'
 
@@ -12,12 +16,10 @@ export type PostProcessedFileInput<
   preProcessedOutput: PreProcessedOutput<DataShape>
 }
 
-export type PostProcessedOutput<
-  DataShape extends KeyValueObject = KeyValueObject
-> = {
+export type PostProcessedOutput<DataShape extends KeyValueObject = KeyValueObject> = {
   data: DataShape
   title: string
-  metadata: KeyValueObject
+  metadata: WellKnownMetadata
 }
 export type PostProcessor<
   Input extends KeyValueObject = KeyValueObject,

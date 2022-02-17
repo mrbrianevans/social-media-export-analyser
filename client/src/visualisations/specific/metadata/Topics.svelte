@@ -1,29 +1,52 @@
 <script lang='ts'>
-  import { GetTopicsReturnType, getTopics, isGetTopicsReady } from 'fast-topics'
-  import JsonEditor from '../../../components/JsonEditor.svelte'
   import { GetTopicsOptions } from 'fast-topics/dist/GetTopicsOptions'
+  import Scroller from './Scroller.svelte'
+  import ContentTabs from '../../layouts/ContentTabs.svelte'
+  import OneLineList from '../../lists/OneLineList.svelte'
 
   export let documents: string[]
   export let options: GetTopicsOptions
   export let topics
+  export let mainComponent // this renders data items
+  export let data // this should be an array
+  let tabs
+  // uncomment this to render OneLineList of documents instead of the component
+  // $: tabs = Object.entries(topics.topics)
+  //   .map(([topic, words])=>({
+  //     label:`Topic #${topic}`,
+  //     component: OneLineList,
+  //     props: {
+  //       data: Object.entries(topics.docs)
+  //         .filter(([idx, doc])=>doc.some(docTopic=>docTopic.topic == topic))
+  //         .map(([idx, doc])=>({ doc: documents[idx], rank: doc.find(t=>t.topic==topic)?.rank??0 }))
+  //         .map(doc=>`${doc.doc} (${(doc.rank*100).toFixed(2)}% topic match)`),
+  //       heading: 'Main words: '+words.map(w=>w.word).join(', ')
+  //     }
+  //   }))
+  $: tabs = Object.entries(topics.topics)
+    .map(([topic, words]) => ({
+      label: `Topic ${topic} (${words.map(w => w.word).slice(0, 3).join(', ')})`,
+      component: mainComponent,
+      props: {
+        data: Object.entries(topics.docs)
+          .filter(([idx, doc]) => doc.some(docTopic => docTopic.topic == topic))
+          // sort by most relevant to topic
+          .sort((a, b) => a[1].find(t => t.topic == topic)?.rank - b[1].find(t => t.topic == topic)?.rank)
+          .map(([idx, doc]) => (data[idx]))
+      }
+    }))
+
 </script>
 
 
 <div>
-  <!--{#await topicsPromise}-->
-  <!--    <p>Loading topics</p>-->
-  <!--    {:then topics}-->
-  <h3>Topics</h3>
-  {#each Object.entries(topics.topics) as [topic, words]}
-    <h4>Topic #{topic}</h4>
-    <p>{words.slice(0, 3).map(word => `${word.word}(${(word.rank * 100).toFixed(2)}%)`).join(', ')}</p>
-  {/each}
-  <h3>Documents</h3>
-  {#each Object.entries(topics.docs) as [idx, doc]}
-    <p>Doc#{idx} -
-      <i>{documents[idx]}</i>: {doc.slice(0, 3).map(topic => `#${topic.topic}(${(topic.rank * 100).toFixed(2)}%)`).join(', ')}
-    </p>
-  {/each}
-  <JsonEditor data={topics} />
-  <!--{/await}-->
+  <Scroller>
+
+    <!--{#await topicsPromise}-->
+    <!--    <p>Loading topics</p>-->
+    <!--    {:then topics}-->
+    <h3>Topics</h3>
+    <ContentTabs tabs={tabs} />
+    <!--{/await}-->
+  </Scroller>
 </div>

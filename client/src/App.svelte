@@ -16,6 +16,7 @@
   import Footer from './components/Footer.svelte'
   import Topics from './visualisations/specific/metadata/Topics.svelte'
   import { getTopics, GetTopicsReturnType, isGetTopicsReady } from 'fast-topics'
+  import { sampleTopicData } from './sampleTopicData'
 
   let files: PostProcessedOutput[] = []
   let activeIndex = 0
@@ -25,7 +26,7 @@
   let selectedTab = 0
   let topics: GetTopicsReturnType
 
-  $: { // todo: extract this to separate file
+  $: { // todo: extract this to separate file. will be moved to worker in future
     let file = files[activeIndex]
     if (file) {
       const topicsPromise = file.metadata.topics ? new Promise<GetTopicsReturnType>(resolve => {
@@ -33,6 +34,7 @@
           // keep checking if topics wasm has loaded, if not, try again in 500ms.
           const interval = setInterval(() => {
             const ready = isGetTopicsReady()
+            // const ready = true //comment this in for testing the UI in dev mode
             if (ready) {
               clearInterval(interval)
               resolveGetTopics()
@@ -40,6 +42,7 @@
           }, 500)
         }).then(() => {
           let result = getTopics(file.metadata.topics.documents, file.metadata.topics.options)
+          // let result = sampleTopicData
           resolve(result)
         })
       }) : Promise.resolve(null)
@@ -60,7 +63,11 @@
           props: { data: file.metadata.freq }
         },
         { label: 'Time series', component: file.metadata.ts && TimeSeries, props: { data: file.metadata.ts } },
-        { label: 'Topics', component: topics && Topics, props: { ...file.metadata.topics, topics } },
+        {
+          label: 'Topics',
+          component: topics && Topics,
+          props: { ...file.metadata.topics, topics, mainComponent: ComponentForShape[file.component], data: file.data }
+        },
         { label: 'Raw JSON data', component: JsonEditor, props: { data: file.data } }
       ]
     } else tabs = []
