@@ -29,6 +29,7 @@
     "@vaadin/horizontal-layout": "^22.0.4",
     "@vaadin/icons": "^22.0.4",
     "@vaadin/message-list": "^22.0.4",
+    "@vaadin/scroller": "^22.0.4",
     "@vaadin/tabs": "^22.0.4",
     "@vaadin/text-field": "^22.0.4",
     "@vaadin/vaadin-app-layout": "^22.0.4",

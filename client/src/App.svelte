@@ -150,7 +150,8 @@
     }
 
     .component-container {
-        height: CALC(100vh - var(--lumo-font-size-xl) - 1rem - 4rem);
+        --container-height: CALC(100vh - var(--lumo-font-size-xl) - 1rem - 4rem);
+        height: VAR(--container-height);
         overflow: scroll;
     }
 
