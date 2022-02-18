@@ -1,6 +1,6 @@
 import { TimeSeriesMetadata } from '../common/TimeSeriesAnalysis'
 import { FrequencyTables } from '../common/FrequencyAnalysis'
-import { GetTopicsOptions } from 'fast-topics'
+import type { GetTopicsOptions } from 'fast-topics'
 
 export type PreProcessingCategory =
   | 'json'
