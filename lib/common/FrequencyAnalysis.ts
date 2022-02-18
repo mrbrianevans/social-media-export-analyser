@@ -52,14 +52,14 @@ export function getFrequencyTables(
   wordPosWhiteList = ['NOUN']
 ): FrequencyTables<typeof _categories[number]> {
   const categories = new Set(_categories)
-  // console.log({ categories })
   const frequencyTables: FrequencyTables = Object.fromEntries(
     Array.from(categories).map((c) => [c, {}])
   )
+  // this is the main time consumer. can take around 1s for 20,000 documents
   const doc = nlp.readDoc(documents.join('. ')) // join documents with periods
 
   for (const category of categories) {
-    console.time(category + ' frequency')
+    if (category === 'word') continue // this one is done later
     frequencyTables[category] = Object.fromEntries(
       doc
         .tokens()
@@ -68,15 +68,12 @@ export function getFrequencyTables(
         .slice(0, limit ?? undefined)
         .map((e) => e as [token: string, freq: number][]) // fix typing
     )
-
-    console.timeEnd(category + ' frequency')
   }
 
   // special treatment of word frequency to other categories. Only return NOUNS
   if (categories.has('word')) {
     const whiteList = new Set(wordPosWhiteList)
     const blackList = new Set(['PUNCT', 'SPACE', 'PART'])
-    console.time('Word frequency')
     frequencyTables.word = Object.fromEntries(
       doc
         .tokens()
@@ -88,8 +85,6 @@ export function getFrequencyTables(
         .slice(0, limit ?? undefined)
         .map((e) => e as [token: string, freq: number][]) // fix typing
     )
-
-    console.timeEnd('Word frequency')
   }
   return frequencyTables
 }

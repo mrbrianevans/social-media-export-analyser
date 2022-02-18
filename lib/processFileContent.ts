@@ -12,10 +12,13 @@ export const processFileContent: (input: {
   fileType: string
 }) => PostProcessedOutput = ({ fileContent, filename, fileType }) => {
   const preProcessingCategory = preProcessingCategoriser({ filename, fileType })
-  console.log('Using', preProcessingCategory, 'for preprocessing', filename)
   const preProcessor = preProcessorMap[preProcessingCategory]
   const preProcessedOutput = preProcessor({ filename, fileType, fileContent })
-  Object.assign(preProcessedOutput.metadata, { filename, fileType })
+  Object.assign(preProcessedOutput.metadata, {
+    filename,
+    fileType,
+    fileContent
+  })
   const postCategory = postProcessingCategoriser({
     filename,
     fileType,
@@ -32,6 +35,11 @@ export const processFileContent: (input: {
     fileType,
     preProcessedOutput,
     preProcessingCategory
+  })
+  Object.assign(postProcessedOutput.metadata, {
+    filename,
+    fileType,
+    fileContent
   })
   const output = {
     ...postProcessedOutput,

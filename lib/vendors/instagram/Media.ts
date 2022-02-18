@@ -6,6 +6,7 @@ import { repeat } from '../../common/ArrayUtils'
 import { PostProcessor } from '../../typedefs/PostProcess'
 import { getFrequencyTables } from '../../common/FrequencyAnalysis'
 import { TimeSeries } from '../../common/TimeSeriesAnalysis'
+import { TopicsMetadata } from '../../common/TopicsMetadata'
 
 type DateString =
   `${number}-${number}-${number}T${number}:${number}:${number}+${number}:${number}`
@@ -117,18 +118,9 @@ export const instagramMediaPostProcessFunction: PostProcessor<
     data.map((d) => d.taken_at),
     'Instagram posts'
   ).metadata
-  if (data.length > 10 && data.length < 500) {
-    input.preProcessedOutput.metadata.topics = {
-      documents: Array.from(
-        new Set(data.map((d) => d.caption).filter((d) => d))
-      ),
-      options: {
-        numberOfTopics: Math.ceil(5),
-        docsMinTopicRank: 0.7,
-        topicsMinWordRank: 0.04
-      }
-    }
-  }
+  input.preProcessedOutput.metadata.topics = TopicsMetadata(
+    data.map((d) => d.caption)
+  )
   return {
     ...input.preProcessedOutput,
     data

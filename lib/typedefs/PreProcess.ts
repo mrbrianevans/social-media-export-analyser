@@ -32,6 +32,9 @@ export interface WellKnownMetadata extends KeyValueObject {
     options: Partial<GetTopicsOptions>
   }
   freq?: FrequencyTables
+  fileContent?: string
+  filename?: string
+  fileType?: string
 }
 
 export type PreProcessedOutput<

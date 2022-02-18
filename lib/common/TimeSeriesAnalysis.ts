@@ -31,7 +31,7 @@ export class TimeSeries {
   readonly data: TimeSeriesValue[] = []
   readonly start: Date
   readonly end: Date
-  private formatMonth: DateFormatter = defaultFormatMonth
+  private formatMonth: DateFormatter = formatMonthYear
   private formatWeek: DateFormatter = defaultFormatWeek
   private formatDay: DateFormatter = defaultFormatDay
   private readonly defaultValue: number
@@ -93,22 +93,13 @@ export class TimeSeries {
 
   groupByFormatter(formatter: DateFormatter): GroupResult {
     if (!this.data.length) return {}
-    const _bins = {}
-    const getter: ProxyHandler<any> = {
-      get(target, prop) {
-        return target[prop] ?? 0 // return zero if key doesn't exist
-      },
-      ownKeys: function (oTarget) {
-        return Object.keys(oTarget)
-      }
-    }
-    const bins = new Proxy(_bins, getter)
+    const bins = {}
     for (const datum of this.data) {
       const day = formatter(datum.timestamp)
-      bins[day] += datum.value
+      if (day in bins) bins[day] += datum.value
+      else bins[day] = datum.value
     }
-    // convert it to a clonable object
-    return Object.fromEntries(Object.entries(bins))
+    return bins
   }
 
   groupByYear() {
@@ -124,7 +115,7 @@ export class TimeSeries {
   }
 
   get metadata(): TimeSeriesMetadata {
-    return {
+    const metadata = {
       date: this.groupByDay(),
       weekday: this.groupByDayOfWeek(),
       week: this.groupByWeek(),
@@ -137,6 +128,7 @@ export class TimeSeries {
         end: this.end.toISOString()
       }
     }
+    return metadata
   }
 }
 
@@ -152,22 +144,41 @@ const getNearestDay = (date: Date, to: number) =>
 const defaultFormatDay: DateFormatter = (date: Date) => {
   return formatDateEur(date)
 }
-const defaultFormatMonth: DateFormatter = (date: Date) => {
-  return Intl.DateTimeFormat('default', {
-    month: 'long',
-    year: 'numeric'
-  }).format(date)
-}
 // returns the Monday of the week date is in
 const defaultFormatWeek: DateFormatter = (date: Date) => {
   date.setDate(date.getDate() - date.getDay() + 1)
   return formatDateEur(date)
 }
-
+const days = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday'
+]
 const formatDayOfWeek: DateFormatter = (date) => {
-  return Intl.DateTimeFormat('default', { weekday: 'long' }).format(date)
+  return days[date.getDay()]
+}
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+]
+const formatMonthName: DateFormatter = (date) => {
+  return months[date.getMonth()]
 }
 
-const formatMonthName: DateFormatter = (date) => {
-  return Intl.DateTimeFormat('default', { month: 'long' }).format(date)
+const formatMonthYear: DateFormatter = (date: Date) => {
+  return months[date.getMonth()] + ' ' + date.getFullYear()
 }

@@ -15,22 +15,28 @@ export const whatsappMessagesPostProcessor: PostProcessor<
 > = (input) => {
   const data = convertWhatsappHistoryToVaadinMessages(
     input.preProcessedOutput.data
-  ).slice(0, 1_000_000)
+  )
+  console.time('frequency analysis ' + input.filename)
   const freq = getFrequencyTables(
     data.map((d) => d.text),
     50,
     ['word', 'emoji', 'emoticon']
   )
+  console.timeEnd('frequency analysis ' + input.filename)
+  console.time('TimeSeries analysis ' + input.filename)
   const ts = new TimeSeries(
     data.map((d) => d.time),
     'WhatsApp messages'
   ).metadata
+  console.timeEnd('TimeSeries analysis ' + input.filename)
+  console.time('Topics meta analysis ' + input.filename)
   const topics = TopicsMetadata(
     data.map((d) => {
       if (d.text === '<Media omitted>' || d.userName === 'system') d.text = ''
       return d.text
     })
   )
+  console.timeEnd('Topics meta analysis ' + input.filename)
   return {
     data,
     metadata: {
