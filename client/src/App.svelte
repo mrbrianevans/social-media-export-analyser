@@ -21,6 +21,7 @@
   import type { GetTopicsReturnType } from 'fast-topics'
   import { sampleTopicData } from './sampleTopicData'
   import { topicsWorkerWrapper } from './workers/topicsWorkerWrapper'
+  import StringBox from './components/StringBox.svelte'
 
   let files: PostProcessedOutput[] = []
   let activeIndex = 0
@@ -80,7 +81,8 @@
             data: file.data
           }
         },
-        { label: 'JSON data', component: JsonEditor, props: { data: file.data }, icon: 'file-code' }
+        { label: 'JSON data', component: JsonEditor, props: { data: file.data }, icon: 'file-code' },
+        { label: 'Raw data', component: StringBox, props: { data: { text: file.metadata.fileContent } }, icon: 'lines' }
       ]
     } else tabs = []
   }
