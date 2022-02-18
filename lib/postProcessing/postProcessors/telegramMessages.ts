@@ -6,6 +6,7 @@ import {
 import { VaadinMessageHistoryFormat } from '../../typedefs/Components'
 import { getFrequencyTables } from '../../common/FrequencyAnalysis'
 import { TimeSeries } from '../../common/TimeSeriesAnalysis'
+import { TopicsMetadata } from '../../common/TopicsMetadata'
 
 export const telegramMessagesPostProcessor: PostProcessor<
   TelegramChatHistory,
@@ -23,6 +24,11 @@ export const telegramMessagesPostProcessor: PostProcessor<
     data.map((d) => d.time),
     'Telegram messages'
   ).metadata
+  const topics = TopicsMetadata(
+    data.map((d) => {
+      return d.text
+    })
+  )
   return {
     data,
     metadata: {
@@ -31,7 +37,8 @@ export const telegramMessagesPostProcessor: PostProcessor<
       chat_type: input.preProcessedOutput.data.type,
       ...input.preProcessedOutput.metadata,
       freq,
-      ts
+      ts,
+      topics
     },
     title: 'Telegram messages with ' + input.preProcessedOutput.data.name
   }

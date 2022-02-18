@@ -4,15 +4,14 @@
   import type { VaadinMessageHistoryFormat } from '../../../../lib/typedefs/Components'
 
   export let data: VaadinMessageHistoryFormat = []
-  export let maxItems: number = 1000
   let messageListElement
   let mounted = false
   onMount(() => {
     mounted = true
   })
   let timeFormatter = Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'medium' })
-  $: if (mounted) {
-    messageListElement.items = data.slice(0, maxItems).map(m => ({
+  $: if (mounted && messageListElement) {
+    messageListElement.items = data.filter(m => m).map(m => ({
       ...m,
       time: timeFormatter.format(new Date(m.time))
     }))

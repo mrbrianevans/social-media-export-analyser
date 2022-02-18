@@ -5,6 +5,7 @@ import { generateSentence } from '../../common/RandomUtils/RandomContent/RandomS
 import { generateUsername } from '../../common/RandomUtils/RandomContent/RandomUsername'
 import { commentWords } from '../../common/RandomUtils/RandomContent/RandomWords'
 import { TimeSeries } from '../../common/TimeSeriesAnalysis'
+import { TopicsMetadata } from '../../common/TopicsMetadata'
 
 export interface InstagramComments {
   media_comments: [string, string, string][]
@@ -27,6 +28,9 @@ export const instagramCommentsPostProcessingFunction: PostProcessor<
     comments.map((d) => d.date),
     'Instagram comments'
   ).metadata
+  input.preProcessedOutput.metadata.topics = TopicsMetadata(
+    comments.map((d) => d.content)
+  )
   return {
     title: input.preProcessedOutput.title,
     data: comments,

@@ -1,4 +1,5 @@
 import { PostProcess } from '../../typedefs/PostProcess'
+import { TweetPostProcessor } from '../../vendors/twitter/Tweets'
 
 export const TwitterProfilePostProcess: PostProcess = {
   name: 'Twitter Profile',
@@ -40,7 +41,8 @@ export const TwitterTweetsPostProcess: PostProcess = {
       ]
     }
   },
-  component: 'TwitterTweets'
+  component: 'TwitterTweets',
+  postProcessingFunction: TweetPostProcessor
 }
 
 export const TwitterFallbackPostProcess: PostProcess = {

@@ -2,6 +2,7 @@ import { PostProcessor } from '../../../typedefs/PostProcess'
 import type { CheerioAPI } from 'cheerio'
 import { getFrequencyTables } from '../../../common/FrequencyAnalysis'
 import { TimeSeries } from '../../../common/TimeSeriesAnalysis'
+import { TopicsMetadata } from '../../../common/TopicsMetadata'
 
 type YouTubeSearchHistory = {
   searchTerm: string
@@ -38,10 +39,11 @@ export const processYouTubeSearchHistory: PostProcessor<
   const ts = new TimeSeries(
     data.map((d) => d.date),
     'YouTube Searches'
-  )
+  ).metadata
+  const topics = TopicsMetadata(data.map((d) => d.searchTerm))
   return {
     data,
-    metadata: { freq, ts: ts.metadata },
+    metadata: { freq, ts, topics },
     title: 'YouTube Search History'
   }
 }

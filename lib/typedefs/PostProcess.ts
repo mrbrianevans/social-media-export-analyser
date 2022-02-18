@@ -16,7 +16,9 @@ export type PostProcessedFileInput<
   preProcessedOutput: PreProcessedOutput<DataShape>
 }
 
-export type PostProcessedOutput<DataShape extends KeyValueObject = KeyValueObject> = {
+export type PostProcessedOutput<
+  DataShape extends KeyValueObject = KeyValueObject
+> = {
   data: DataShape
   title: string
   metadata: WellKnownMetadata

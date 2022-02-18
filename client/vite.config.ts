@@ -69,7 +69,7 @@ export default defineConfig({
       devOptions: { enabled: true },
       strategies: 'generateSW',
       workbox: {
-        maximumFileSizeToCacheInBytes: 5_000_000 // for wasm
+        maximumFileSizeToCacheInBytes: 1_000_000 // for wasm
       },
       manifest
     })

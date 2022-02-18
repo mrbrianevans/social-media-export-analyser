@@ -2,6 +2,8 @@ import { PostProcessor } from '../../../typedefs/PostProcess'
 import type { CheerioAPI } from 'cheerio'
 import { getFrequencyTables } from '../../../common/FrequencyAnalysis'
 import { TimeSeries } from '../../../common/TimeSeriesAnalysis'
+import { WellKnownMetadata } from '../../../typedefs/PreProcess'
+import { TopicsMetadata } from '../../../common/TopicsMetadata'
 
 type YouTubeWatchHistory = {
   video: string
@@ -55,15 +57,7 @@ export const processYouTubeWatchHistory: PostProcessor<
     data.map((d) => d.date),
     'Videos watched'
   ).metadata
-  const topics = {
-    documents: Array.from(new Set(data.map((d) => d.video))),
-    options: {
-      numberOfTopics: Math.min(
-        data.length,
-        Math.max(Math.ceil(data.length / 10), 10)
-      )
-    }
-  }
+  const topics = TopicsMetadata(data.map((d) => d.video))
   return {
     data,
     metadata: { freq, ts, topics },

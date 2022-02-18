@@ -3,6 +3,10 @@ import { RandDate } from '../../common/RandomUtils/RandomDateUtils'
 import { generateCaption } from '../../common/RandomUtils/RandomContent/RandomSentence'
 import { RandInt } from '../../common/RandomUtils/RandomNumberUtils'
 import { RandElem } from '../../common/RandomUtils/RandomArrayUtils'
+import { PostProcessor } from '../../typedefs/PostProcess'
+import { TimeSeries } from '../../common/TimeSeriesAnalysis'
+import { getFrequencyTables } from '../../common/FrequencyAnalysis'
+import { TopicsMetadata } from '../../common/TopicsMetadata'
 
 type QuotedNumber = `${number}`
 
@@ -111,6 +115,22 @@ export interface Tweet {
   in_reply_to_user_id_str?: QuotedNumber
   possibly_sensitive?: boolean
   extended_entities?: { media: Media[] }
+}
+
+export const TweetPostProcessor: PostProcessor<Tweet[], Tweet[]> = (input) => {
+  input.preProcessedOutput.metadata.ts = new TimeSeries(
+    input.preProcessedOutput.data.map((t) => t.created_at),
+    'Tweets'
+  ).metadata
+  input.preProcessedOutput.metadata.freq = getFrequencyTables(
+    input.preProcessedOutput.data.map((t) => t.full_text)
+  )
+  input.preProcessedOutput.metadata.topics = TopicsMetadata(
+    input.preProcessedOutput.data.map((t) => t.full_text)
+  )
+  return {
+    ...input.preProcessedOutput
+  }
 }
 
 // returns date formatted like Tue Jun 09 09:17:48 +0000 2020
