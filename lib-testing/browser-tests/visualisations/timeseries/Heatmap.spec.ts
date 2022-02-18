@@ -26,6 +26,9 @@ test.describe('heatmap visualisation of timeseries', function () {
     const componentContainer = page.locator('.component-container')
 
     const heatmapContainer = page.locator('.heatmapContainer')
+    await page.screenshot({
+      path: getArtifactPath(__filename, 'pageBeforeScrollingDown')
+    })
     await heatmapContainer.scrollIntoViewIfNeeded()
     await componentContainer.screenshot({
       path: getArtifactPath(__filename, 'componentContainer')

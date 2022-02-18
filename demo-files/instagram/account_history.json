@@ -1,84 +1,44 @@
 {
   "login_history": [
     {
-      "user_agent": "Mozilla/5.0 (Linux; Android 7.0; SM-T827R4 Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.116 Safari/537.36",
-      "timestamp": "2019-10-06T11:42:23-01:00",
-      "language_code": "fr",
-      "ip_address": "622.53.407.537",
-      "cookie_name": "*************************n8i",
-      "device_id": "7ed28a-d16d56-91ca5d"
+      "user_agent": "Mozilla/5.0 (Linux; Android 8.0.0; SM-G960F Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36",
+      "timestamp": "2021-08-04T07:14:48-01:00",
+      "language_code": "en",
+      "ip_address": "239.146.37.48",
+      "cookie_name": "*************************xnc",
+      "device_id": "49350d-a4e426-04867a"
     },
     {
-      "user_agent": "Mozilla/5.0 (Linux; Android 4.4.3; KFTHWI Build/KTU84M) AppleWebKit/537.36 (KHTML, like Gecko) Silk/47.1.79 like Chrome/47.0.2526.80 Safari/537.36",
-      "timestamp": "2020-08-03T21:42:12-01:00",
-      "language_code": "fr",
-      "ip_address": "120.75.112.271",
-      "cookie_name": "*************************tny",
-      "device_id": "8c7b92-ce25e2-c1364c"
+      "user_agent": "Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36",
+      "timestamp": "2019-10-12T02:30:59-01:00",
+      "language_code": "en",
+      "ip_address": "13.98.145.182",
+      "cookie_name": "*************************roo",
+      "device_id": "aa4592-29a652-499815"
     },
     {
-      "user_agent": "Mozilla/5.0 (Linux; Android 4.4.3; KFTHWI Build/KTU84M) AppleWebKit/537.36 (KHTML, like Gecko) Silk/47.1.79 like Chrome/47.0.2526.80 Safari/537.36",
-      "timestamp": "2019-09-28T04:25:53-01:00",
-      "language_code": "fr",
-      "ip_address": "642.113.9.590",
-      "cookie_name": "*************************tgh",
-      "device_id": "8c7b92-ce25e2-c1364c"
+      "user_agent": "Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36",
+      "timestamp": "2020-10-08T18:11:52-01:00",
+      "language_code": "en",
+      "ip_address": "198.153.38.120",
+      "cookie_name": "*************************j7i",
+      "device_id": "aa4592-29a652-499815"
     },
     {
-      "user_agent": "Mozilla/5.0 (Linux; Android 7.0; SM-T827R4 Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.116 Safari/537.36",
-      "timestamp": "2019-08-21T17:40:54-01:00",
-      "language_code": "fr",
-      "ip_address": "188.894.312.520",
-      "cookie_name": "*************************512",
-      "device_id": "7ed28a-d16d56-91ca5d"
+      "user_agent": "Mozilla/5.0 (Linux; Android 8.0.0; SM-G960F Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36",
+      "timestamp": "2019-10-12T19:17:58-01:00",
+      "language_code": "en",
+      "ip_address": "160.10.57.113",
+      "cookie_name": "*************************as5",
+      "device_id": "49350d-a4e426-04867a"
     },
     {
-      "user_agent": "Mozilla/5.0 (Linux; Android 7.0; SM-T827R4 Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.116 Safari/537.36",
-      "timestamp": "2019-11-08T00:17:33+00:00",
-      "language_code": "fr",
-      "ip_address": "346.410.47.377",
-      "cookie_name": "*************************pkr",
-      "device_id": "7ed28a-d16d56-91ca5d"
-    },
-    {
-      "user_agent": "Mozilla/5.0 (Linux; Android 7.0; SM-T827R4 Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.116 Safari/537.36",
-      "timestamp": "2019-05-03T22:55:16-01:00",
-      "language_code": "fr",
-      "ip_address": "342.460.183.467",
-      "cookie_name": "*************************yj1",
-      "device_id": "7ed28a-d16d56-91ca5d"
-    },
-    {
-      "user_agent": "Mozilla/5.0 (Linux; Android 4.4.3; KFTHWI Build/KTU84M) AppleWebKit/537.36 (KHTML, like Gecko) Silk/47.1.79 like Chrome/47.0.2526.80 Safari/537.36",
-      "timestamp": "2019-09-26T03:42:35-01:00",
-      "language_code": "fr",
-      "ip_address": "577.487.774.468",
-      "cookie_name": "*************************a1t",
-      "device_id": "8c7b92-ce25e2-c1364c"
-    },
-    {
-      "user_agent": "Mozilla/5.0 (Linux; Android 7.0; SM-G892A Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/60.0.3112.107 Mobile Safari/537.36",
-      "timestamp": "2019-03-26T03:03:38+00:00",
-      "language_code": "fr",
-      "ip_address": "315.353.635.384",
-      "cookie_name": "*************************cqf",
-      "device_id": "9db964-a3c6bd-b863b8"
-    },
-    {
-      "user_agent": "Mozilla/5.0 (Linux; Android 7.0; SM-G892A Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/60.0.3112.107 Mobile Safari/537.36",
-      "timestamp": "2020-04-05T11:51:28-01:00",
-      "language_code": "fr",
-      "ip_address": "603.107.733.459",
-      "cookie_name": "*************************n83",
-      "device_id": "9db964-a3c6bd-b863b8"
-    },
-    {
-      "user_agent": "Mozilla/5.0 (Linux; Android 4.4.3; KFTHWI Build/KTU84M) AppleWebKit/537.36 (KHTML, like Gecko) Silk/47.1.79 like Chrome/47.0.2526.80 Safari/537.36",
-      "timestamp": "2020-08-14T11:02:25-01:00",
-      "language_code": "fr",
-      "ip_address": "114.137.712.299",
-      "cookie_name": "*************************dpb",
-      "device_id": "8c7b92-ce25e2-c1364c"
+      "user_agent": "Mozilla/5.0 (Linux; Android 8.0.0; SM-G960F Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36",
+      "timestamp": "2020-12-27T19:48:06+00:00",
+      "language_code": "en",
+      "ip_address": "41.105.202.64",
+      "cookie_name": "*************************pj7",
+      "device_id": "49350d-a4e426-04867a"
     }
   ]
 }

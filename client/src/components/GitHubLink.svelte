@@ -34,7 +34,7 @@
       width: max-content;
       font-size: 0.75rem;
       right: 0;
-      top: 95%;
+      top: 40%;
       margin: 0 auto;
       padding: 0.5em 1em;
       border-radius: 0.125em;

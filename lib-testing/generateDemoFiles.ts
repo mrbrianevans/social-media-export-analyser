@@ -1,6 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { generateSampleMediaData } from '../lib/vendors/instagram/Media'
+import { generateYouTubeWatchHistory } from '../lib/vendors/google/youtube/YouTubeWatchHistory'
 import { generateWhatsAppChatHistory } from '../lib/vendors/whatsapp/ChatHistory'
 import { generateTelegramChatHistory } from '../lib/vendors/telegram/JsonChatHistory'
 import { generateInstagramProfile } from '../lib/vendors/instagram/Profile'
@@ -20,7 +21,7 @@ export const demoFilePath = (filename) => {
 
 export const generateDemoFiles = async () => {
   // instagram media.json (list of posts)
-  const instagramMedia = generateSampleMediaData({ photos: 50 })
+  const instagramMedia = generateSampleMediaData({ photos: 5 })
   fs.writeFileSync(
     demoFilePath('instagram/media.json'),
     JSON.stringify(instagramMedia, null, 2)
@@ -33,27 +34,30 @@ export const generateDemoFiles = async () => {
   )
 
   //instagram connections.json
-  const instagramConnections = generateInstagramConnections({})
+  const instagramConnections = generateInstagramConnections({
+    followerQty: 5,
+    followingQty: 5
+  })
   fs.writeFileSync(
     demoFilePath('instagram/connections.json'),
     JSON.stringify(instagramConnections, null, 2)
   )
 
   //instagram comments.json
-  const instagramComments = generateInstagramComments({})
+  const instagramComments = generateInstagramComments({ qty: 5 })
   fs.writeFileSync(
     demoFilePath('instagram/comments.json'),
     JSON.stringify(instagramComments, null, 2)
   )
   //instagram likes.json
-  const instagramLikes = generateInstagramLikes({})
+  const instagramLikes = generateInstagramLikes({ qty: 5 })
   fs.writeFileSync(
     demoFilePath('instagram/likes.json'),
     JSON.stringify(instagramLikes, null, 2)
   )
 
   //instagram account_history.json
-  const instagramAccountHistory = generateInstagramAccountHistory({})
+  const instagramAccountHistory = generateInstagramAccountHistory({ qty: 5 })
   fs.writeFileSync(
     demoFilePath('instagram/account_history.json'),
     JSON.stringify(instagramAccountHistory, null, 2)
@@ -68,7 +72,7 @@ export const generateDemoFiles = async () => {
 
   //whatsapp WhatsApp Chat with Demo.txt
   const whatsappConversation = generateWhatsAppChatHistory({
-    numberOfMessages: 50
+    numberOfMessages: 5
   })
   fs.writeFileSync(
     demoFilePath('whatsapp/WhatsApp Chat with Demo.txt'),
@@ -77,7 +81,7 @@ export const generateDemoFiles = async () => {
 
   //telegram result.json
   const telegramConversation = generateTelegramChatHistory({
-    numberOfMessages: 50
+    numberOfMessages: 5
   })
   fs.writeFileSync(
     demoFilePath('telegram/result.json'),
@@ -85,12 +89,19 @@ export const generateDemoFiles = async () => {
   )
 
   //twitter
-  const twitterTweets = generateTwitterTweetFile({ qty: 150 })
+  const twitterTweets = generateTwitterTweetFile({ qty: 15 })
   fs.writeFileSync(demoFilePath('twitter/tweet.js'), twitterTweets)
 
   //contacts
   const contactsCsv = generateContactsFile(10)
   fs.writeFileSync(demoFilePath('contacts/contacts.csv'), contactsCsv)
+
+  //youtube
+  const youtubeWatchHistory = generateYouTubeWatchHistory({ qty: 10 })
+  fs.writeFileSync(
+    demoFilePath('youtube/watch-history.html'),
+    youtubeWatchHistory
+  )
 }
 
 generateDemoFiles()

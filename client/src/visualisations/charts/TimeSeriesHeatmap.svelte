@@ -1,6 +1,7 @@
 <script lang='ts'>
   import SvelteHeatmap from 'svelte-heatmap'
   import type { TimeSeries } from '../../../../lib/common/TimeSeriesAnalysis'
+  import { charWeekdays, fullMonths } from '../../../../lib/common/Constants'
   import { createSvgDownload } from '../../utils/createFileDownload'
 
   export let exportUrl: string = ''
@@ -15,11 +16,6 @@
   let horizontalLayout
   $: horizontalLayout?.setAttribute('theme', 'padding spacing')
   let year = new Date(data?.metadata.start).getFullYear()
-  const charWeekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
-  const partWeekdays = ['Sun', 'Mon', 'Tue', 'Web', 'Thu', 'Fri', 'Sat']
-  const fullWeekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  const partMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  const fullMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   let heatmapContainer: HTMLDivElement
   $: {
     // can't do this because it creates a circular dependency on exportUrl
