@@ -30,28 +30,30 @@ export const processYouTubeWatchHistory: PostProcessor<
   /* eslint-disable @typescript-eslint/ban-ts-comment */
   const data = doc
     .root()
-    .children()
+    .children('html')
     .first()
-    .children()
+    .children('body')
     .last()
-    .children()
+    .children('div')
     .first()
-    .children()
-    .map((i, e) => e.firstChild)
+    .children('div')
+    .map((i, e) => e.children.find((c) => c.type === 'tag')) // find first tag
     .toArray()
-    .map((outer) => ({
-      //@ts-ignore - it doesn't know that the node has children?
-      video: outer.children[1].children[1].children[0]?.data,
-      // videoUrl: outer.children[1].children[1].attribs.href,
-      //@ts-ignore - it doesn't know that the node has children?
-      channel: outer.children[1].children[3]?.children?.[0]?.data,
-      // channelUrl: outer.children[1].children[3]?.attribs?.href,
-      //@ts-ignore - it doesn't know that the node has children?
-      date: outer.children[1].children[5]?.data
-    }))
+    .map((outer) => {
+      // the children[idx] method is sensitive to whitespace
+      return {
+        //@ts-ignore - it doesn't know that the node has children?
+        video: outer.children[1].children[1].children[0]?.data,
+        // videoUrl: outer.children[1].children[1].attribs.href,
+        //@ts-ignore - it doesn't know that the node has children?
+        channel: outer.children[1].children[3]?.children?.[0]?.data,
+        // channelUrl: outer.children[1].children[3]?.attribs?.href,
+        //@ts-ignore - it doesn't know that the node has children?
+        date: outer.children[1].children[5]?.data
+      }
+    })
     .filter((e) => e.channel && e.date && e.video)
   console.timeEnd('Get data from HTML')
-
   const freq = getFrequencyTables(
     data.map((d) => d.video),
     20,
@@ -102,8 +104,7 @@ export function generateYouTubeWatchHistory({ qty = 10 }) {
       shortMonths[date.getMonth()]
     } ${date.getDate()}, ${date.getFullYear()}, ${time.toUpperCase()}`
   }
-  //todo: something is not quite right with the generated html. it causes a parsing error:
-  // s.children is undefined
+  //the parsing is whitespace sensitive. If there is a line break, it adds child "text" nodes.
   const getItem = ({
     music = false,
     videoUrl,
@@ -111,20 +112,14 @@ export function generateYouTubeWatchHistory({ qty = 10 }) {
     videoTitle,
     channelName,
     date
-  }: ItemParams) => `<div class='outer-cell mdl-cell mdl-cell--12-col mdl-shadow--2dp'>
-    <div class='mdl-grid'>
-        <div class='header-cell mdl-cell mdl-cell--12-col'>
-            <p class='mdl-typography--title'>YouTube${
-              music ? ' Music' : ''
-            }<br></p>
-        </div>
-        <div class='content-cell mdl-cell mdl-cell--6-col mdl-typography--body-1'>Watched <a href='${videoUrl}'>${videoTitle}</a>
-        <br>
-        <a href='${channelUrl}'>${channelName}</a><br>${formatDate(date)}</div>
-        <div class='content-cell mdl-cell mdl-cell--6-col mdl-typography--body-1 mdl-typography--text-right'></div>
-        <div class='content-cell mdl-cell mdl-cell--12-col mdl-typography--caption'><b>Products:</b><br>&emsp;YouTube<br></div>
-    </div>
-</div>`
+  }: ItemParams) => `<div class='outer-cell mdl-cell mdl-cell--12-col mdl-shadow--2dp'><!--
+    --><div class='mdl-grid'><div class='header-cell mdl-cell mdl-cell--12-col'><p class='mdl-typography--title'>YouTube${
+      music ? ' Music' : ''
+    }<br></p></div><div class='content-cell mdl-cell mdl-cell--6-col mdl-typography--body-1'>Watched <a href='${videoUrl}'>${videoTitle}</a><br><a href='${channelUrl}'>${channelName}</a><br>${formatDate(
+    date
+  )}</div><div class='content-cell mdl-cell mdl-cell--6-col mdl-typography--body-1 mdl-typography--text-right'></div><div class='content-cell mdl-cell mdl-cell--12-col mdl-typography--caption'><b>Products:</b><br>&emsp;YouTube<br></div><!--
+    --></div><!--
+--></div>`
 
   const items = Array.from({ length: qty })
     .map((_, i) => {
