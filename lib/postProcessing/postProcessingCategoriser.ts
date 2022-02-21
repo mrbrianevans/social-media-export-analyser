@@ -45,7 +45,7 @@ type PostProcessorCategory =
   | keyof typeof postProcessors
   | keyof typeof genericPostProcessors
 // order is important. the first one in this array that matches is used
-const postProcessors = {
+export const postProcessors = {
   WhatsAppPostProcess,
   TelegramPostProcess,
   InstagramPostsPostProcess,

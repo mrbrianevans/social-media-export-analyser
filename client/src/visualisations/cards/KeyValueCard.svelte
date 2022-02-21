@@ -9,7 +9,7 @@
     return stringify(index, element).content
   }
   const stringify = (key: string, val: any): { content: string, href?: string } => {
-    console.log(`Stringify ${key} ${JSON.stringify(val)}`)
+    // console.log(`Stringify ${key} ${JSON.stringify(val)}`)
     if (val === null || val === undefined) return { content: 'nothing' }
     if (typeof val === 'boolean') return { content: val ? 'yes' : 'no' }
     if (String(val).match(/\d{2}:\d{2}:\d{2}/))

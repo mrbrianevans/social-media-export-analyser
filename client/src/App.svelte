@@ -17,14 +17,14 @@
   import { sentenceCase } from 'sentence-case'
   import Footer from './components/Footer.svelte'
   import Topics from './visualisations/specific/metadata/Topics.svelte'
-  // import { getTopics, isGetTopicsReady } from 'fast-topics'
   import type { GetTopicsReturnType } from 'fast-topics'
-  import { sampleTopicData } from './sampleTopicData'
   import { topicsWorkerWrapper } from './workers/topicsWorkerWrapper'
   import StringBox from './components/StringBox.svelte'
+  import HomeTab from './components/HomeTab.svelte'
+  import { LoadingFile } from './types/FileItem'
 
-  let files: PostProcessedOutput[] = []
-  let activeIndex = 0
+  let files: (PostProcessedOutput | LoadingFile)[] = []
+  let activeIndex = null
 
 
   let tabs = []
@@ -96,18 +96,21 @@
 <main theme={$theme}>
   <vaadin-app-layout primary-section='drawer' class='main-app'>
 
-    <!--    <div slot='navbar' style='width: 100%'>-->
-    <!--      <Navbar />-->
-    <!--    </div>-->
     <h1 class='navbar-title' slot='drawer'><img alt='logo' src='icon/icon500.webp' style='height: 2em; width: 2em' />Data
       File
       Explorer</h1>
     <!-- file tab selectors -->
     <div slot='drawer'>
-      <vaadin-tabs class='file-explorer-tabs' orientation='vertical'>
+      <vaadin-tabs class='file-explorer-tabs' orientation='vertical' selected-changed={console.log}>
+        <vaadin-tab>
+          <span tabindex='-1' on:click={()=>activeIndex=null}>Home</span>
+        </vaadin-tab>
         {#each files as file, index}
-          <vaadin-tab>
+          <vaadin-tab disabled={!file.component}>
             <span tabindex='-1' on:click={()=>activeIndex=index}>{file.title}</span>
+            {#if file.loading}
+              <vaadin-icon icon='vaadin:hourglass'></vaadin-icon>
+            {/if}
           </vaadin-tab>
         {/each}
       </vaadin-tabs>
@@ -124,8 +127,10 @@
           {#if files[activeIndex]}
             <h3
               style='margin: 0.5rem 1rem'>{`${files[activeIndex]?.title} (${files[activeIndex]?.metadata.filename})`}</h3>
+          {:else if activeIndex === null}
+            <h3 style='margin: 0.5rem 1rem'>Homepage</h3>
           {:else}
-            <p style='margin: 0.5rem 1rem'>Drag and drop files to get started</p>
+            <p style='margin: 0.5rem 1rem'>Please refresh the page and try again</p>
           {/if}
         </Navbar>
         <vaadin-tabs>
@@ -143,6 +148,10 @@
         </vaadin-tabs>
       </vaadin-vertical-layout>
     </div>
+    {#if activeIndex === null}
+      <HomeTab />
+    {/if}
+
     {#each files as file, index}
       {#if index === activeIndex}
 

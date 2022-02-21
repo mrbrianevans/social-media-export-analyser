@@ -106,6 +106,7 @@ export const InstagramAccountHistoryPostProcess: PostProcess = {
     itemCriteria: { keys: ['login_history'] }
   },
   name: 'Instagram Account History',
+  vendor: 'Instagram',
   code: 'instagram-account-history',
   component: 'JsonEditor',
   postProcessingFunction: instagramAccountHistoryPostProcessor
@@ -118,6 +119,7 @@ export const InstagramInformationAboutYouPostProcess: PostProcess = {
     itemCriteria: { keys: ['primary_location', 'inferred_emails'] }
   },
   name: 'Instagram Information About You',
+  vendor: 'Instagram',
   code: 'instagram-information-about-you',
   component: 'KeyValueCard'
 }

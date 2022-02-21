@@ -5,6 +5,8 @@
   import type { PostProcessedOutput } from '../../../lib/typedefs/PostProcess'
   import { onlyFilename } from '../../../lib/common/PathProcessing'
   import { isMedia } from '../../../lib/common/isMedia'
+  import { processingWorkerWrapper } from '../workers/processingWorkerWrapper'
+  import { LoadingFile } from '../types/FileItem'
   // Register the plugins
   // registerPlugin(FilePondPluginImagePreview)
 
@@ -14,7 +16,7 @@
 
   // the name to use for the internal file input
   let name = 'filepond'
-  export let files: PostProcessedOutput[] = []
+  export let files: (PostProcessedOutput | LoadingFile)[] = []
 
   async function handleAddFile(err, fileItem) {
     // console.log('Relative path', fileItem.relativePath)
@@ -23,24 +25,18 @@
       // this is here rather than the worker to save performance of starting a new worker
       const url = URL.createObjectURL(fileItem.file)
       sessionStorage.setItem(onlyFilename(fileItem.relativePath || fileItem.filename), url)
-    }else{
+    }else {
+      const loadingFile: LoadingFile = { loading: true, title: fileItem.filename }
+      files = [...files, loadingFile]
       // perform as much processing in a worker as possible
-      const worker: Worker = new ProcessingWorker()
-      worker.postMessage(fileItem.file)
-      // console.dir(fileItem)
-      const workerOutput: PostProcessedOutput = await new Promise(resolve => {
-        worker.onmessage = message => {
-          resolve(message.data)
-        }
-      })
+      const workerOutput = await processingWorkerWrapper(fileItem.file)
       // console.log('metadata', workerOutput.metadata)
-      files = [...files, workerOutput]
-      worker.terminate() // free up the worker when finished
+      files[files.findIndex(f => f === loadingFile)] = workerOutput
     }
   }
 
   function handleRemoveFile(err, fileItem) {
-    files = files.filter(v => v.metadata.filename !== fileItem.filename)
+    files = files.filter(v => v.metadata?.filename ?? v.title !== fileItem.filename)
   }
 
 </script>

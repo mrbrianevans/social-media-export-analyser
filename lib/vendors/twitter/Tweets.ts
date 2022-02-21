@@ -138,10 +138,7 @@ const formatDate: DateFormatter = (date) => {
   const datePart = date.toDateString()
   const year = datePart.slice(-4)
   const dayPart = datePart.slice(0, -5)
-  const time = Intl.DateTimeFormat('en', {
-    timeStyle: 'medium',
-    hour12: false
-  }).format(date)
+  const time = date.toLocaleTimeString()
   const timezoneHour = Math.floor(date.getTimezoneOffset() / 60)
   const timezoneHours = Math.abs(timezoneHour).toString().padStart(2, '0')
   const timezoneSign = date.getTimezoneOffset() > 0 ? '+' : '-'

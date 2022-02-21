@@ -21,7 +21,7 @@ export const demoFilePath = (filename) => {
 
 export const generateDemoFiles = async () => {
   // instagram media.json (list of posts)
-  const instagramMedia = generateSampleMediaData({ photos: 5 })
+  const instagramMedia = generateSampleMediaData({ photos: 50 })
   fs.writeFileSync(
     demoFilePath('instagram/media.json'),
     JSON.stringify(instagramMedia, null, 2)
@@ -35,8 +35,8 @@ export const generateDemoFiles = async () => {
 
   //instagram connections.json
   const instagramConnections = generateInstagramConnections({
-    followerQty: 5,
-    followingQty: 5
+    followerQty: 50,
+    followingQty: 50
   })
   fs.writeFileSync(
     demoFilePath('instagram/connections.json'),
@@ -44,20 +44,20 @@ export const generateDemoFiles = async () => {
   )
 
   //instagram comments.json
-  const instagramComments = generateInstagramComments({ qty: 5 })
+  const instagramComments = generateInstagramComments({ qty: 50 })
   fs.writeFileSync(
     demoFilePath('instagram/comments.json'),
     JSON.stringify(instagramComments, null, 2)
   )
   //instagram likes.json
-  const instagramLikes = generateInstagramLikes({ qty: 5 })
+  const instagramLikes = generateInstagramLikes({ qty: 50 })
   fs.writeFileSync(
     demoFilePath('instagram/likes.json'),
     JSON.stringify(instagramLikes, null, 2)
   )
 
   //instagram account_history.json
-  const instagramAccountHistory = generateInstagramAccountHistory({ qty: 5 })
+  const instagramAccountHistory = generateInstagramAccountHistory({ qty: 50 })
   fs.writeFileSync(
     demoFilePath('instagram/account_history.json'),
     JSON.stringify(instagramAccountHistory, null, 2)
@@ -89,7 +89,7 @@ export const generateDemoFiles = async () => {
   )
 
   //twitter
-  const twitterTweets = generateTwitterTweetFile({ qty: 15 })
+  const twitterTweets = generateTwitterTweetFile({ qty: 150 })
   fs.writeFileSync(demoFilePath('twitter/tweet.js'), twitterTweets)
 
   //contacts
@@ -97,7 +97,7 @@ export const generateDemoFiles = async () => {
   fs.writeFileSync(demoFilePath('contacts/contacts.csv'), contactsCsv)
 
   //youtube
-  const youtubeWatchHistory = generateYouTubeWatchHistory({ qty: 10 })
+  const youtubeWatchHistory = generateYouTubeWatchHistory({ qty: 100 })
   fs.writeFileSync(
     demoFilePath('youtube/watch-history.html'),
     youtubeWatchHistory

@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
+import svelteSVG from 'vite-plugin-svelte-svg'
 import { ManifestOptions, VitePWA } from 'vite-plugin-pwa'
 
 const manifest: Partial<ManifestOptions> = {
@@ -58,6 +59,7 @@ const manifest: Partial<ManifestOptions> = {
 export default defineConfig({
   plugins: [
     svelte(),
+    svelteSVG(),
     VitePWA({
       includeAssets: [
         '/icon/favicon.svg',
