@@ -3,6 +3,15 @@ import { demoFilePath } from '../../generateDemoFiles'
 import { getArtifactPath } from '../getArtifactDirectory'
 
 test.describe('website footer', function () {
+  test('footer should be after home tab content', async function ({ page }) {
+    await page.goto('/')
+    const footer = page.locator('footer')
+    await footer.scrollIntoViewIfNeeded()
+    await page.screenshot({
+      path: getArtifactPath(__filename, 'whole-page-home-tab')
+    })
+  })
+
   test('footer should be after content when a file is uploaded', async function ({
     page
   }) {
@@ -15,7 +24,9 @@ test.describe('website footer', function () {
     const footer = page.locator('footer')
     await footer.scrollIntoViewIfNeeded()
     await page.waitForLoadState('networkidle')
-    await page.screenshot({ path: getArtifactPath(__filename, 'whole-page') })
+    await page.screenshot({
+      path: getArtifactPath(__filename, 'whole-page-with-upload')
+    })
     await footer.screenshot({ path: getArtifactPath(__filename, 'footer') })
     await page.click('#theme-toggle')
     await page.screenshot({

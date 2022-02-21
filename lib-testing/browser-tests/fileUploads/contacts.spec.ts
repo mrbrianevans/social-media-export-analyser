@@ -15,7 +15,10 @@ test.describe('upload contacts files', function () {
       .locator('input[type=file]')
       .setInputFiles('../../demo-files/contacts/contacts.csv')
     await expect(
-      page.locator('vaadin-tabs.file-explorer-tabs vaadin-tab span')
+      page
+        .locator('vaadin-tabs.file-explorer-tabs vaadin-tab span')
+        // index 1 because home tab is first
+        .nth(1)
     ).toHaveText(/contacts/i)
     await page.screenshot({ path: getArtifactPath(__filename, 'after-upload') })
     await page.context().close() // close context to save video
@@ -32,7 +35,10 @@ test.describe('upload contacts files', function () {
       .locator('input[type=file]')
       .setInputFiles('../../demo-files/contacts/contacts.csv')
     await expect(
-      page.locator('vaadin-tabs.file-explorer-tabs vaadin-tab span')
+      page
+        .locator('vaadin-tabs.file-explorer-tabs vaadin-tab span')
+        // index 1 because home tab is first
+        .nth(1)
     ).toHaveText(/contacts/i)
     await page.screenshot({
       path: getArtifactPath(__filename, 'after-upload-dark')

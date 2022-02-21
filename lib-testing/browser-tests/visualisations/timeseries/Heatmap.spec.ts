@@ -11,8 +11,8 @@ test.describe('heatmap visualisation of timeseries', function () {
     await page
       .locator('input[type=file]')
       .setInputFiles(demoFilePath('instagram/media.json'))
-    await expect(fileTabs.first()).toHaveText(/instagram/i)
-    await fileTabs.first().click()
+    await expect(fileTabs.nth(1)).toHaveText(/instagram/i)
+    await fileTabs.nth(1).click()
     await page
       .locator(
         'main vaadin-app-layout div vaadin-vertical-layout vaadin-tabs vaadin-tab span',

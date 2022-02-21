@@ -10,7 +10,8 @@ test.describe('upload instagram files', function () {
     await page
       .locator('input[type=file]')
       .setInputFiles(demoFilePath('instagram/media.json'))
-    await expect(tabs.first()).toHaveText(/instagram/i)
+    // index 1 because home tab is first
+    await expect(tabs.nth(1)).toHaveText(/instagram/i)
     await page.screenshot({
       path: getArtifactPath(__filename, 'uploaded-posts')
     })

@@ -150,6 +150,7 @@
     </div>
     {#if activeIndex === null}
       <HomeTab />
+      <Footer />
     {/if}
 
     {#each files as file, index}
