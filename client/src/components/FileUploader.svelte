@@ -36,7 +36,7 @@
   }
 
   function handleRemoveFile(err, fileItem) {
-    files = files.filter(v => v.metadata?.filename ?? v.title !== fileItem.filename)
+    files = files.filter(v => (v.metadata?.filename ?? v.title) !== fileItem.filename)
   }
 
 </script>

@@ -7,13 +7,11 @@
   import '@vaadin/vaadin-app-layout/vaadin-app-layout.js'
   import '@vaadin/vertical-layout'
   import { theme } from './stores/themeStore'
-  import FileViewer from './components/FileViewer.svelte'
   import Navbar from './components/Navbar.svelte'
   import { ComponentForShape } from './components/ComponentMap'
   import FrequencyTableTabs from './visualisations/specific/metadata/FrequencyTableTabs.svelte'
   import TimeSeries from './visualisations/specific/metadata/TimeSeries.svelte'
   import JsonEditor from './components/JsonEditor.svelte'
-  import ContentTabs from './visualisations/layouts/ContentTabs.svelte'
   import { sentenceCase } from 'sentence-case'
   import Footer from './components/Footer.svelte'
   import Topics from './visualisations/specific/metadata/Topics.svelte'
@@ -88,7 +86,8 @@
   }
   $: {
     let unused = activeIndex // for reactivity dependence
-    selectedTab = 0
+    if (activeIndex !== null)
+      selectedTab = 0
   }
 </script>
 
@@ -101,16 +100,19 @@
       Explorer</h1>
     <!-- file tab selectors -->
     <div slot='drawer'>
-      <vaadin-tabs class='file-explorer-tabs' orientation='vertical' selected-changed={console.log}>
+      <vaadin-tabs class='file-explorer-tabs' orientation='vertical'
+                   on:selected-changed={({detail: {value}}) => {activeIndex=value===0?null:(value-1)}}>
         <vaadin-tab>
-          <span tabindex='-1' on:click={()=>activeIndex=null}>Home</span>
+          <span tabindex='-1'>Home</span>
         </vaadin-tab>
         {#each files as file, index}
           <vaadin-tab disabled={!file.component}>
-            <span tabindex='-1' on:click={()=>activeIndex=index}>{file.title}</span>
             {#if file.loading}
               <vaadin-icon icon='vaadin:hourglass'></vaadin-icon>
+              <!--{:else}-->
+              <!--  <CloseButton on:click={()=>files=files.filter(f=>f!==file)}/>-->
             {/if}
+            <span tabindex='-1'>{file.title}</span>
           </vaadin-tab>
         {/each}
       </vaadin-tabs>
@@ -133,9 +135,9 @@
             <p style='margin: 0.5rem 1rem'>Please refresh the page and try again</p>
           {/if}
         </Navbar>
-        <vaadin-tabs>
+        <vaadin-tabs on:selected-changed={function (e){selectedTab=e.detail.value}}>
           {#each tabs as tab, index}
-            <vaadin-tab on:click={()=>selectedTab=index} selected={index === selectedTab} disabled={!tab.component}>
+            <vaadin-tab selected={index === selectedTab} disabled={!tab.component}>
               {#if tab.icon}
                 <vaadin-icon icon='vaadin:{tab.icon}'></vaadin-icon>
               {/if}
