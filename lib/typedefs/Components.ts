@@ -19,7 +19,9 @@ const ComponentList = {
   TwitterTweets: 'Timeline of twitter tweets',
   Image: 'An image',
   Video: 'A video player',
-  ContactList: 'A list of contacts with their contact details'
+  ContactList: 'A list of contacts with their contact details',
+  YouTubeSearchAndWatchHistory:
+    'Shows which videos were watched after each search made on YouTube'
 }
 
 export type ComponentName = keyof typeof ComponentList

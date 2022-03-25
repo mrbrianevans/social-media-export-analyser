@@ -15,6 +15,7 @@ import TwitterTweets from '../visualisations/specific/twitter/TwitterTweets.svel
 import Image from '../visualisations/media/Image.svelte'
 import Video from '../visualisations/media/Video.svelte'
 import ContactList from '../visualisations/lists/ContactList.svelte'
+import YouTubeSearchAndWatchHistory from '../visualisations/linked/YouTubeSearchAndWatchHistory.svelte'
 
 // by using mapped types, this ensures a component exists for every ComponentName
 export const ComponentForShape: {
@@ -34,5 +35,6 @@ export const ComponentForShape: {
   TwitterTweets,
   Image,
   Video,
-  ContactList
+  ContactList,
+  YouTubeSearchAndWatchHistory
 }

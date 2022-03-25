@@ -4,7 +4,7 @@ import { getFrequencyTables } from '../../../common/FrequencyAnalysis'
 import { TimeSeries } from '../../../common/TimeSeriesAnalysis'
 import { TopicsMetadata } from '../../../common/TopicsMetadata'
 
-type YouTubeSearchHistory = {
+export type YouTubeSearchHistory = {
   searchTerm: string
   date: string
 }[]

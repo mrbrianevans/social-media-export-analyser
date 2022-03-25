@@ -9,7 +9,7 @@ import { shortMonths } from '../../../common/Constants'
 import { getRandomYouTubeVideo } from '../../../common/RandomUtils/RandomYouTubeVideo'
 import { RandDate } from '../../../common/RandomUtils/RandomDateUtils'
 
-type YouTubeWatchHistory = {
+export type YouTubeWatchHistory = {
   video: string
   videoUrl?: string
   channel: string
