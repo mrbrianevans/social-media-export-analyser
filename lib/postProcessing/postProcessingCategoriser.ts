@@ -41,7 +41,7 @@ import {
 } from './postProcessors/youtube'
 import { DefaultHtmlPostProcess } from './postProcessors/genericFallbacks/html'
 
-type PostProcessorCategory =
+export type PostProcessorCategory =
   | keyof typeof postProcessors
   | keyof typeof genericPostProcessors
 // order is important. the first one in this array that matches is used

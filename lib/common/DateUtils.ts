@@ -1,3 +1,10 @@
+export function parseDate(date: any) {
+  if (date instanceof Date || typeof date === 'number') return new Date(date)
+  else if (typeof date === 'string')
+    return new Date(date.replace('BST', '(British Summer Time)'))
+  else
+    throw new Error('Cannot parse date of type ' + typeof date + ' : ' + date)
+}
 export type DateFormatter = (date: Date) => string
 // eg 2014-06-03T22:01:26
 export const formatDateEurTime: DateFormatter = (date) => {
@@ -36,4 +43,25 @@ export const longDate: DateFormatter = (date) => {
   return Intl.DateTimeFormat('en', {
     dateStyle: 'long'
   }).format(date)
+}
+
+/**
+ * Finds the difference between two dates in milliseconds.
+ */
+export function millisecondDifference(d1: Date, d2: Date) {
+  return parseDate(d1).getTime() - parseDate(d2).getTime()
+}
+
+/**
+ * Finds the difference between two dates in seconds.
+ */
+export function secondDifference(d1: Date, d2: Date) {
+  return millisecondDifference(d1, d2) / 1000
+}
+
+/**
+ * Finds the difference between two dates in minutes.
+ */
+export function minuteDifference(d1: Date, d2: Date) {
+  return secondDifference(d1, d2) / 60
 }

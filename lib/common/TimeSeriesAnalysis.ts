@@ -1,4 +1,4 @@
-import { DateFormatter, formatDateEur } from './DateUtils'
+import { DateFormatter, formatDateEur, parseDate } from './DateUtils'
 
 interface TimeSeriesValue {
   timestamp: Date
@@ -46,7 +46,7 @@ export class TimeSeries {
         timestamp = new Date(dataPoint)
         value = defaultValue
       } else if (typeof dataPoint === 'string') {
-        timestamp = new Date(dataPoint.replace('BST', '(British Summer Time)'))
+        timestamp = parseDate(dataPoint)
         value = defaultValue
       } else if (typeof dataPoint === 'object') {
         timestamp = new Date(dataPoint.timestamp)

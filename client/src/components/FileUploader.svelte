@@ -1,12 +1,11 @@
 <script lang='ts'>
   import FilePond, { registerPlugin } from 'svelte-filepond'
-  import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
-  import ProcessingWorker from '../workers/processingWorker?worker'
-  import type { PostProcessedOutput } from '../../../lib/typedefs/PostProcess'
   import { onlyFilename } from '../../../lib/common/PathProcessing'
   import { isMedia } from '../../../lib/common/isMedia'
+  import type { ProcessedFile } from '../../../lib/processFileContent'
   import { processingWorkerWrapper } from '../workers/processingWorkerWrapper'
-  import { LoadingFile } from '../types/FileItem'
+  import type { LoadingFile } from '../types/FileItem'
+  import { linkDataSource } from '../../../lib/linking/LinkedDataSources'
   // Register the plugins
   // registerPlugin(FilePondPluginImagePreview)
 
@@ -16,7 +15,7 @@
 
   // the name to use for the internal file input
   let name = 'filepond'
-  export let files: (PostProcessedOutput | LoadingFile)[] = []
+  export let files: (ProcessedFile | LoadingFile)[] = []
 
   async function handleAddFile(err, fileItem) {
     // console.log('Relative path', fileItem.relativePath)
@@ -32,6 +31,8 @@
       const workerOutput = await processingWorkerWrapper(fileItem.file)
       // console.log('metadata', workerOutput.metadata)
       files[files.findIndex(f => f === loadingFile)] = workerOutput
+      const links = linkDataSource(workerOutput, files.filter(file => !file.loading) as ProcessedFile[])
+      files = [...files, ...links]
     }
   }
 

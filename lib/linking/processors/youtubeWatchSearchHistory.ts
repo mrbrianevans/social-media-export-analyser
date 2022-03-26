@@ -1,6 +1,7 @@
 import { LinkedProcessor } from '../LinkedDataSources'
 import { YouTubeSearchHistory } from '../../vendors/google/youtube/YouTubeSearchHistory'
 import { YouTubeWatchHistory } from '../../vendors/google/youtube/YouTubeWatchHistory'
+import { parseDate } from '../../common/DateUtils'
 
 export type YoutubeWatchSearchHistory = {
   search: YouTubeSearchHistory[number]
@@ -14,36 +15,39 @@ export const YoutubeWatchSearchHistoryLinkedProcessor: LinkedProcessor = (
   inputs
 ) => {
   const searchHistoryInput = inputs.find(
-    (input) => input.metadata.filename === 'search-history.html'
+    (input) =>
+      input.metadata.postProcessingCategory ===
+      'YouTubeSearchHistoryPostProcess'
   )
   const watchHistoryInput = inputs.find(
-    (input) => input.metadata.filename === 'search-history.html'
+    (input) =>
+      input.metadata.postProcessingCategory === 'YouTubeWatchHistoryPostProcess'
   )
   if (!searchHistoryInput || !watchHistoryInput) return null
 
   const searches = searchHistoryInput.data as YouTubeSearchHistory
   const watched = watchHistoryInput.data as YouTubeWatchHistory
   watched.sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    (a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime()
   )
   // for each search, find the first video watched afterwards
   const searchedVideos: YoutubeWatchSearchHistory = []
   for (const search of searches) {
-    const searchDate = new Date(search.date)
+    const searchDate = parseDate(search.date)
     const firstVideo = watched.find(
-      (video) => new Date(video.date) > searchDate
+      (video) => parseDate(video.date) > searchDate
     )
     const minThreshold = 1000 * 60 * 5 // video must be watched within 5 minutes of search
     if (
       firstVideo &&
-      new Date(firstVideo.date).getTime() - searchDate.getTime() < minThreshold
+      parseDate(firstVideo.date).getTime() - searchDate.getTime() < minThreshold
     )
       searchedVideos.push({ search, video: firstVideo })
   }
-
   return {
     metadata: {},
     data: searchedVideos,
-    title: 'Linked Youtube Data'
+    title: 'Linked Youtube Data',
+    component: 'YouTubeSearchAndWatchHistory'
   }
 }

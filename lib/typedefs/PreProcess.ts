@@ -1,6 +1,7 @@
-import { TimeSeriesMetadata } from '../common/TimeSeriesAnalysis'
-import { FrequencyTables } from '../common/FrequencyAnalysis'
+import type { TimeSeriesMetadata } from '../common/TimeSeriesAnalysis'
+import type { FrequencyTables } from '../common/FrequencyAnalysis'
 import type { GetTopicsOptions } from 'fast-topics'
+import type { PostProcessorCategory } from '../postProcessing/postProcessingCategoriser'
 
 export type PreProcessingCategory =
   | 'json'
@@ -35,6 +36,8 @@ export interface WellKnownMetadata extends KeyValueObject {
   fileContent?: string
   filename?: string
   fileType?: string
+  preProcessingCategory?: PreProcessingCategory
+  postProcessingCategory?: PostProcessorCategory
 }
 
 export type PreProcessedOutput<
