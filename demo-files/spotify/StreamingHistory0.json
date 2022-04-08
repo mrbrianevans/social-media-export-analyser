@@ -1,0 +1,62 @@
+[
+  {
+    "endTime": "2021-08-01 3:09 AM",
+    "artistName": "U2",
+    "trackName": "With Or Without You",
+    "msPlayed": 4321
+  },
+  {
+    "endTime": "2021-06-03 11:19 AM",
+    "artistName": "Sam Cooke",
+    "trackName": "Bring It On Home To Me",
+    "msPlayed": 3957
+  },
+  {
+    "endTime": "2020-10-25 10:37 PM",
+    "artistName": "Paul Anka",
+    "trackName": "Diana",
+    "msPlayed": 4796
+  },
+  {
+    "endTime": "2020-04-21 2:03 PM",
+    "artistName": "Bing Crosby",
+    "trackName": "Pennies From Heaven",
+    "msPlayed": 250574
+  },
+  {
+    "endTime": "2021-03-20 1:21 PM",
+    "artistName": "Herb Alpert and the Tijuana Brass",
+    "trackName": "A Taste Of Honey",
+    "msPlayed": 2187
+  },
+  {
+    "endTime": "2020-04-14 3:10 PM",
+    "artistName": "Elvis Presley",
+    "trackName": "Heartbreak Hotel",
+    "msPlayed": 180293
+  },
+  {
+    "endTime": "2021-05-09 11:09 AM",
+    "artistName": "Tito Puente",
+    "trackName": "Oye Coma Va",
+    "msPlayed": 1544
+  },
+  {
+    "endTime": "2020-10-07 8:08 AM",
+    "artistName": "Black Sabbath",
+    "trackName": "Paranoid",
+    "msPlayed": 275596
+  },
+  {
+    "endTime": "2020-05-06 4:21 AM",
+    "artistName": "Curtis Mayfield",
+    "trackName": "Superfly",
+    "msPlayed": 333
+  },
+  {
+    "endTime": "2019-08-11 8:25 PM",
+    "artistName": "Whitney Houston",
+    "trackName": "I Will Always Love You",
+    "msPlayed": 2184
+  }
+]

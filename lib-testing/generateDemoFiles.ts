@@ -12,6 +12,7 @@ import { generateInstagramLikes } from '../lib/vendors/instagram/Likes'
 import { generateInstagramAccountHistory } from '../lib/vendors/instagram/AccountHistory'
 import { generateInstagramInformationAboutYou } from '../lib/vendors/instagram/InformationAboutYou'
 import { generateContactsFile } from '../lib/vendors/google/Contacts'
+import { generateSpotifyStreamingHistory } from '../lib/vendors/spotify/StreamingHistory'
 
 export const demoFilePath = (filename) => {
   const filePath = path.resolve('..', 'demo-files', filename)
@@ -101,6 +102,13 @@ export const generateDemoFiles = async () => {
   fs.writeFileSync(
     demoFilePath('youtube/watch-history.html'),
     youtubeWatchHistory
+  )
+
+  //spotify
+  const spotifyStreamingHistory = generateSpotifyStreamingHistory({})
+  fs.writeFileSync(
+    demoFilePath('spotify/StreamingHistory0.json'),
+    JSON.stringify(spotifyStreamingHistory, null, 2)
   )
 }
 
