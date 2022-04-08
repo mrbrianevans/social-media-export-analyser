@@ -17,7 +17,9 @@ function formatDate(date: Date): string {
   return (
     formatDateEur(date) +
     ' ' +
-    Intl.DateTimeFormat('en', { timeStyle: 'short' }).format(date)
+    Intl.DateTimeFormat('en', { timeStyle: 'short', hour12: false }).format(
+      date
+    )
   )
 }
 
