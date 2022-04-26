@@ -141,7 +141,7 @@ const formatDate: DateFormatter = (date) => {
   const time = date.toLocaleTimeString()
   const timezoneHour = Math.floor(date.getTimezoneOffset() / 60)
   const timezoneHours = Math.abs(timezoneHour).toString().padStart(2, '0')
-  const timezoneSign = date.getTimezoneOffset() > 0 ? '+' : '-'
+  const timezoneSign = '+' // has to be a plus for Date.parse to work
   const timezoneMinute = Math.abs(date.getTimezoneOffset() - 60 * timezoneHour)
     .toString()
     .padStart(2, '0')

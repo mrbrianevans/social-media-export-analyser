@@ -105,7 +105,7 @@ export const generateDemoFiles = async () => {
   )
 
   //spotify
-  const spotifyStreamingHistory = generateSpotifyStreamingHistory({})
+  const spotifyStreamingHistory = generateSpotifyStreamingHistory({ qty: 100 })
   fs.writeFileSync(
     demoFilePath('spotify/StreamingHistory0.json'),
     JSON.stringify(spotifyStreamingHistory, null, 2)

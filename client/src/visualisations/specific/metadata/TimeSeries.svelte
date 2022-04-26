@@ -26,7 +26,7 @@
 <vaadin-horizontal-layout bind:this={horizontalLayout}>
   <vaadin-button on:click={exportHandler('pdf')}>Export charts to PDF</vaadin-button>
   <vaadin-button on:click={exportHandler('png')}>Export charts to PNG</vaadin-button>
-  <vaadin-button on:click={exportHandler('jpg')}>Export charts to JPG</vaadin-button>
+<!--  <vaadin-button on:click={exportHandler('jpg')}>Export charts to JPG</vaadin-button>-->
 </vaadin-horizontal-layout>
 
 <DailyTimeSeries data={data.date} label={data.metadata.label} />

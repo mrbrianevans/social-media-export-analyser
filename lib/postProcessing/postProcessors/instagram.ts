@@ -108,7 +108,7 @@ export const InstagramAccountHistoryPostProcess: PostProcess = {
   name: 'Instagram Account History',
   vendor: 'Instagram',
   code: 'instagram-account-history',
-  component: 'JsonEditor',
+  component: 'VaadinGrid',
   postProcessingFunction: instagramAccountHistoryPostProcessor
 }
 
