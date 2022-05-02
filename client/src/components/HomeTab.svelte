@@ -25,7 +25,7 @@
     <p>See your data visualised and analyse trends in your data, with insights such as time series analysis, word
       frequency analysis and topic extraction.</p>
     <p>To get started, upload some files exported from a tech company such as Instagram or YouTube. Drag and Drop into
-      the bottom right hand corner of the site,
+      the bottom left hand corner of the site,
       or click the zone to open a file browser window</p>
     <p>Quote from the literature review:</p>
     <blockquote class='lit-review'>Web-based application that provides a visual interface for viewing data exported from
